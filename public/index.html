@@ -84,6 +84,19 @@
             color: var(--primary);
         }
 
+        .news-link {
+            background: var(--gradient-2);
+            color: white !important;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .news-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(37, 99, 235, 0.3);
+        }
+
         .menu-toggle {
             display: none;
             flex-direction: column;
@@ -270,6 +283,141 @@
         @keyframes pulse {
             0%, 100% { opacity: 1; }
             50% { opacity: 0.7; }
+        }
+
+        /* お知らせセクション */
+        .news-section {
+            padding: 5rem 5%;
+            background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .news-section::before {
+            content: '📰';
+            position: absolute;
+            font-size: 200px;
+            opacity: 0.05;
+            top: 50%;
+            right: 10%;
+            transform: translateY(-50%) rotate(-15deg);
+        }
+
+        .news-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .news-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .news-badge {
+            display: inline-block;
+            background: var(--accent);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .news-card {
+            background: white;
+            border-radius: 15px;
+            padding: 1.5rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .news-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .news-category {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            background: var(--bg-light);
+            color: var(--text-dark);
+            border-radius: 5px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .news-category.article {
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+            color: white;
+        }
+
+        .news-category.arbeit {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+        }
+
+        .news-category.work {
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            color: white;
+        }
+
+        .news-category.board {
+            background: linear-gradient(135deg, #ec4899 0%, #be185d 100%);
+            color: white;
+        }
+
+        .news-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            color: var(--text-dark);
+        }
+
+        .news-description {
+            color: var(--text-light);
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .news-cta {
+            text-align: center;
+        }
+
+        .news-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem 2.5rem;
+            background: var(--gradient-2);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(37, 99, 235, 0.3);
+        }
+
+        .news-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(37, 99, 235, 0.4);
         }
 
         /* 機能セクション */
@@ -519,6 +667,10 @@
                 grid-template-columns: 1fr;
             }
 
+            .news-grid {
+                grid-template-columns: 1fr;
+            }
+
             .screenshot {
                 width: 200px;
                 height: 400px;
@@ -547,9 +699,10 @@
             </div>
             <ul class="nav-links">
                 <li><a href="#features">機能</a></li>
+                <li><a href="#news">お知らせ</a></li>
                 <li><a href="#screenshots">スクリーンショット</a></li>
                 <li><a href="#download">ダウンロード</a></li>
-                <li><a href="#contact">お問い合わせ</a></li>
+                <li><a href="/news" class="news-link">📰 最新ニュース</a></li>
             </ul>
             <div class="menu-toggle">
                 <span></span>
@@ -634,6 +787,52 @@
         </div>
     </section>
 
+    <!-- お知らせセクション -->
+    <section id="news" class="news-section">
+        <div class="news-container">
+            <div class="news-header fade-in">
+                <span class="news-badge">NEW!</span>
+                <h2 class="section-title">最新のお知らせ</h2>
+                <p class="section-subtitle">キャンパスの最新情報をチェック</p>
+            </div>
+
+            <div class="news-grid fade-in">
+                <div class="news-card">
+                    <span class="news-category article">記事</span>
+                    <h3 class="news-title">大学からの重要なお知らせ</h3>
+                    <p class="news-description">学内イベント、授業変更、施設利用に関する最新情報を配信しています。アプリで詳細をご確認ください。</p>
+                </div>
+
+                <div class="news-card">
+                    <span class="news-category arbeit">アルバイト</span>
+                    <h3 class="news-title">学生向けアルバイト情報</h3>
+                    <p class="news-description">大学生活と両立しやすいアルバイト情報を厳選して掲載。条件や勤務地から検索できます。</p>
+                </div>
+
+                <div class="news-card">
+                    <span class="news-category work">就職</span>
+                    <h3 class="news-title">就活・インターン情報</h3>
+                    <p class="news-description">企業説明会、インターンシップ、就職活動に役立つ情報を随時更新しています。</p>
+                </div>
+
+                <div class="news-card">
+                    <span class="news-category board">掲示板</span>
+                    <h3 class="news-title">学生掲示板</h3>
+                    <p class="news-description">サークル募集、教科書売買、情報交換など、学生同士のコミュニケーションの場です。</p>
+                </div>
+            </div>
+
+            <div class="news-cta fade-in">
+                <a href="/news" class="news-btn">
+                    📰 すべてのお知らせを見る
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M5 12h14M12 5l7 7-7 7"/>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </section>
+
     <!-- スクリーンショット -->
     <section id="screenshots" class="screenshots">
         <h2 class="section-title fade-in">アプリ画面</h2>
@@ -689,6 +888,7 @@
     <footer id="contact">
         <div class="footer-content">
             <div class="footer-links">
+                <a href="/news">お知らせ</a>
                 <a href="#">利用規約</a>
                 <a href="#">プライバシーポリシー</a>
                 <a href="#">お問い合わせ</a>
