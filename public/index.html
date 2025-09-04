@@ -935,12 +935,48 @@
         });
 
         // モバイルメニュー
-        const menuToggle = document.querySelector('.menu-toggle');
-        const navLinks = document.querySelector('.nav-links');
+        const menuToggle = document.getElementById('menuToggle');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const menuOverlay = document.getElementById('menuOverlay');
+        const menuClose = document.getElementById('menuClose');
+        const mobileMenuItems = document.querySelectorAll('.mobile-menu-item');
         
+        // メニューを開く
         menuToggle.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
-            menuToggle.classList.toggle('active');
+            menuToggle.classList.add('active');
+            mobileMenu.classList.add('active');
+            menuOverlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+        
+        // メニューを閉じる関数
+        const closeMenu = () => {
+            menuToggle.classList.remove('active');
+            mobileMenu.classList.remove('active');
+            menuOverlay.classList.remove('active');
+            document.body.style.overflow = '';
+        };
+        
+        // 閉じるボタン
+        menuClose.addEventListener('click', closeMenu);
+        
+        // オーバーレイクリックで閉じる
+        menuOverlay.addEventListener('click', closeMenu);
+        
+        // メニューアイテムクリックで閉じる（ページ内リンクの場合）
+        mobileMenuItems.forEach(item => {
+            item.addEventListener('click', () => {
+                if (item.getAttribute('href').startsWith('#')) {
+                    closeMenu();
+                }
+            });
+        });
+        
+        // ESCキーで閉じる
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && mobileMenu.classList.contains('active')) {
+                closeMenu();
+            }
         });
 
         // ヘッダーのスクロール効果
