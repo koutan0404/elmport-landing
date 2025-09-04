@@ -1,0 +1,925 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ELM PORT News - キャンパスニュース</title>
+    <meta name="description" content="北海道大学の最新ニュース、アルバイト情報、就職情報、掲示板">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1e40af;
+            --secondary: #10b981;
+            --accent: #f59e0b;
+            --danger: #e53935;
+            --text-dark: #1f2937;
+            --text-light: #6b7280;
+            --text-blue: #2196F3;
+            --bg-light: #f9fafb;
+            --bg-white: #ffffff;
+            --border-light: #e5e7eb;
+            --gradient-1: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient-2: linear-gradient(135deg, #2563eb 0%, #10b981 100%);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans JP", sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background-color: var(--bg-light);
+        }
+
+        /* ローディング */
+        .loading {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 300px;
+        }
+
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid var(--border-light);
+            border-top-color: var(--primary);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* ヘッダー */
+        .header {
+            background: white;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            background: var(--gradient-2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-decoration: none;
+        }
+
+        .back-link {
+            color: var(--primary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            transition: background-color 0.3s;
+        }
+
+        .back-link:hover {
+            background-color: var(--bg-light);
+        }
+
+        /* タブ */
+        .tabs {
+            background: white;
+            border-bottom: 1px solid var(--border-light);
+            position: sticky;
+            top: 60px;
+            z-index: 90;
+        }
+
+        .tabs-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            gap: 2rem;
+            padding: 0 1rem;
+        }
+
+        .tab {
+            padding: 1rem 0;
+            color: var(--text-light);
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s;
+        }
+
+        .tab:hover {
+            color: var(--text-dark);
+        }
+
+        .tab.active {
+            color: var(--primary);
+            border-bottom-color: var(--primary);
+        }
+
+        /* フィルター */
+        .filters {
+            background: white;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border-radius: 8px;
+            max-width: 1200px;
+            margin: 1rem auto;
+        }
+
+        .filter-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--border-light);
+            background: white;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.9rem;
+        }
+
+        .filter-btn:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .filter-btn.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        /* 記事リスト */
+        .articles-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem;
+        }
+
+        .article-card {
+            background: white;
+            border-bottom: 1px solid var(--border-light);
+            padding: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            gap: 1rem;
+        }
+
+        .article-card:hover {
+            background-color: var(--bg-light);
+        }
+
+        .article-content {
+            flex: 1;
+        }
+
+        .article-date-row {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .article-date {
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--text-dark);
+        }
+
+        .new-badge {
+            background: var(--danger);
+            color: white;
+            padding: 0.125rem 0.375rem;
+            border-radius: 3px;
+            font-size: 0.6875rem;
+            font-weight: bold;
+        }
+
+        .article-title {
+            font-size: 0.9375rem;
+            font-weight: bold;
+            color: var(--text-dark);
+            margin-bottom: 0.1875rem;
+            line-height: 1.2;
+        }
+
+        .article-subtitle {
+            font-size: 0.75rem;
+            color: var(--text-light);
+            margin-bottom: 0.375rem;
+            line-height: 1.3;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .article-meta {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.75rem;
+        }
+
+        .by-badge {
+            background: #374151;
+            color: white;
+            padding: 0.125rem 0.3125rem;
+            border-radius: 3px;
+            font-size: 0.625rem;
+            font-weight: 600;
+        }
+
+        .article-author {
+            color: var(--text-light);
+        }
+
+        .article-genre {
+            color: var(--text-blue);
+            font-weight: 500;
+        }
+
+        .article-thumbnail {
+            width: 120px;
+            height: 67.5px;
+            border-radius: 8px;
+            object-fit: cover;
+            background: var(--bg-light);
+        }
+
+        /* 記事詳細モーダル */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            overflow-y: auto;
+        }
+
+        .modal.active {
+            display: block;
+        }
+
+        .modal-content {
+            background: white;
+            max-width: 800px;
+            margin: 2rem auto;
+            border-radius: 12px;
+            overflow: hidden;
+            animation: slideUp 0.3s ease;
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .modal-header {
+            position: relative;
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .modal-close {
+            position: absolute;
+            right: 1rem;
+            top: 1rem;
+            width: 30px;
+            height: 30px;
+            border: none;
+            background: var(--bg-light);
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.3s;
+        }
+
+        .modal-close:hover {
+            background-color: var(--border-light);
+        }
+
+        .modal-body {
+            padding: 1.5rem;
+        }
+
+        .article-detail-image {
+            width: 100%;
+            max-height: 400px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+
+        .article-detail-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .article-detail-subtitle {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            margin-bottom: 1rem;
+        }
+
+        .article-detail-content {
+            line-height: 1.8;
+            white-space: pre-wrap;
+        }
+
+        .article-detail-content h1,
+        .article-detail-content h2,
+        .article-detail-content h3 {
+            margin: 1.5rem 0 1rem;
+        }
+
+        .article-detail-content p {
+            margin-bottom: 1rem;
+        }
+
+        .article-detail-content a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .article-detail-content a:hover {
+            text-decoration: underline;
+        }
+
+        /* コメントセクション */
+        .comments-section {
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border-light);
+        }
+
+        .comments-title {
+            font-size: 1.25rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        .comment {
+            padding: 1rem;
+            background: var(--bg-light);
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+
+        .comment-body {
+            margin-bottom: 0.5rem;
+        }
+
+        .comment-meta {
+            font-size: 0.875rem;
+            color: var(--text-light);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .comment-form {
+            margin-top: 1.5rem;
+            padding: 1rem;
+            background: var(--bg-light);
+            border-radius: 8px;
+        }
+
+        .comment-input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid var(--border-light);
+            border-radius: 8px;
+            font-family: inherit;
+            margin-bottom: 0.5rem;
+            resize: vertical;
+        }
+
+        .comment-submit {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background-color 0.3s;
+        }
+
+        .comment-submit:hover {
+            background: var(--primary-dark);
+        }
+
+        /* もっと読むボタン */
+        .load-more {
+            display: block;
+            margin: 2rem auto;
+            padding: 0.75rem 2rem;
+            background: white;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .load-more:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* エラー表示 */
+        .error {
+            text-align: center;
+            padding: 2rem;
+            color: var(--danger);
+        }
+
+        .no-articles {
+            text-align: center;
+            padding: 3rem;
+            color: var(--text-light);
+        }
+
+        /* レスポンシブ */
+        @media (max-width: 768px) {
+            .tabs-content {
+                overflow-x: auto;
+                padding-bottom: 2px;
+            }
+
+            .article-card {
+                flex-direction: column;
+            }
+
+            .article-thumbnail {
+                width: 100%;
+                height: 200px;
+            }
+
+            .modal-content {
+                margin: 0;
+                border-radius: 0;
+                min-height: 100vh;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- ヘッダー -->
+    <header class="header">
+        <div class="header-content">
+            <a href="/" class="logo">📚 ELM PORT News</a>
+            <a href="https://ambitiousstars.org" class="back-link">
+                ← メインサイトへ
+            </a>
+        </div>
+    </header>
+
+    <!-- タブ -->
+    <div class="tabs">
+        <div class="tabs-content">
+            <div class="tab active" data-featured="article">記事</div>
+            <div class="tab" data-featured="arbeit">アルバイト</div>
+            <div class="tab" data-featured="work">仕事</div>
+            <div class="tab" data-featured="board">掲示板</div>
+        </div>
+    </div>
+
+    <!-- フィルター -->
+    <div class="filters">
+        <div class="filter-buttons">
+            <button class="filter-btn active" data-status="published">最新の記事</button>
+            <button class="filter-btn" data-status="archived">過去の記事</button>
+        </div>
+    </div>
+
+    <!-- 記事リスト -->
+    <div class="articles-container" id="articles">
+        <div class="loading">
+            <div class="spinner"></div>
+        </div>
+    </div>
+
+    <!-- もっと読むボタン -->
+    <button class="load-more" id="loadMore" style="display: none;">もっと読む</button>
+
+    <!-- 記事詳細モーダル -->
+    <div class="modal" id="articleModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="modal-close" onclick="closeModal()">✕</button>
+            </div>
+            <div class="modal-body" id="modalBody">
+                <!-- 動的に内容を挿入 -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // APIエンドポイント
+        const API_BASE = 'https://news-images-worker.news-images-247.workers.dev';
+        const DB_PARAM = '?db=1';
+        const CF_ACCOUNT = 'ogAIW_Vdq_bAijSDyryXCQ';
+        
+        // 状態管理
+        let allArticles = [];
+        let filteredArticles = [];
+        let currentFeatured = 'article';
+        let currentStatus = 'published';
+        let visibleCount = 6;
+        let currentArticle = null;
+        let currentComments = [];
+
+        // Cloudflare画像URL生成
+        function cfImg(id) {
+            if (!id || id.includes('null')) return '';
+            if (id.startsWith('http')) return id;
+            return `https://imagedelivery.net/${CF_ACCOUNT}/${id}/public`;
+        }
+
+        // 日付フォーマット
+        function formatDate(timestamp) {
+            const date = new Date(timestamp);
+            const now = new Date();
+            const diff = now - date;
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            
+            const dateStr = `${date.getFullYear()}/${date.getMonth() + 1}/${date.getDate()}`;
+            const isNew = days <= 3;
+            
+            return { dateStr, isNew };
+        }
+
+        // 相対時間表示
+        function getRelativeTime(timestamp) {
+            const date = new Date(timestamp);
+            const now = new Date();
+            const diff = now - date;
+            
+            const minutes = Math.floor(diff / (1000 * 60));
+            const hours = Math.floor(diff / (1000 * 60 * 60));
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            
+            if (minutes < 1) return 'たった今';
+            if (minutes < 60) return `${minutes}分前`;
+            if (hours < 24) return `${hours}時間前`;
+            return `${days}日前`;
+        }
+
+        // 記事を取得
+        async function fetchArticles() {
+            try {
+                const response = await fetch(`${API_BASE}/api/articles${DB_PARAM}`);
+                const data = await response.json();
+                allArticles = data;
+                filterArticles();
+                renderArticles();
+            } catch (error) {
+                console.error('記事の取得に失敗:', error);
+                document.getElementById('articles').innerHTML = 
+                    '<div class="error">記事の読み込みに失敗しました。</div>';
+            }
+        }
+
+        // 記事をフィルター
+        function filterArticles() {
+            filteredArticles = allArticles.filter(article => 
+                article.featured === currentFeatured && 
+                article.status === currentStatus
+            );
+            
+            // サムネイルがある記事を上に、作成日時の新しい順
+            filteredArticles.sort((a, b) => {
+                const aHasThumb = a.thumbnailUrl && !a.thumbnailUrl.includes('/null');
+                const bHasThumb = b.thumbnailUrl && !b.thumbnailUrl.includes('/null');
+                if (aHasThumb && !bHasThumb) return -1;
+                if (!aHasThumb && bHasThumb) return 1;
+                return b.createdAt - a.createdAt;
+            });
+            
+            visibleCount = 6;
+        }
+
+        // 記事をレンダリング
+        function renderArticles() {
+            const container = document.getElementById('articles');
+            const articlesToShow = filteredArticles.slice(0, visibleCount);
+            
+            if (articlesToShow.length === 0) {
+                container.innerHTML = '<div class="no-articles">記事がありません</div>';
+                document.getElementById('loadMore').style.display = 'none';
+                return;
+            }
+            
+            container.innerHTML = articlesToShow.map(article => {
+                const { dateStr, isNew } = formatDate(article.updatedAt || article.createdAt);
+                const thumbnailUrl = article.thumbnailUrl ? cfImg(article.thumbnailUrl) : '';
+                const hasImage = thumbnailUrl && !thumbnailUrl.includes('/null');
+                
+                return `
+                    <div class="article-card" onclick="showArticle('${article.id}')">
+                        <div class="article-content">
+                            <div class="article-date-row">
+                                <span class="article-date">${dateStr}</span>
+                                ${isNew ? '<span class="new-badge">New!</span>' : ''}
+                            </div>
+                            <h3 class="article-title">${escapeHtml(article.title)}</h3>
+                            ${article.subtitle ? `<p class="article-subtitle">${escapeHtml(article.subtitle)}</p>` : ''}
+                            <div class="article-meta">
+                                <span class="by-badge">By</span>
+                                <span class="article-author">${escapeHtml(article.author || 'Anonymous')}</span>
+                                <span class="article-genre">${escapeHtml(article.genre || '未分類')}</span>
+                            </div>
+                        </div>
+                        ${hasImage ? `<img src="${thumbnailUrl}" alt="" class="article-thumbnail">` : ''}
+                    </div>
+                `;
+            }).join('');
+            
+            // もっと読むボタンの表示制御
+            const loadMoreBtn = document.getElementById('loadMore');
+            if (filteredArticles.length > visibleCount) {
+                loadMoreBtn.style.display = 'block';
+            } else {
+                loadMoreBtn.style.display = 'none';
+            }
+        }
+
+        // 記事詳細を表示
+        async function showArticle(articleId) {
+            const article = allArticles.find(a => a.id === articleId);
+            if (!article) return;
+            
+            currentArticle = article;
+            const modal = document.getElementById('articleModal');
+            const modalBody = document.getElementById('modalBody');
+            
+            // 閲覧数を増やす
+            incrementView(articleId);
+            
+            // 画像URL取得
+            const imageUrl = article.imageUrl || article.thumbnailUrl;
+            const fullImageUrl = imageUrl ? cfImg(imageUrl) : '';
+            
+            // モーダル内容を構築
+            modalBody.innerHTML = `
+                ${fullImageUrl && !fullImageUrl.includes('/null') ? 
+                    `<img src="${fullImageUrl}" alt="" class="article-detail-image">` : ''}
+                <h1 class="article-detail-title">${escapeHtml(article.title)}</h1>
+                ${article.subtitle ? 
+                    `<p class="article-detail-subtitle">${escapeHtml(article.subtitle)}</p>` : ''}
+                <div class="article-detail-content">${formatContent(article.content)}</div>
+                ${article.commentsEnabled ? `
+                    <div class="comments-section" id="commentsSection">
+                        <h3 class="comments-title">コメント欄</h3>
+                        <div id="commentsList">
+                            <div class="loading">
+                                <div class="spinner"></div>
+                            </div>
+                        </div>
+                        <div class="comment-form">
+                            <input type="text" class="comment-input" id="nameInput" 
+                                placeholder="お名前（省略可）">
+                            <textarea class="comment-input" id="commentInput" rows="3" 
+                                placeholder="コメントを入力"></textarea>
+                            <button class="comment-submit" onclick="postComment()">送信</button>
+                        </div>
+                    </div>
+                ` : ''}
+            `;
+            
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+            
+            // コメントを読み込む
+            if (article.commentsEnabled) {
+                loadComments(articleId);
+            }
+        }
+
+        // 閲覧数を増やす
+        async function incrementView(articleId) {
+            try {
+                await fetch(`${API_BASE}/api/articles/${articleId}/view${DB_PARAM}`, {
+                    method: 'POST'
+                });
+            } catch (error) {
+                console.error('閲覧数の更新に失敗:', error);
+            }
+        }
+
+        // コメントを読み込む
+        async function loadComments(articleId) {
+            try {
+                const response = await fetch(`${API_BASE}/api/articles/${articleId}/comments${DB_PARAM}`);
+                const comments = await response.json();
+                currentComments = comments;
+                renderComments();
+            } catch (error) {
+                console.error('コメントの読み込みに失敗:', error);
+                document.getElementById('commentsList').innerHTML = 
+                    '<div class="error">コメントの読み込みに失敗しました</div>';
+            }
+        }
+
+        // コメントをレンダリング
+        function renderComments() {
+            const container = document.getElementById('commentsList');
+            
+            if (currentComments.length === 0) {
+                container.innerHTML = '<p style="text-align: center; color: var(--text-light);">まだコメントはありません</p>';
+                return;
+            }
+            
+            container.innerHTML = currentComments.map(comment => `
+                <div class="comment">
+                    <p class="comment-body">${escapeHtml(comment.body)}</p>
+                    <div class="comment-meta">
+                        <span>${escapeHtml(comment.author || 'Anonymous')} • ${getRelativeTime(comment.createdAt)}</span>
+                        <span>👍 ${comment.likes || 0}</span>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // コメントを投稿
+        async function postComment() {
+            const nameInput = document.getElementById('nameInput');
+            const commentInput = document.getElementById('commentInput');
+            const body = commentInput.value.trim();
+            
+            if (!body) {
+                alert('コメントを入力してください');
+                return;
+            }
+            
+            try {
+                const fingerprint = getFingerprint();
+                const response = await fetch(
+                    `${API_BASE}/api/articles/${currentArticle.id}/comments${DB_PARAM}`,
+                    {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'x-client-fingerprint': fingerprint
+                        },
+                        body: JSON.stringify({
+                            body: body,
+                            author: nameInput.value.trim() || 'Anonymous'
+                        })
+                    }
+                );
+                
+                if (response.ok) {
+                    nameInput.value = '';
+                    commentInput.value = '';
+                    loadComments(currentArticle.id);
+                }
+            } catch (error) {
+                console.error('コメントの投稿に失敗:', error);
+                alert('コメントの投稿に失敗しました');
+            }
+        }
+
+        // フィンガープリント取得
+        function getFingerprint() {
+            let fp = localStorage.getItem('fp');
+            if (!fp) {
+                fp = generateUUID();
+                localStorage.setItem('fp', fp);
+            }
+            return fp;
+        }
+
+        // UUID生成
+        function generateUUID() {
+            return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+                const r = Math.random() * 16 | 0;
+                const v = c == 'x' ? r : (r & 0x3 | 0x8);
+                return v.toString(16);
+            });
+        }
+
+        // モーダルを閉じる
+        function closeModal() {
+            const modal = document.getElementById('articleModal');
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+            currentArticle = null;
+            currentComments = [];
+        }
+
+        // コンテンツをフォーマット（Markdownの簡易処理）
+        function formatContent(content) {
+            if (!content) return '';
+            
+            // HTMLエスケープ
+            content = escapeHtml(content);
+            
+            // 簡易Markdown処理
+            content = content
+                .replace(/^### (.*?)$/gm, '<h3>$1</h3>')
+                .replace(/^## (.*?)$/gm, '<h2>$1</h2>')
+                .replace(/^# (.*?)$/gm, '<h1>$1</h1>')
+                .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+                .replace(/\*(.*?)\*/g, '<em>$1</em>')
+                .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank">$1</a>')
+                .replace(/\n\n/g, '</p><p>')
+                .replace(/\n/g, '<br>');
+            
+            return `<p>${content}</p>`;
+        }
+
+        // HTMLエスケープ
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        // イベントリスナー設定
+        document.addEventListener('DOMContentLoaded', () => {
+            // タブ切り替え
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.addEventListener('click', (e) => {
+                    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                    e.target.classList.add('active');
+                    currentFeatured = e.target.dataset.featured;
+                    filterArticles();
+                    renderArticles();
+                });
+            });
+            
+            // フィルターボタン
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                    e.target.classList.add('active');
+                    currentStatus = e.target.dataset.status;
+                    filterArticles();
+                    renderArticles();
+                });
+            });
+            
+            // もっと読むボタン
+            document.getElementById('loadMore').addEventListener('click', () => {
+                visibleCount += 6;
+                renderArticles();
+            });
+            
+            // モーダル外クリックで閉じる
+            document.getElementById('articleModal').addEventListener('click', (e) => {
+                if (e.target.id === 'articleModal') {
+                    closeModal();
+                }
+            });
+            
+            // ESCキーで閉じる
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') {
+                    closeModal();
+                }
+            });
+            
+            // 初期読み込み
+            fetchArticles();
+        });
+    </script>
+</body>
+</html>
