@@ -1,0 +1,11 @@
+{
+  "name": "elmport-landing",
+  "compatibility_date": "2025-01-01",
+  "assets": {
+    "directory": "./public"
+  },
+  "dev": {
+    "port": 8787,
+    "local_protocol": "http"
+  }
+}

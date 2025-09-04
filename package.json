@@ -1,0 +1,17 @@
+{
+  "name": "elmport-landing",
+  "version": "1.0.0",
+  "private": true,
+  "description": "ELM PORT Landing Page",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "deploy:preview": "wrangler deploy --env preview"
+  },
+  "devDependencies": {
+    "wrangler": "^4.33.2"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
