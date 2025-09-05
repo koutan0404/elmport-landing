@@ -1,0 +1,219 @@
+/* Rikkyo-like theme for ELM PORT (scoped with .rikkyo) */
+@charset "UTF-8";
+
+/* Font pairing: Inter (Latin) + Noto Sans JP (UI) + Noto Serif JP (headlines)
+   Add these in <head>:
+   <link rel="preconnect" href="https://fonts.googleapis.com">
+   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@500;600;700&display=swap" rel="stylesheet">
+*/
+
+:root {
+  /* Local theme tokens (not claiming official brand values) */
+  --rk-purple: #5b3ea6;
+  --rk-purple-600: #4a2f8c;
+  --rk-purple-50: #f5f3fa;
+  --rk-ink: #1f2430;       /* body text */
+  --rk-muted: #6b7280;     /* secondary text */
+  --rk-border: #e7e7ef;    /* hairline */
+  --rk-bg: #ffffff;
+  --rk-bg-alt: #fafafc;
+}
+
+/* Scope to body.rikkyo so existing pages remain unchanged unless opted in */
+body.rikkyo {
+  background: var(--rk-bg);
+  color: var(--rk-ink);
+  letter-spacing: 0.015em;
+  font-family: Inter, "Noto Sans JP", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+/* Typography */
+body.rikkyo h1, body.rikkyo h2, body.rikkyo h3,
+body.rikkyo .section-title {
+  font-family: "Noto Serif JP", "Hiragino Mincho ProN", "Yu Mincho", serif;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  color: var(--rk-ink);
+  background: none;
+  -webkit-text-fill-color: currentColor;
+}
+
+body.rikkyo p, body.rikkyo li {
+  color: var(--rk-ink);
+}
+
+/* Global header (news.html / updates.html use .header, index.html uses header > nav) */
+body.rikkyo .header,
+body.rikkyo header {
+  background: var(--rk-bg) !important;
+  backdrop-filter: none !important;
+  box-shadow: none !important;
+  border-bottom: 1px solid var(--rk-border);
+}
+
+body.rikkyo .header .logo,
+body.rikkyo .logo {
+  background: none !important;
+  -webkit-text-fill-color: currentColor !important;
+  color: var(--rk-ink) !important;
+}
+
+/* Navigation links: subtle underline on hover */
+body.rikkyo .nav-btn,
+body.rikkyo .nav-links a {
+  position: relative;
+  color: var(--rk-ink);
+}
+
+body.rikkyo .nav-btn.primary,
+body.rikkyo .news-link {
+  background: var(--rk-purple);
+  border: 1px solid var(--rk-purple-600);
+  color: #fff !important;
+  box-shadow: none !important;
+}
+
+body.rikkyo .nav-links a::after,
+body.rikkyo .nav-btn:not(.primary)::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -2px;
+  width: 0;
+  height: 2px;
+  background: var(--rk-purple);
+  transition: width .25s ease, left .25s ease;
+}
+
+body.rikkyo .nav-links a:hover::after,
+body.rikkyo .nav-btn:not(.primary):hover::after {
+  width: 100%;
+  left: 0;
+}
+
+/* Hero: remove heavy gradients, make editorial */
+body.rikkyo .hero {
+  background: linear-gradient(180deg, var(--rk-bg) 0%, var(--rk-bg-alt) 100%) !important;
+  min-height: 70vh;
+}
+
+body.rikkyo .hero-text h1 {
+  color: var(--rk-ink) !important;
+  font-size: clamp(2rem, 3.5vw + 1rem, 3.5rem);
+}
+
+body.rikkyo .hero-text p {
+  color: var(--rk-muted) !important;
+}
+
+body.rikkyo .btn.btn-primary {
+  background: var(--rk-purple);
+  color: #fff;
+  border: 1px solid var(--rk-purple-600);
+}
+
+body.rikkyo .btn.btn-secondary {
+  border-color: var(--rk-ink);
+  color: var(--rk-ink);
+}
+
+/* Cards / lists */
+body.rikkyo .news-section,
+body.rikkyo .features,
+body.rikkyo .screenshots,
+body.rikkyo .sns-section,
+body.rikkyo .roadmap-section {
+  background: var(--rk-bg-alt);
+}
+
+body.rikkyo .news-card,
+body.rikkyo .feature-card,
+body.rikkyo .timeline-content,
+body.rikkyo .article-card {
+  border: 1px solid var(--rk-border);
+  box-shadow: none !important;
+  background: #fff;
+}
+
+body.rikkyo .news-category,
+body.rikkyo .by-badge,
+body.rikkyo .version-badge,
+body.rikkyo .roadmap-status.development {
+  background: var(--rk-purple) !important;
+  color: #fff !important;
+}
+
+/* News list (news.html) */
+body.rikkyo .article-card {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+body.rikkyo .article-card::after {
+  content: "→";
+  font-size: 1rem;
+  color: var(--rk-muted);
+  opacity: 0;
+  transform: translateX(-6px);
+  transition: transform .2s ease, opacity .2s ease;
+}
+
+body.rikkyo .article-card:hover::after {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+body.rikkyo .article-date {
+  color: var(--rk-ink);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.02em;
+}
+
+body.rikkyo .article-title {
+  font-weight: 700;
+}
+
+body.rikkyo .article-subtitle,
+body.rikkyo .article-author,
+body.rikkyo .article-genre {
+  color: var(--rk-muted);
+}
+
+/* Tabs (news.html) */
+body.rikkyo .tabs {
+  border-bottom: 1px solid var(--rk-border);
+}
+
+body.rikkyo .tab.active {
+  color: var(--rk-purple) !important;
+  border-bottom-color: var(--rk-purple) !important;
+}
+
+/* Filters (news.html) */
+body.rikkyo .filter-btn.active {
+  background: var(--rk-purple) !important;
+  border-color: var(--rk-purple) !important;
+}
+
+/* Footer */
+body.rikkyo .footer,
+body.rikkyo footer {
+  background: #0f1220 !important;
+}
+
+/* Updates page timeline accents */
+body.rikkyo .timeline::before {
+  background: var(--rk-border);
+}
+
+body.rikkyo .timeline-marker {
+  border-color: var(--rk-purple);
+}
+
+body.rikkyo .timeline-item.major .timeline-marker {
+  background: var(--rk-purple);
+  box-shadow: 0 0 0 4px rgba(91, 62, 166, 0.2);
+}
