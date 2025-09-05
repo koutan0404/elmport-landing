@@ -1,0 +1,284 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>SNS紹介 - ELM PORT</title>
+  <meta name="description" content="ELM PORT の公式SNS一覧。X（旧Twitter）・Instagram・YouTube・Discord・GitHub などの公式アカウントをご案内します。">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;600;700&family=Noto+Serif+JP:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/nu-theme.css">
+  <script defer src="/nu-tweaks.js"></script>
+
+  <!-- 構造化データ（検索エンジンへ公式アカウントを通知） -->
+  <script type="application/ld+json" id="social-jsonld">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "ELM PORT",
+    "url": "https://example.com",
+    "sameAs": []
+  }
+  </script>
+
+  <style>
+    .hero{background:linear-gradient(180deg,var(--nu-green),var(--nu-green-600));color:#fff;padding:48px 0}
+    .hero-inner{max-width:var(--container);margin:auto;padding:0 20px}
+    .hero h1{margin:0 0 6px}
+
+    .intro{max-width:var(--container);margin:18px auto 0;padding:0 20px;color:#eef6f2;opacity:.95}
+
+    .tabs-wrap{position:sticky;top:70px;background:#fff;border-bottom:1px solid var(--line);z-index:40}
+    .tabs{max-width:var(--container);margin:auto;display:flex;gap:16px;padding:0 20px}
+    .tab{padding:14px 0;border-bottom:3px solid transparent;color:var(--muted);cursor:pointer}
+    .tab.active{color:var(--nu-green);border-bottom-color:var(--nu-green)}
+
+    .grid{max-width:var(--container);margin:22px auto;padding:0 20px;display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+    @media (max-width:1024px){.grid{grid-template-columns:repeat(2,1fr)}}
+    @media (max-width:640px){.grid{grid-template-columns:1fr}}
+
+    .card{background:#fff;border:1px solid var(--line);border-radius:16px;box-shadow:0 6px 18px #0000000a;padding:16px;display:flex;gap:14px;align-items:center}
+    .card .icon{width:56px;height:56px;border-radius:14px;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:26px;background:linear-gradient(180deg,#fff,#f3f7f5)}
+    .card h3{margin:0 0 2px}
+    .handle{display:inline-flex;gap:8px;align-items:center;color:var(--muted);font-size:.95rem}
+    .badges{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+    .badge{background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:4px 10px;font-size:.8rem}
+    .actions{display:flex;gap:8px;margin-left:auto;flex-wrap:wrap}
+    .btn-mini{border:1px solid var(--line);background:#fff;border-radius:10px;padding:8px 12px;cursor:pointer}
+    .btn-mini:hover{background:var(--surface)}
+
+    .embed-section{max-width:var(--container);margin:8px auto 32px;padding:0 20px}
+    .embed-grid{display:grid;grid-template-columns:2fr 1fr;gap:16px}
+    @media (max-width:900px){.embed-grid{grid-template-columns:1fr}}
+
+    .panel{background:#fff;border:1px solid var(--line);border-radius:16px;box-shadow:0 6px 18px #0000000a;padding:16px}
+    .panel h2{margin:0 0 8px;font-size:1.2rem}
+    .note{color:var(--muted);font-size:.9rem}
+
+    .toast{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);background:#111;color:#fff;padding:10px 14px;border-radius:999px;box-shadow:0 10px 30px #00000033;opacity:0;pointer-events:none;transition:.2s}
+    .toast.show{opacity:1}
+
+    /* プラットフォームの配色（控えめ） */
+    .x   .icon{color:#111}
+    .ig  .icon{color:#c13584}
+    .yt  .icon{color:#c4302b}
+    .dc  .icon{color:#5865F2}
+    .gh  .icon{color:#111}
+    .th  .icon{color:#000}
+    .tt  .icon{color:#000}
+    .ln  .icon{color:#06C755}
+  </style>
+</head>
+<body>
+  <!-- 共通ヘッダー -->
+  <div class="topbar" aria-hidden="true"></div>
+  <header class="site-header" role="banner">
+    <div class="container hdr-inner">
+      <a class="brand" href="/"><span class="brand-mark" aria-hidden="true"></span>
+        <span class="brand-text"><strong>ELM PORT</strong><small>Campus Life Support</small></span>
+      </a>
+      <button class="nav-toggle" aria-expanded="false" aria-controls="site-nav">メニュー</button>
+<nav id="site-nav" class="site-nav" role="navigation">
+  <ul>
+    <li><a href="/"          data-path="/">ホーム</a></li>
+    <li><a href="/news"      data-path="/news">ニュース</a></li>
+    <li><a href="/updates"   data-path="/updates">更新情報</a></li>
+    <li><a href="/sns"       data-path="/sns">SNS</a></li>
+    <li><a href="/contact"   data-path="/contact">お問い合わせ</a></li>
+  </ul>
+</nav>
+    </div>
+  </header>
+
+  <!-- ヒーロー -->
+  <section class="hero">
+    <div class="hero-inner">
+      <h1>SNS紹介</h1>
+      <p>公式アカウントと運用ポリシーのご案内</p>
+      <p class="intro">最新情報は X（旧Twitter）で最速配信。深掘り・写真は Instagram、動画は YouTube、コミュニティは Discord を中心に運用しています。</p>
+    </div>
+  </section>
+
+  <!-- タブ（ジャンル切替） -->
+  <div class="tabs-wrap" role="tablist" aria-label="SNSカテゴリ">
+    <div class="tabs">
+      <div class="tab active" data-filter="all" role="tab" aria-selected="true">すべて</div>
+      <div class="tab" data-filter="news" role="tab">最新情報</div>
+      <div class="tab" data-filter="media" role="tab">写真・動画</div>
+      <div class="tab" data-filter="community" role="tab">コミュニティ</div>
+      <div class="tab" data-filter="dev" role="tab">開発</div>
+    </div>
+  </div>
+
+  <!-- リンクカード -->
+  <section class="grid" id="cards">
+    <!-- 各カードは JS 側の設定から生成されます -->
+  </section>
+
+  <!-- 埋め込み（任意） -->
+  <section class="embed-section">
+    <div class="embed-grid">
+      <div class="panel">
+        <h2>X（旧Twitter）タイムライン</h2>
+        <p class="note">※ 表示されない場合はネットワーク制限をご確認ください。</p>
+        <div id="x-embed">
+          <!-- X timeline -->
+          <a class="twitter-timeline" data-height="520" href="https://x.com/">Tweets by ELM PORT</a>
+        </div>
+      </div>
+
+      <div class="panel">
+        <h2>ハッシュタグ</h2>
+        <p class="note">投稿の際は以下のハッシュタグをご利用ください。</p>
+        <div class="badges" id="hashtags"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- フッター -->
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div>
+        <div class="brand small"><span class="brand-mark" aria-hidden="true"></span><strong>ELM PORT</strong></div>
+        <p class="muted">© 2025 ELM PORT Team</p>
+      </div>
+      <nav aria-label="フッターメニュー">
+        <ul>
+          <li><a href="/news">ニュース</a></li>
+          <li><a href="/updates">更新情報</a></li>
+          <li><a href="/contact">お問い合わせ</a></li>
+        </ul>
+      </nav>
+    </div>
+  </footer>
+
+  <!-- トースト -->
+  <div class="toast" id="toast">コピーしました</div>
+
+  <!-- X ウィジェット -->
+  <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+  <script>
+    /** ========== 1) 設定（ここだけ書き換えれば全体に反映） ========== */
+    const SOCIAL = {
+      siteUrl: 'https://example.com',           // 公式サイトURL
+      handles: {
+        x:        { handle: 'elm_port',          url: 'https://x.com/elm_port',               tags: ['#ELMPORT', '#北大アプリ'], category: 'news' },
+        instagram:{ handle: 'elm_port',          url: 'https://www.instagram.com/elm_port',   tags: ['#ELMPORT', '#キャンパスライフ'], category: 'media' },
+        youtube:  { handle: 'ELM PORT',          url: 'https://www.youtube.com/@elm_port',    tags: ['#ELMPORT', '#使い方'], category: 'media' },
+        discord:  { handle: 'ELM PORT Community',url: 'https://discord.gg/yourinvite',       tags: ['#ELMPORT'], category: 'community' },
+        github:   { handle: 'elm-port',          url: 'https://github.com/elm-port',          tags: ['#ELMPORT', '#OpenSource'], category: 'dev' },
+        threads:  { handle: 'elm_port',          url: 'https://www.threads.net/@elm_port',    tags: ['#ELMPORT'], category: 'news' },
+        tiktok:   { handle: 'elm_port',          url: 'https://www.tiktok.com/@elm_port',     tags: ['#ELMPORT'], category: 'media' },
+        line:     { handle: '公式アカウント',      url: 'https://lin.ee/yourline',             tags: ['#ELMPORT'], category: 'news' }
+      }
+    };
+
+    /** ========== 2) カード定義（SVGは内製・外部依存なし） ========== */
+    const ICONS = {
+      x:  '<svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><path d="M13.5 10.6 20.7 2H18.8l-6 7.1L8 2H2l7.7 11.1L2.4 22H4.3l6.3-7.4 5.1 7.4H22l-8.5-11.4h0zM5.2 3.4h2.7l11 16.2h-2.7L5.2 3.4z" fill="currentColor"/></svg>',
+      ig: '<svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><path d="M12 7a5 5 0 1 0 0 10A5 5 0 0 0 12 7zm0-5C8.1 2 7.6 2 6.1 2.1 4.7 2.2 3.7 2.4 2.9 2.9a4.9 4.9 0 0 0-2 2C.4 5.8.2 6.8.1 8.2 0 9.7 0 10.2 0 14s0 4.3.1 5.8c.1 1.4.3 2.4.8 3.3.5.8 1.2 1.5 2 2 .9.5 1.9.7 3.3.8C9.7 26 10.2 26 14 26s4.3 0 5.8-.1c1.4-.1 2.4-.3 3.3-.8.8-.5 1.5-1.2 2-2 .5-.9.7-1.9.8-3.3.1-1.5.1-2 .1-5.8s0-4.3-.1-5.8c-.1-1.4-.3-2.4-.8-3.3a4.9 4.9 0 0 0-2-2c-.9-.5-1.9-.7-3.3-.8C18.3 0 17.8 0 14 0S9.7 0 8.2.1C6.8.2 5.8.4 4.9.9a4.9 4.9 0 0 0-2 2C2.4 3.8 2.2 4.8 2.1 6.2 2 7.7 2 8.2 2 12s0 4.3.1 5.8c.1 1.4.3 2.4.8 3.3.5.8 1.2 1.5 2 2 .9.5 1.9.7 3.3.8C9.7 24 10.2 24 14 24s4.3 0 5.8-.1c1.4-.1 2.4-.3 3.3-.8.8-.5 1.5-1.2 2-2 .5-.9.7-1.9.8-3.3.1-1.5.1-2 .1-5.8s0-4.3-.1-5.8c-.1-1.4-.3-2.4-.8-3.3a4.9 4.9 0 0 0-2-2c-.9-.5-1.9-.7-3.3-.8C18.3 2 17.8 2 14 2S9.7 2 8.2 2.1z" fill="currentColor"/></svg>',
+      yt: '<svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><path d="M23.5 6.2c-.3-1.2-1.2-2.1-2.4-2.4C19 3.3 12 3.3 12 3.3s-7 0-9.1.5C1.7 4.1.8 5 0 6.2.5 8.3.5 12 .5 12s0 3.7.5 5.8c.3 1.2 1.2 2.1 2.4 2.4C5 20.7 12 20.7 12 20.7s7 0 9.1-.5c1.2-.3 2.1-1.2 2.4-2.4.5-2.1.5-5.8.5-5.8s0-3.7-.5-5.8zM9.7 15.5V8.5L15.8 12l-6.1 3.5z" fill="currentColor"/></svg>',
+      dc: '<svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><path d="M20 4a18 18 0 0 0-4.9-1.5l-.2.4a16 16 0 0 1 4.7 1.8A19 19 0 0 0 14 3l-.5 1.1a16 16 0 0 1 6.5 3.3c0 0 3 5.2 3 11.6A18.7 18.7 0 0 1 18 20l-.7-2A10.8 10.8 0 0 0 19 17l-.9-.5a7.3 7.3 0 0 1-3.7 1 7.3 7.3 0 0 1-3.7-1L6 17a11 11 0 0 0 1.7 1l-.7 2a18.7 18.7 0 0 1-5-1.6C2 13.6 5 8.4 5 8.4A16 16 0 0 1 11.5 5L11 3.9c-2.5 0-6 .8-6 .8a16 16 0 0 1 4.7-1.8L9.5 2A18 18 0 0 0 4.6 3.6C4.6 3.6 0 9.4 0 18.2A21.7 21.7 0 0 0 7.4 21l.9-2.8a8.6 8.6 0 0 0 3.7 1 8.6 8.6 0 0 0 3.7-1L16.5 21A21.7 21.7 0 0 0 24 18.2C24 9.4 19.4 3.6 19.4 3.6z" fill="currentColor"/></svg>',
+      gh: '<svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><path d="M12 .5C5.7.5.7 5.6.7 12c0 5.1 3.3 9.4 7.8 10.9.6.1.8-.2.8-.5v-2c-3.2.7-3.9-1.4-3.9-1.4-.6-1.5-1.4-1.9-1.4-1.9-1.2-.8.1-.8.1-.8 1.3.1 2 1.4 2 1.4 1.2 2 3.2 1.4 4 .9.1-.9.5-1.4.8-1.7-2.6-.3-5.4-1.3-5.4-6 0-1.3.5-2.4 1.3-3.2-.1-.3-.6-1.5.1-3.1 0 0 1-.3 3.3 1.2a11 11 0 0 1 6 0C18.5 3.9 19.6 4.2 19.6 4.2c.7 1.6.2 2.8.1 3.1.8.8 1.3 1.9 1.3 3.2 0 4.7-2.8 5.7-5.4 6 .5.4.9 1.2.9 2.4v3.6c0 .3.2.6.8.5A11.5 11.5 0 0 0 23.3 12C23.3 5.6 18.3.5 12 .5z" fill="currentColor"/></svg>',
+      th: '<svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><circle cx="12" cy="12" r="10" stroke="currentColor" fill="none"/><path d="M7 9h10M7 12h10M7 15h10" stroke="currentColor"/></svg>',
+      tt: '<svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><path d="M16 3v3.3a5.5 5.5 0 1 1-4.8 9.9V9.4h2.6A3.5 3.5 0 0 0 16 6V3h2.4V1h-3.8v5.2a1.3 1.3 0 0 1-1.3 1.3H11v8a3.6 3.6 0 1 1-3.2-3.6V9.3A6 6 0 1 0 16 3z" fill="currentColor"/></svg>',
+      ln: '<svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><path d="M2 5.5C2 3.6 3.6 2 5.5 2h13C20.4 2 22 3.6 22 5.5v13c0 1.9-1.6 3.5-3.5 3.5h-13C3.6 22 2 20.4 2 18.5v-13zM7 7.5h2v6l6-6h2v9h-2v-6l-6 6H7v-9z" fill="currentColor"/></svg>'
+    };
+
+    const CARDS = [
+      { key: 'x',        name: 'X（旧Twitter）',  cls:'x',  cats:['news']      },
+      { key: 'instagram',name: 'Instagram',      cls:'ig', cats:['media']     },
+      { key: 'youtube',  name: 'YouTube',        cls:'yt', cats:['media']     },
+      { key: 'discord',  name: 'Discord',        cls:'dc', cats:['community'] },
+      { key: 'github',   name: 'GitHub',         cls:'gh', cats:['dev']       },
+      { key: 'threads',  name: 'Threads',        cls:'th', cats:['news']      },
+      { key: 'tiktok',   name: 'TikTok',         cls:'tt', cats:['media']     },
+      { key: 'line',     name: 'LINE公式',       cls:'ln', cats:['news']      }
+    ];
+
+    /** ========== 3) 生成 & イベント ========== */
+    const toast = (t)=>{ const el=document.getElementById('toast'); el.textContent=t; el.classList.add('show'); setTimeout(()=>el.classList.remove('show'),1500); };
+
+    function cardTemplate({key,name,cls,handle,url,tags}){
+      const icon = ICONS[key.slice(0,2)] || ICONS.x;
+      const badgeTags = (tags||[]).slice(0,2).map(t=>`<span class="badge">${t}</span>`).join('');
+      return `
+        <article class="card ${cls}" data-key="${key}">
+          <div class="icon" aria-hidden="true">${icon}</div>
+          <div style="flex:1">
+            <h3>${name}</h3>
+            <div class="handle"><span>@${handle}</span></div>
+            <div class="badges">${badgeTags}</div>
+          </div>
+          <div class="actions">
+            <a class="btn-mini" href="${url}" target="_blank" rel="noopener">開く</a>
+            <button class="btn-mini" data-copy="${url}">コピー</button>
+            <button class="btn-mini" data-share="${key}">共有</button>
+          </div>
+        </article>
+      `;
+    }
+
+    function renderCards(filter='all'){
+      const root=document.getElementById('cards');
+      const list = CARDS.filter(c => filter==='all' || c.cats.includes(filter))
+        .map(c=>{
+          const s = SOCIAL.handles[c.key]; if(!s) return '';
+          return cardTemplate({ key:c.key, name:c.name, cls:c.cls, handle:s.handle, url:s.url, tags:s.tags });
+        }).join('');
+      root.innerHTML = list || '<div class="panel">該当するアカウントはありません。</div>';
+
+      // クリックイベント（コピー／共有）
+      root.querySelectorAll('[data-copy]').forEach(btn=>{
+        btn.addEventListener('click', ()=>{ navigator.clipboard.writeText(btn.dataset.copy); toast('リンクをコピーしました'); });
+      });
+      root.querySelectorAll('[data-share]').forEach(btn=>{
+        btn.addEventListener('click', ()=>{
+          const key = btn.dataset.share; const s = SOCIAL.handles[key];
+          const shareData = { title: `ELM PORT | ${key}`, text: 'ELM PORT 公式SNS', url: s.url };
+          if (navigator.share) navigator.share(shareData).catch(()=>{});
+          else { navigator.clipboard.writeText(s.url); toast('リンクをコピーしました'); }
+        });
+      });
+    }
+
+    function renderHashtags(){
+      const set = new Set();
+      Object.values(SOCIAL.handles).forEach(s => (s.tags||[]).forEach(t => set.add(t)));
+      const box = document.getElementById('hashtags');
+      box.innerHTML = [...set].map(t=>`<span class="badge">${t}</span>`).join('') || '<span class="note">設定されたハッシュタグはありません</span>';
+    }
+
+    function setupTabs(){
+      const tabs = document.querySelectorAll('.tab');
+      tabs.forEach(tab => tab.addEventListener('click', ()=>{
+        tabs.forEach(t=>t.classList.remove('active')); tab.classList.add('active');
+        renderCards(tab.dataset.filter);
+      }));
+    }
+
+    function setupTwitterEmbed(){
+      const h = SOCIAL.handles.x?.handle || '';
+      const a = document.querySelector('#x-embed .twitter-timeline');
+      if (h && a) a.href = `https://x.com/${h}`;
+    }
+
+    function setupJsonLd(){
+      const js = document.getElementById('social-jsonld');
+      const data = JSON.parse(js.textContent);
+      data.url = SOCIAL.siteUrl || data.url;
+      data.sameAs = Object.values(SOCIAL.handles).map(s=>s.url);
+      js.textContent = JSON.stringify(data);
+    }
+
+    document.addEventListener('DOMContentLoaded', ()=>{
+      setupTabs();
+      renderCards('all');
+      renderHashtags();
+      setupTwitterEmbed();
+      setupJsonLd();
+    });
+  </script>
+</body>
+</html>

@@ -17,3 +17,19 @@
     lastY = y;
   });
 })();
+
+// --- Active nav highlight ---
+(() => {
+  const path = location.pathname.replace(/\/index\.html$/,'/') || '/';
+  const links = document.querySelectorAll('#site-nav a[data-path]');
+  let hit = false;
+  links.forEach(a => {
+    const p = a.getAttribute('data-path');
+    const match = (p === '/' && (path === '/' || path === '')) || (p !== '/' && path.startsWith(p));
+    if (match && !hit) { // 先頭一致の最初のものを使用
+      a.classList.add('active');
+      a.setAttribute('aria-current', 'page');
+      hit = true;
+    }
+  });
+})();

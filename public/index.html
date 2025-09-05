@@ -8,6 +8,25 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;600;700&family=Noto+Serif+JP:wght@500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/nu-theme.css">
+<style>
+  /* --- Latest News (index only) --- */
+  .news-wrap{max-width:var(--container);margin:auto;padding:0 20px}
+  .news-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  @media (max-width:1024px){.news-grid{grid-template-columns:repeat(2,1fr)}}
+  @media (max-width:640px){.news-grid{grid-template-columns:1fr}}
+  .news-card{background:#fff;border:1px solid var(--line);border-radius:14px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 6px 16px #00000008}
+  .news-thumb{aspect-ratio:16/9;object-fit:cover;background:var(--surface)}
+  .news-body{padding:12px 14px;display:flex;flex-direction:column;gap:6px}
+  .news-meta{display:flex;gap:8px;align-items:center;font-size:.82rem;color:var(--muted)}
+  .news-title{font-weight:700;line-height:1.35}
+  .news-sub{color:var(--muted);font-size:.92rem;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+  .news-cta{display:flex;justify-content:center;margin-top:16px}
+  .badge-new{background:#e11d48;color:#fff;border-radius:6px;padding:2px 6px;font-size:.72rem}
+  .spinner{width:44px;height:44px;border:4px solid var(--line);border-top-color:var(--nu-green);border-radius:50%;animation:spin .8s linear infinite;margin:30px auto}
+  @keyframes spin{to{transform:rotate(360deg)}}
+</style>
+
+
   <script defer src="/nu-tweaks.js"></script>
   <link rel="icon" href="/favicon.ico">
   <meta property="og:title" content="ELM PORT" />
@@ -28,17 +47,19 @@
         </span>
       </a>
       <button class="nav-toggle" aria-expanded="false" aria-controls="site-nav">メニュー</button>
-      <nav id="site-nav" class="site-nav" role="navigation">
-        <ul>
-          <li><a href="#features">特長</a></li>
-          <li><a href="#functions">機能</a></li>
-          <li><a href="#screens">スクリーンショット</a></li>
-          <li><a href="/news">お知らせ</a></li>
-          <li><a class="btn btn-ghost" href="#download">ダウンロード</a></li>
-        </ul>
-      </nav>
+<nav id="site-nav" class="site-nav" role="navigation">
+  <ul>
+    <li><a href="/"          data-path="/">ホーム</a></li>
+    <li><a href="/news"      data-path="/news">ニュース</a></li>
+    <li><a href="/updates"   data-path="/updates">更新情報</a></li>
+    <li><a href="/sns"       data-path="/sns">SNS</a></li>
+    <li><a href="/contact"   data-path="/contact">お問い合わせ</a></li>
+  </ul>
+</nav>
     </div>
   </header>
+
+
 
   <!-- Hero -->
   <section class="hero">
@@ -51,6 +72,18 @@
       </div>
     </div>
   </section>
+
+  <section id="latest-news" class="section section-alt">
+  <div class="news-wrap">
+    <h2 class="sec-title">最新ニュース</h2>
+    <div id="newsList">
+      <div class="spinner" aria-label="読み込み中"></div>
+    </div>
+    <div class="news-cta">
+      <a class="btn btn-ghost" href="/news">もっと見る</a>
+    </div>
+  </div>
+</section>
 
   <!-- Features -->
   <section id="features" class="section">
@@ -145,5 +178,83 @@
       </nav>
     </div>
   </footer>
+<script>
+  // ===== 設定 =====
+  const API_BASE = '';             // 同一ドメイン配信なら空のまま
+  const DB_PARAM = '?db=1';
+  const SHOW_LIMIT = 6;            // トップで表示する件数
+  const CF_ACCOUNT = 'ogAIW_Vdq_bAijSDyryXCQ'; // Cloudflare Images のアカウントID（newsページと同じ）
+
+  // ===== ユーティリティ =====
+  const cfImg = (id) => {
+    if (!id || id.includes('null')) return '';
+    if (id.startsWith('http')) return id;
+    return `https://imagedelivery.net/${CF_ACCOUNT}/${id}/public`;
+  };
+  const esc = (t) => { const d=document.createElement('div'); d.textContent=t??''; return d.innerHTML; };
+  const fmt = (ts) => {
+    if (!ts) return { date: '', isNew: false };
+    const d = new Date(ts); const now = new Date();
+    const isNew = (now - d) / 86400000 <= 3; // 3日以内は New
+    const date = `${d.getFullYear()}/${d.getMonth()+1}/${d.getDate()}`;
+    return { date, isNew };
+  };
+
+  // ===== 取得 → フィルタ → 描画 =====
+  async function loadLatestArticles(){
+    const host = `${API_BASE}/api/articles${DB_PARAM}`;
+    try{
+      const r = await fetch(host);
+      const all = await r.json();
+
+      // featured=article & status=published のみ
+      const list = all
+        .filter(a => a.featured === 'article' && a.status === 'published')
+        .sort((a,b) => (b.updatedAt||b.createdAt||0) - (a.updatedAt||a.createdAt||0))
+        .slice(0, SHOW_LIMIT);
+
+      renderNews(list);
+    }catch(e){
+      console.error(e);
+      document.getElementById('newsList').innerHTML = '<p class="muted">ニュースの読み込みに失敗しました。</p>';
+    }
+  }
+
+  function renderNews(items){
+    const root = document.getElementById('newsList');
+    if (!items.length){
+      root.innerHTML = '<p class="muted">現在表示できるニュースはありません。</p>';
+      return;
+    }
+    root.innerHTML = `
+      <div class="news-grid">
+        ${items.map(a => {
+          const thumb = cfImg(a.thumbnailUrl || a.imageUrl);
+          const hasThumb = thumb && !thumb.includes('/null');
+          const { date, isNew } = fmt(a.updatedAt || a.createdAt);
+          return `
+            <article class="news-card" onclick="location.href='/news#${a.id}'" role="link">
+              ${hasThumb ? `<img class="news-thumb" src="${thumb}" alt="">` : `<div class="news-thumb" aria-hidden="true"></div>`}
+              <div class="news-body">
+                <div class="news-meta">
+                  <span>${esc(a.genre || 'お知らせ')}</span>
+                  <span>・</span>
+                  <span>${date}</span>
+                  ${isNew ? `<span class="badge-new">New</span>` : ``}
+                </div>
+                <div class="news-title">${esc(a.title)}</div>
+                ${a.subtitle ? `<div class="news-sub">${esc(a.subtitle)}</div>` : ``}
+              </div>
+            </article>
+          `;
+        }).join('')}
+      </div>`;
+  }
+
+  document.addEventListener('DOMContentLoaded', loadLatestArticles);
+</script>
+
+
+
 </body>
 </html>
