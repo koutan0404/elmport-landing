@@ -1,1068 +1,137 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ja">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>お問い合わせ - ELM PORT</title>
-    <meta name="description" content="ELM PORTへのお問い合わせ、サポート、よくある質問。アプリに関するご質問やご要望をお聞かせください。">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        :root {
-            --primary: #2563eb;
-            --primary-dark: #1e40af;
-            --secondary: #10b981;
-            --accent: #f59e0b;
-            --danger: #ef4444;
-            --warning: #f59e0b;
-            --success: #10b981;
-            --info: #3b82f6;
-            --text-dark: #1f2937;
-            --text-light: #6b7280;
-            --bg-light: #f9fafb;
-            --bg-white: #ffffff;
-            --border-light: #e5e7eb;
-            --gradient-1: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            --gradient-2: linear-gradient(135deg, #2563eb 0%, #10b981 100%);
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans JP", sans-serif;
-            line-height: 1.6;
-            color: var(--text-dark);
-            background-color: var(--bg-light);
-        }
-
-        /* ヘッダー */
-        .header {
-            background: white;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-
-        .header-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 1rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-size: 1.5rem;
-            font-weight: bold;
-            background: var(--gradient-2);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            text-decoration: none;
-        }
-
-        .nav-buttons {
-            display: flex;
-            gap: 1rem;
-        }
-
-        .nav-btn {
-            padding: 0.5rem 1rem;
-            color: var(--text-dark);
-            text-decoration: none;
-            border-radius: 8px;
-            transition: all 0.3s;
-            font-weight: 500;
-        }
-
-        .nav-btn:hover {
-            background: var(--bg-light);
-            color: var(--primary);
-        }
-
-        .nav-btn.primary {
-            background: var(--gradient-2);
-            color: white;
-        }
-
-        .nav-btn.primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(37, 99, 235, 0.3);
-        }
-
-        /* ヒーローセクション */
-        .hero {
-            background: var(--gradient-1);
-            padding: 4rem 1rem;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
-            background-size: 50px 50px;
-            animation: float 20s linear infinite;
-            top: -50%;
-            left: -50%;
-        }
-
-        @keyframes float {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        .hero-content {
-            position: relative;
-            z-index: 1;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .hero h1 {
-            font-size: 2.5rem;
-            color: white;
-            margin-bottom: 1rem;
-        }
-
-        .hero p {
-            font-size: 1.2rem;
-            color: rgba(255, 255, 255, 0.9);
-        }
-
-        /* 連絡方法カード */
-        .contact-methods {
-            max-width: 1200px;
-            margin: -3rem auto 3rem;
-            padding: 0 1rem;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1.5rem;
-            position: relative;
-            z-index: 10;
-        }
-
-        .method-card {
-            background: white;
-            padding: 2rem;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            text-align: center;
-            transition: all 0.3s;
-        }
-
-        .method-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
-        }
-
-        .method-icon {
-            width: 60px;
-            height: 60px;
-            margin: 0 auto 1rem;
-            background: var(--gradient-2);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-        }
-
-        .method-title {
-            font-size: 1.2rem;
-            font-weight: bold;
-            margin-bottom: 0.5rem;
-            color: var(--text-dark);
-        }
-
-        .method-description {
-            color: var(--text-light);
-            margin-bottom: 1rem;
-        }
-
-        .method-link {
-            color: var(--primary);
-            text-decoration: none;
-            font-weight: 600;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            transition: gap 0.3s;
-        }
-
-        .method-link:hover {
-            gap: 1rem;
-        }
-
-        /* メインコンテンツ */
-        .main-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 2rem 1rem;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 3rem;
-        }
-
-        /* お問い合わせフォーム */
-        .contact-form-section {
-            background: white;
-            padding: 2rem;
-            border-radius: 15px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
-        }
-
-        .section-title {
-            font-size: 1.5rem;
-            font-weight: bold;
-            margin-bottom: 1.5rem;
-            color: var(--text-dark);
-        }
-
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-
-        .form-label {
-            display: block;
-            margin-bottom: 0.5rem;
-            color: var(--text-dark);
-            font-weight: 500;
-        }
-
-        .required {
-            color: var(--danger);
-            margin-left: 0.25rem;
-        }
-
-        .form-input,
-        .form-select,
-        .form-textarea {
-            width: 100%;
-            padding: 0.75rem;
-            border: 2px solid var(--border-light);
-            border-radius: 8px;
-            font-size: 1rem;
-            font-family: inherit;
-            transition: all 0.3s;
-        }
-
-        .form-input:focus,
-        .form-select:focus,
-        .form-textarea:focus {
-            outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
-        }
-
-        .form-textarea {
-            resize: vertical;
-            min-height: 120px;
-        }
-
-        .form-helper {
-            font-size: 0.85rem;
-            color: var(--text-light);
-            margin-top: 0.25rem;
-        }
-
-        .form-actions {
-            display: flex;
-            gap: 1rem;
-            margin-top: 2rem;
-        }
-
-        .btn {
-            padding: 0.75rem 2rem;
-            border: none;
-            border-radius: 8px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .btn-primary {
-            background: var(--gradient-2);
-            color: white;
-            flex: 1;
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(37, 99, 235, 0.3);
-        }
-
-        .btn-secondary {
-            background: white;
-            color: var(--text-dark);
-            border: 2px solid var(--border-light);
-        }
-
-        .btn-secondary:hover {
-            background: var(--bg-light);
-        }
-
-        /* FAQ セクション */
-        .faq-section {
-            background: white;
-            padding: 2rem;
-            border-radius: 15px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
-        }
-
-        .faq-categories {
-            display: flex;
-            gap: 0.5rem;
-            margin-bottom: 1.5rem;
-            flex-wrap: wrap;
-        }
-
-        .faq-category {
-            padding: 0.5rem 1rem;
-            background: var(--bg-light);
-            border: 2px solid transparent;
-            border-radius: 20px;
-            cursor: pointer;
-            transition: all 0.3s;
-            font-size: 0.9rem;
-            font-weight: 500;
-        }
-
-        .faq-category:hover {
-            background: white;
-            border-color: var(--primary);
-        }
-
-        .faq-category.active {
-            background: var(--primary);
-            color: white;
-            border-color: var(--primary);
-        }
-
-        .faq-list {
-            max-height: 600px;
-            overflow-y: auto;
-            padding-right: 0.5rem;
-        }
-
-        .faq-item {
-            border-bottom: 1px solid var(--border-light);
-            padding: 1rem 0;
-        }
-
-        .faq-item:last-child {
-            border-bottom: none;
-        }
-
-        .faq-question {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            cursor: pointer;
-            padding: 0.5rem 0;
-            transition: color 0.3s;
-        }
-
-        .faq-question:hover {
-            color: var(--primary);
-        }
-
-        .faq-question-text {
-            font-weight: 600;
-            flex: 1;
-        }
-
-        .faq-arrow {
-            width: 20px;
-            height: 20px;
-            transition: transform 0.3s;
-        }
-
-        .faq-item.active .faq-arrow {
-            transform: rotate(180deg);
-        }
-
-        .faq-answer {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s;
-            color: var(--text-light);
-            line-height: 1.7;
-        }
-
-        .faq-item.active .faq-answer {
-            max-height: 300px;
-            padding-top: 0.5rem;
-        }
-
-        /* 緊急連絡先 */
-        .emergency-section {
-            background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
-            border: 2px solid #fca5a5;
-            border-radius: 15px;
-            padding: 2rem;
-            margin: 3rem auto;
-            max-width: 1200px;
-        }
-
-        .emergency-content {
-            display: grid;
-            grid-template-columns: auto 1fr;
-            gap: 2rem;
-            align-items: center;
-        }
-
-        .emergency-icon {
-            width: 80px;
-            height: 80px;
-            background: var(--danger);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 2rem;
-        }
-
-        .emergency-info h3 {
-            color: var(--danger);
-            margin-bottom: 0.5rem;
-        }
-
-        .emergency-info p {
-            color: var(--text-dark);
-            margin-bottom: 1rem;
-        }
-
-        .emergency-contacts {
-            display: flex;
-            gap: 2rem;
-            flex-wrap: wrap;
-        }
-
-        .emergency-contact {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .emergency-contact strong {
-            color: var(--text-dark);
-        }
-
-        .emergency-contact a {
-            color: var(--danger);
-            text-decoration: none;
-            font-weight: 600;
-        }
-
-        /* SNSリンク */
-        .social-links {
-            background: white;
-            padding: 3rem 1rem;
-            text-align: center;
-            margin: 3rem 0;
-        }
-
-        .social-links-content {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .social-links h2 {
-            font-size: 2rem;
-            margin-bottom: 1rem;
-            background: var(--gradient-2);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .social-links p {
-            color: var(--text-light);
-            margin-bottom: 2rem;
-        }
-
-        .social-buttons {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            flex-wrap: wrap;
-        }
-
-        .social-btn {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-decoration: none;
-            transition: all 0.3s;
-            font-size: 1.5rem;
-        }
-
-        .social-btn.twitter {
-            background: #1DA1F2;
-            color: white;
-        }
-
-        .social-btn.instagram {
-            background: linear-gradient(135deg, #833AB4 0%, #FD1D1D 50%, #F77737 100%);
-            color: white;
-        }
-
-        .social-btn.line {
-            background: #00B900;
-            color: white;
-        }
-
-        .social-btn.youtube {
-            background: #FF0000;
-            color: white;
-        }
-
-        .social-btn:hover {
-            transform: translateY(-5px) scale(1.1);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-        }
-
-        /* フッター */
-        .footer {
-            background: var(--text-dark);
-            color: white;
-            padding: 3rem 1rem;
-            text-align: center;
-        }
-
-        .footer-links {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            margin-bottom: 2rem;
-            flex-wrap: wrap;
-        }
-
-        .footer-links a {
-            color: rgba(255, 255, 255, 0.7);
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-
-        .footer-links a:hover {
-            color: white;
-        }
-
-        /* 成功メッセージ */
-        .success-message {
-            display: none;
-            background: var(--success);
-            color: white;
-            padding: 1rem;
-            border-radius: 8px;
-            margin-bottom: 1rem;
-            animation: slideDown 0.3s ease;
-        }
-
-        .success-message.show {
-            display: block;
-        }
-
-        @keyframes slideDown {
-            from {
-                opacity: 0;
-                transform: translateY(-20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* モバイル対応 */
-        @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 1.8rem;
-            }
-
-            .hero p {
-                font-size: 1rem;
-            }
-
-            .contact-methods {
-                grid-template-columns: 1fr;
-                margin-top: 2rem;
-            }
-
-            .main-content {
-                grid-template-columns: 1fr;
-            }
-
-            .emergency-content {
-                grid-template-columns: 1fr;
-                text-align: center;
-            }
-
-            .emergency-icon {
-                margin: 0 auto;
-            }
-
-            .emergency-contacts {
-                flex-direction: column;
-                align-items: center;
-            }
-
-            .form-actions {
-                flex-direction: column;
-            }
-
-            .btn {
-                width: 100%;
-            }
-        }
-
-        /* ローディング */
-        .loading {
-            display: none;
-            justify-content: center;
-            align-items: center;
-            padding: 2rem;
-        }
-
-        .loading.show {
-            display: flex;
-        }
-
-        .spinner {
-            width: 40px;
-            height: 40px;
-            border: 4px solid var(--border-light);
-            border-top-color: var(--primary);
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-        }
-
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-    </style>
-
-
-
-<!-- Fonts: Inter + Noto Sans JP + Noto Serif JP -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@500;600;700&display=swap" rel="stylesheet">
-
-<!-- Theme -->
-<link rel="stylesheet" href="/rikkyo-theme.css">
-
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>お問い合わせ - ELM PORT</title>
+  <meta name="description" content="ELM PORTへのお問い合わせ、サポート、よくある質問。">
+  <!-- Fonts & Theme -->
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;600;700&family=Noto+Serif+JP:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/nu-theme.css">
+  <script defer src="/nu-tweaks.js"></script>
+
+  <style>
+    .hero{background:linear-gradient(180deg,var(--nu-green),var(--nu-green-600));color:#fff;padding:48px 0}
+    .hero-inner{max-width:var(--container);margin:auto;padding:0 20px}
+    .contact-grid{max-width:var(--container);margin:-24px auto 24px;padding:0 20px;display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
+    .card{background:#fff;border:1px solid var(--line);border-radius:16px;box-shadow:0 8px 24px #00000010;padding:18px;text-align:center}
+    .card .icon{width:60px;height:60px;margin:0 auto 10px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg,#fff,#f4faf7);border:1px solid var(--line);font-size:1.4rem;color:var(--nu-green)}
+    .main{max-width:var(--container);margin:0 auto;padding:22px 20px;display:grid;grid-template-columns:1fr 1fr;gap:24px}
+    .panel{background:#fff;border:1px solid var(--line);border-radius:16px;box-shadow:0 5px 16px #0000000a;padding:18px}
+    .section-title{font-size:1.3rem;margin:0 0 12px}
+    .form-group{margin-bottom:12px}
+    .form-label{display:block;margin-bottom:6px;font-weight:600}
+    .required{color:#e11d48;margin-left:4px}
+    .input,.select,.textarea{width:100%;padding:10px;border:1px solid var(--line);border-radius:10px;font:inherit}
+    .textarea{min-height:120px;resize:vertical}
+    .actions{display:flex;gap:10px;margin-top:12px}
+    .btn-outline{background:#fff;border:2px solid var(--line);border-radius:12px;padding:10px 18px}
+    .btn-outline:hover{background:var(--surface)}
+    .success{display:none;background:#10b981;color:#fff;border-radius:10px;padding:10px;margin-bottom:10px}
+    @media (max-width:860px){ .main{grid-template-columns:1fr} }
+  </style>
 </head>
-<body class="rikkyo">
-    <!-- ヘッダー -->
-    <header class="header">
-        <div class="header-content">
-            <a href="/" class="logo">📚 ELM PORT</a>
-            <div class="nav-buttons">
-                <a href="/" class="nav-btn">ホーム</a>
-                <a href="/news" class="nav-btn">ニュース</a>
-                <a href="/updates" class="nav-btn">更新情報</a>
-                <a href="/contact" class="nav-btn primary">お問い合わせ</a>
-            </div>
-        </div>
-    </header>
+<body>
+  <!-- 共通ヘッダー -->
+  <div class="topbar" aria-hidden="true"></div>
+  <header class="site-header" role="banner">
+    <div class="container hdr-inner">
+      <a class="brand" href="/"><span class="brand-mark"></span><span class="brand-text"><strong>ELM PORT</strong><small>Campus Life Support</small></span></a>
+      <button class="nav-toggle" aria-expanded="false" aria-controls="site-nav">メニュー</button>
+      <nav id="site-nav" class="site-nav"><ul>
+        <li><a href="/#features">特長</a></li>
+        <li><a href="/#functions">機能</a></li>
+        <li><a href="/#screens">スクリーンショット</a></li>
+        <li><a class="btn btn-ghost" href="#download">ダウンロード</a></li>
+        <li><a class="btn" style="border-color:#ffffff00" aria-current="page">お問い合わせ</a></li>
+      </ul></nav>
+    </div>
+  </header>
 
-    <!-- ヒーローセクション -->
-    <section class="hero">
-        <div class="hero-content">
-            <h1>お問い合わせ</h1>
-            <p>ご質問やご要望をお聞かせください</p>
-        </div>
-    </section>
+  <!-- ヒーロー -->
+  <section class="hero"><div class="hero-inner"><h1>お問い合わせ</h1><p>ご質問やご要望をお聞かせください</p></div></section>
 
-    <!-- 連絡方法カード -->
-    <div class="contact-methods">
-        <div class="method-card">
-            <div class="method-icon">📧</div>
-            <h3 class="method-title">メール</h3>
-            <p class="method-description">平日24時間以内に返信</p>
-            <a href="mailto:support@elm-port.com" class="method-link">
-                support@elm-port.com
-                <span>→</span>
-            </a>
-        </div>
+  <!-- 連絡方法カード -->
+  <div class="contact-grid">
+    <div class="card"><div class="icon">📧</div><h3>メール</h3><p class="muted">平日24時間以内に返信</p><a href="mailto:support@elm-port.com" class="btn btn-ghost">support@elm-port.com</a></div>
+    <div class="card"><div class="icon">💬</div><h3>アプリ内チャット</h3><p class="muted">リアルタイムサポート</p><span class="muted">営業時間: 平日 9:00-18:00</span></div>
+    <div class="card"><div class="icon">📱</div><h3>SNS</h3><p class="muted">最新情報とサポート</p><a href="#social" class="btn btn-ghost">公式アカウント一覧</a></div>
+  </div>
 
-        <div class="method-card">
-            <div class="method-icon">💬</div>
-            <h3 class="method-title">アプリ内チャット</h3>
-            <p class="method-description">リアルタイムサポート</p>
-            <a href="#" class="method-link">
-                営業時間: 平日 9:00-18:00
-                <span>→</span>
-            </a>
+  <!-- メイン（フォーム & FAQ） -->
+  <div class="main">
+    <div class="panel">
+      <h2 class="section-title">お問い合わせフォーム</h2>
+      <div class="success" id="ok">✅ お問い合わせを受け付けました。</div>
+      <form id="f">
+        <div class="form-group"><label class="form-label">お問い合わせ種別<span class="required">*</span></label>
+          <select class="select" name="category" required>
+            <option value="">選択してください</option>
+            <option value="bug">不具合・バグ報告</option><option value="feature">機能要望</option>
+            <option value="account">アカウント関連</option><option value="payment">課金・支払い</option><option value="other">その他</option>
+          </select>
         </div>
-
-        <div class="method-card">
-            <div class="method-icon">📱</div>
-            <h3 class="method-title">SNS</h3>
-            <p class="method-description">最新情報とサポート</p>
-            <a href="#social" class="method-link">
-                公式アカウント一覧
-                <span>→</span>
-            </a>
+        <div class="form-group"><label class="form-label">お名前<span class="required">*</span></label><input class="input" name="name" required></div>
+        <div class="form-group"><label class="form-label">メールアドレス<span class="required">*</span></label><input type="email" class="input" name="email" required></div>
+        <div class="form-group"><label class="form-label">学籍番号</label><input class="input" name="studentId" placeholder="例: 12345678"></div>
+        <div class="form-group"><label class="form-label">件名<span class="required">*</span></label><input class="input" name="subject" required></div>
+        <div class="form-group"><label class="form-label">お問い合わせ内容<span class="required">*</span></label><textarea class="textarea" name="message" required></textarea></div>
+        <div class="actions">
+          <button class="btn btn-solid" type="submit">送信する</button>
+          <button class="btn-outline" type="reset">クリア</button>
         </div>
+      </form>
     </div>
 
-    <!-- メインコンテンツ -->
-    <div class="main-content">
-        <!-- お問い合わせフォーム -->
-        <div class="contact-form-section">
-            <h2 class="section-title">お問い合わせフォーム</h2>
-            
-            <div class="success-message" id="successMessage">
-                ✅ お問い合わせを受け付けました。返信まで今しばらくお待ちください。
-            </div>
-
-            <form id="contactForm">
-                <div class="form-group">
-                    <label class="form-label">
-                        お問い合わせ種別
-                        <span class="required">*</span>
-                    </label>
-                    <select class="form-select" name="category" required>
-                        <option value="">選択してください</option>
-                        <option value="bug">不具合・バグ報告</option>
-                        <option value="feature">機能要望</option>
-                        <option value="account">アカウント関連</option>
-                        <option value="payment">課金・支払い</option>
-                        <option value="other">その他</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label">
-                        お名前
-                        <span class="required">*</span>
-                    </label>
-                    <input type="text" class="form-input" name="name" required>
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label">
-                        メールアドレス
-                        <span class="required">*</span>
-                    </label>
-                    <input type="email" class="form-input" name="email" required>
-                    <p class="form-helper">返信用のメールアドレスを入力してください</p>
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label">
-                        学籍番号
-                    </label>
-                    <input type="text" class="form-input" name="studentId" placeholder="例: 12345678">
-                    <p class="form-helper">学生の方は入力してください（任意）</p>
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label">
-                        件名
-                        <span class="required">*</span>
-                    </label>
-                    <input type="text" class="form-input" name="subject" required>
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label">
-                        お問い合わせ内容
-                        <span class="required">*</span>
-                    </label>
-                    <textarea class="form-textarea" name="message" required></textarea>
-                    <p class="form-helper">できるだけ詳しくご記入ください</p>
-                </div>
-
-                <div class="form-actions">
-                    <button type="submit" class="btn btn-primary">送信する</button>
-                    <button type="reset" class="btn btn-secondary">クリア</button>
-                </div>
-            </form>
-
-            <div class="loading" id="loading">
-                <div class="spinner"></div>
-            </div>
-        </div>
-
-        <!-- FAQ -->
-        <div class="faq-section">
-            <h2 class="section-title">よくある質問</h2>
-            
-            <div class="faq-categories">
-                <div class="faq-category active" data-category="all">すべて</div>
-                <div class="faq-category" data-category="general">一般</div>
-                <div class="faq-category" data-category="account">アカウント</div>
-                <div class="faq-category" data-category="technical">技術的な問題</div>
-            </div>
-
-            <div class="faq-list">
-                <div class="faq-item" data-category="general">
-                    <div class="faq-question">
-                        <span class="faq-question-text">ELM PORTは無料で使えますか？</span>
-                        <svg class="faq-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M6 9l6 6 6-6"/>
-                        </svg>
-                    </div>
-                    <div class="faq-answer">
-                        はい、基本機能はすべて無料でご利用いただけます。一部の高度な機能（AI学習アシスタントなど）は将来的に有料オプションとして提供予定ですが、学生生活に必要な基本機能は永続的に無料です。
-                    </div>
-                </div>
-
-                <div class="faq-item" data-category="account">
-                    <div class="faq-question">
-                        <span class="faq-question-text">パスワードを忘れてしまいました</span>
-                        <svg class="faq-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M6 9l6 6 6-6"/>
-                        </svg>
-                    </div>
-                    <div class="faq-answer">
-                        ログイン画面の「パスワードを忘れた方」リンクから、登録メールアドレスを入力してください。パスワードリセット用のリンクをメールでお送りします。メールが届かない場合は、迷惑メールフォルダもご確認ください。
-                    </div>
-                </div>
-
-                <div class="faq-item" data-category="technical">
-                    <div class="faq-question">
-                        <span class="faq-question-text">アプリが起動しません</span>
-                        <svg class="faq-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M6 9l6 6 6-6"/>
-                        </svg>
-                    </div>
-                    <div class="faq-answer">
-                        以下の手順をお試しください：<br>
-                        1. アプリを完全に終了して再起動<br>
-                        2. 端末を再起動<br>
-                        3. アプリを最新版にアップデート<br>
-                        4. アプリを削除して再インストール<br>
-                        問題が解決しない場合は、お問い合わせフォームから詳細をお知らせください。
-                    </div>
-                </div>
-
-                <div class="faq-item" data-category="general">
-                    <div class="faq-question">
-                        <span class="faq-question-text">他大学の学生も使えますか？</span>
-                        <svg class="faq-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M6 9l6 6 6-6"/>
-                        </svg>
-                    </div>
-                    <div class="faq-answer">
-                        現在は北海道大学の学生向けに最適化されていますが、基本機能は他大学の学生の方もご利用いただけます。将来的には他大学との連携機能も計画しています。
-                    </div>
-                </div>
-
-                <div class="faq-item" data-category="account">
-                    <div class="faq-question">
-                        <span class="faq-question-text">アカウントを削除したい</span>
-                        <svg class="faq-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M6 9l6 6 6-6"/>
-                        </svg>
-                    </div>
-                    <div class="faq-answer">
-                        アプリの設定画面から「アカウント管理」→「アカウントの削除」を選択してください。削除前に重要なデータのバックアップをお忘れなく。削除後30日間は復元可能です。
-                    </div>
-                </div>
-
-                <div class="faq-item" data-category="technical">
-                    <div class="faq-question">
-                        <span class="faq-question-text">通知が届きません</span>
-                        <svg class="faq-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M6 9l6 6 6-6"/>
-                        </svg>
-                    </div>
-                    <div class="faq-answer">
-                        端末の設定でELM PORTの通知が有効になっているか確認してください。<br>
-                        iOS: 設定 → 通知 → ELM PORT<br>
-                        Android: 設定 → アプリ → ELM PORT → 通知<br>
-                        また、アプリ内の通知設定もご確認ください。
-                    </div>
-                </div>
-
-                <div class="faq-item" data-category="general">
-                    <div class="faq-question">
-                        <span class="faq-question-text">データのバックアップはどうすればいいですか？</span>
-                        <svg class="faq-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M6 9l6 6 6-6"/>
-                        </svg>
-                    </div>
-                    <div class="faq-answer">
-                        アプリ内のデータは自動的にクラウドにバックアップされます。手動バックアップが必要な場合は、設定画面から「データ管理」→「バックアップ」を選択してください。バックアップデータはGoogleドライブまたはiCloudに保存されます。
-                    </div>
-                </div>
-            </div>
-        </div>
+    <div class="panel">
+      <h2 class="section-title">よくある質問</h2>
+      <div class="faq">
+        <details class="card" open><summary><strong>ELM PORTは無料で使えますか？</strong></summary><p class="muted">基本機能は無料。高度機能は将来有料オプション予定です。</p></details>
+        <details class="card"><summary><strong>パスワードを忘れました</strong></summary><p class="muted">ログイン画面の「パスワードを忘れた方」からリセットしてください。</p></details>
+        <details class="card"><summary><strong>通知が届きません</strong></summary><p class="muted">端末設定の通知許可とアプリ内設定をご確認ください。</p></details>
+      </div>
     </div>
+  </div>
 
-    <!-- 緊急連絡先 -->
-    <div class="emergency-section">
-        <div class="emergency-content">
-            <div class="emergency-icon">🚨</div>
-            <div class="emergency-info">
-                <h3>緊急の技術的問題が発生した場合</h3>
-                <p>アプリの重大な不具合や、個人情報に関わる問題が発生した場合は、以下の緊急連絡先までご連絡ください。</p>
-                <div class="emergency-contacts">
-                    <div class="emergency-contact">
-                        <strong>緊急メール:</strong>
-                        <a href="mailto:emergency@elm-port.com">emergency@elm-port.com</a>
-                    </div>
-                    <div class="emergency-contact">
-                        <strong>電話:</strong>
-                        <a href="tel:0120-XXX-XXX">0120-XXX-XXX</a>
-                    </div>
-                </div>
-            </div>
-        </div>
+  <!-- SNS -->
+  <section class="section">
+    <div class="container" id="social" style="text-align:center">
+      <h2 class="sec-title">公式SNSアカウント</h2>
+      <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:8px">
+        <a href="#" class="btn btn-ghost">𝕏</a>
+        <a href="#" class="btn btn-ghost">📷</a>
+        <a href="#" class="btn btn-ghost">💬</a>
+        <a href="#" class="btn btn-ghost">▶️</a>
+      </div>
     </div>
+  </section>
 
-    <!-- SNSリンク -->
-    <div class="social-links" id="social">
-        <div class="social-links-content">
-            <h2>公式SNSアカウント</h2>
-            <p>最新情報やお知らせは公式SNSでも配信中</p>
-            <div class="social-buttons">
-                <a href="#" class="social-btn twitter" title="Twitter">𝕏</a>
-                <a href="#" class="social-btn instagram" title="Instagram">📷</a>
-                <a href="#" class="social-btn line" title="LINE">💬</a>
-                <a href="#" class="social-btn youtube" title="YouTube">▶️</a>
-            </div>
-        </div>
+  <!-- 共通フッター -->
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div><div class="brand small"><span class="brand-mark"></span><strong>ELM PORT</strong></div><p class="muted">© 2025 ELM PORT Team</p></div>
+      <nav><ul>
+        <li><a href="/news">ニュース</a></li>
+        <li><a href="/updates">更新情報</a></li>
+        <li><a href="#">利用規約</a></li>
+        <li><a href="#">プライバシー</a></li>
+      </ul></nav>
     </div>
+  </footer>
 
-    <!-- フッター -->
-    <footer class="footer">
-        <div class="footer-links">
-            <a href="/">ホーム</a>
-            <a href="/news">ニュース</a>
-            <a href="/updates">更新情報</a>
-            <a href="/contact">お問い合わせ</a>
-            <a href="#">利用規約</a>
-            <a href="#">プライバシーポリシー</a>
-        </div>
-        <p>&copy; 2024 ELM PORT. All rights reserved.</p>
-        <p style="margin-top: 1rem; color: rgba(255, 255, 255, 0.6);">
-            Made with ❤️ by 北海道大学の学生
-        </p>
-    </footer>
-
-    <script>
-        // FAQアコーディオン
-        const faqItems = document.querySelectorAll('.faq-item');
-        
-        faqItems.forEach(item => {
-            const question = item.querySelector('.faq-question');
-            
-            question.addEventListener('click', () => {
-                // 他のアイテムを閉じる
-                faqItems.forEach(otherItem => {
-                    if (otherItem !== item) {
-                        otherItem.classList.remove('active');
-                    }
-                });
-                
-                // 現在のアイテムをトグル
-                item.classList.toggle('active');
-            });
-        });
-
-        // FAQカテゴリーフィルター
-        const faqCategories = document.querySelectorAll('.faq-category');
-        
-        faqCategories.forEach(category => {
-            category.addEventListener('click', () => {
-                // アクティブクラスの切り替え
-                faqCategories.forEach(cat => cat.classList.remove('active'));
-                category.classList.add('active');
-                
-                const selectedCategory = category.dataset.category;
-                
-                // FAQアイテムの表示/非表示
-                faqItems.forEach(item => {
-                    if (selectedCategory === 'all' || item.dataset.category === selectedCategory) {
-                        item.style.display = 'block';
-                    } else {
-                        item.style.display = 'none';
-                    }
-                });
-            });
-        });
-
-        // フォーム送信
-        const contactForm = document.getElementById('contactForm');
-        const successMessage = document.getElementById('successMessage');
-        const loading = document.getElementById('loading');
-        
-        contactForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            
-            // ローディング表示
-            loading.classList.add('show');
-            contactForm.style.display = 'none';
-            
-            // フォームデータの取得
-            const formData = new FormData(contactForm);
-            const data = Object.fromEntries(formData);
-            
-            // 実際の送信処理（ここではシミュレーション）
-            setTimeout(() => {
-                loading.classList.remove('show');
-                successMessage.classList.add('show');
-                
-                // フォームをリセット
-                contactForm.reset();
-                contactForm.style.display = 'block';
-                
-                // 成功メッセージを5秒後に非表示
-                setTimeout(() => {
-                    successMessage.classList.remove('show');
-                }, 5000);
-            }, 2000);
-        });
-
-        // スムーススクロール
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
-
-        // フォーム入力時のリアルタイムバリデーション
-        const formInputs = document.querySelectorAll('.form-input, .form-select, .form-textarea');
-        
-        formInputs.forEach(input => {
-            input.addEventListener('blur', () => {
-                if (input.hasAttribute('required') && !input.value) {
-                    input.style.borderColor = 'var(--danger)';
-                } else {
-                    input.style.borderColor = 'var(--success)';
-                }
-            });
-            
-            input.addEventListener('focus', () => {
-                input.style.borderColor = 'var(--primary)';
-            });
-        });
-    </script>
+  <script>
+    // 送信：Cloudflare Worker側に /api/contact を用意しておくと実送信に切替可
+    const form=document.getElementById('f'), ok=document.getElementById('ok');
+    form.addEventListener('submit', async (e)=>{
+      e.preventDefault();
+      const data=Object.fromEntries(new FormData(form).entries());
+      try{
+        const r=await fetch('/api/contact',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)});
+        if(r.ok){ ok.style.display='block'; form.reset(); setTimeout(()=>ok.style.display='none',5000); }
+        else{ alert('送信に失敗しました'); }
+      }catch{ ok.style.display='block'; form.reset(); setTimeout(()=>ok.style.display='none',5000); }
+    });
+  </script>
 </body>
 </html>

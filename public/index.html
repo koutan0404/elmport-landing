@@ -1,1021 +1,149 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ja">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ELM PORT - 大学生活をもっとスマートに</title>
-    <meta name="description" content="ELM PORTは北海道大学生のためのキャンパスライフサポートアプリです。時間割管理、GPA分析、キャンパスニュース、SNS機能など、大学生活に必要な機能を一つのアプリに集約。">
-    <meta property="og:title" content="ELM PORT - 大学生活をもっとスマートに">
-    <meta property="og:description" content="北海道大学生のためのキャンパスライフサポートアプリ">
-    <meta property="og:type" content="website">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        :root {
-            --primary: #2563eb;
-            --primary-dark: #1e40af;
-            --secondary: #10b981;
-            --accent: #f59e0b;
-            --text-dark: #1f2937;
-            --text-light: #6b7280;
-            --bg-light: #f9fafb;
-            --bg-white: #ffffff;
-            --gradient-1: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            --gradient-2: linear-gradient(135deg, #2563eb 0%, #10b981 100%);
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-            line-height: 1.6;
-            color: var(--text-dark);
-            overflow-x: hidden;
-        }
-
-        /* ヘッダー */
-        header {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            z-index: 1000;
-            transition: all 0.3s ease;
-            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
-        }
-
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1rem 5%;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            font-size: 1.5rem;
-            font-weight: bold;
-            background: var(--gradient-2);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .nav-links {
-            display: flex;
-            list-style: none;
-            gap: 2rem;
-        }
-
-        .nav-links a {
-            text-decoration: none;
-            color: var(--text-dark);
-            font-weight: 500;
-            transition: color 0.3s ease;
-        }
-
-        .nav-links a:hover {
-            color: var(--primary);
-        }
-
-        .news-link {
-            background: var(--gradient-2);
-            color: white !important;
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            transition: all 0.3s ease;
-        }
-
-        .news-link:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(37, 99, 235, 0.3);
-        }
-
-        .menu-toggle {
-            display: none;
-            flex-direction: column;
-            cursor: pointer;
-        }
-
-        .menu-toggle span {
-            width: 25px;
-            height: 3px;
-            background: var(--text-dark);
-            margin: 3px 0;
-            transition: 0.3s;
-        }
-
-        /* ヒーローセクション */
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            padding: 5rem 5%;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
-            background-size: 50px 50px;
-            animation: float 20s linear infinite;
-        }
-
-        @keyframes float {
-            0% { transform: translate(-50%, -50%) rotate(0deg); }
-            100% { transform: translate(-50%, -50%) rotate(360deg); }
-        }
-
-        .hero-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 3rem;
-            align-items: center;
-            position: relative;
-            z-index: 1;
-        }
-
-        .hero-text h1 {
-            font-size: 3.5rem;
-            font-weight: bold;
-            color: white;
-            margin-bottom: 1.5rem;
-            animation: slideInLeft 1s ease-out;
-        }
-
-        .hero-text p {
-            font-size: 1.3rem;
-            color: rgba(255, 255, 255, 0.9);
-            margin-bottom: 2rem;
-            animation: slideInLeft 1s ease-out 0.2s both;
-        }
-
-        @keyframes slideInLeft {
-            from {
-                opacity: 0;
-                transform: translateX(-50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        .cta-buttons {
-            display: flex;
-            gap: 1rem;
-            animation: slideInLeft 1s ease-out 0.4s both;
-        }
-
-        .btn {
-            padding: 1rem 2rem;
-            font-size: 1.1rem;
-            border-radius: 50px;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            font-weight: 600;
-        }
-
-        .btn-primary {
-            background: white;
-            color: var(--primary);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
-        }
-
-        .btn-secondary {
-            background: transparent;
-            color: white;
-            border: 2px solid white;
-        }
-
-        .btn-secondary:hover {
-            background: white;
-            color: var(--primary);
-        }
-
-        .hero-image {
-            position: relative;
-            animation: slideInRight 1s ease-out;
-        }
-
-        @keyframes slideInRight {
-            from {
-                opacity: 0;
-                transform: translateX(50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        .phone-mockup {
-            width: 300px;
-            height: 600px;
-            background: linear-gradient(135deg, #f5f5f5 0%, #e0e0e0 100%);
-            border-radius: 40px;
-            padding: 10px;
-            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
-            position: relative;
-            margin: 0 auto;
-            transform: perspective(1000px) rotateY(-10deg);
-            transition: transform 0.3s ease;
-        }
-
-        .phone-mockup:hover {
-            transform: perspective(1000px) rotateY(0deg);
-        }
-
-        .phone-screen {
-            width: 100%;
-            height: 100%;
-            background: white;
-            border-radius: 30px;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .app-header {
-            background: var(--primary);
-            color: white;
-            padding: 1rem;
-            text-align: center;
-            font-weight: bold;
-        }
-
-        .app-content {
-            flex: 1;
-            padding: 1rem;
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-
-        .app-card {
-            background: var(--bg-light);
-            padding: 1rem;
-            border-radius: 10px;
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.7; }
-        }
-
-        /* お知らせセクション */
-        .news-section {
-            padding: 5rem 5%;
-            background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .news-section::before {
-            content: '📰';
-            position: absolute;
-            font-size: 200px;
-            opacity: 0.05;
-            top: 50%;
-            right: 10%;
-            transform: translateY(-50%) rotate(-15deg);
-        }
-
-        .news-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            position: relative;
-            z-index: 1;
-        }
-
-        .news-header {
-            text-align: center;
-            margin-bottom: 3rem;
-        }
-
-        .news-badge {
-            display: inline-block;
-            background: var(--accent);
-            color: white;
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            font-weight: 600;
-            margin-bottom: 1rem;
-            animation: bounce 2s infinite;
-        }
-
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-5px); }
-        }
-
-        .news-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-bottom: 3rem;
-        }
-
-        .news-card {
-            background: white;
-            border-radius: 15px;
-            padding: 1.5rem;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
-        }
-
-        .news-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
-        }
-
-        .news-category {
-            display: inline-block;
-            padding: 0.3rem 0.8rem;
-            background: var(--bg-light);
-            color: var(--text-dark);
-            border-radius: 5px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            margin-bottom: 1rem;
-        }
-
-        .news-category.article {
-            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
-            color: white;
-        }
-
-        .news-category.arbeit {
-            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-            color: white;
-        }
-
-        .news-category.work {
-            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
-            color: white;
-        }
-
-        .news-category.board {
-            background: linear-gradient(135deg, #ec4899 0%, #be185d 100%);
-            color: white;
-        }
-
-        .news-title {
-            font-size: 1.2rem;
-            font-weight: bold;
-            margin-bottom: 0.5rem;
-            color: var(--text-dark);
-        }
-
-        .news-description {
-            color: var(--text-light);
-            line-height: 1.6;
-            margin-bottom: 1rem;
-        }
-
-        .news-cta {
-            text-align: center;
-        }
-
-        .news-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 1rem 2.5rem;
-            background: var(--gradient-2);
-            color: white;
-            text-decoration: none;
-            border-radius: 50px;
-            font-weight: 600;
-            font-size: 1.1rem;
-            transition: all 0.3s ease;
-            box-shadow: 0 10px 30px rgba(37, 99, 235, 0.3);
-        }
-
-        .news-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 40px rgba(37, 99, 235, 0.4);
-        }
-
-        /* 機能セクション */
-        .features {
-            padding: 5rem 5%;
-            background: var(--bg-white);
-        }
-
-        .section-title {
-            text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-            background: var(--gradient-2);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .section-subtitle {
-            text-align: center;
-            color: var(--text-light);
-            margin-bottom: 3rem;
-            font-size: 1.2rem;
-        }
-
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .feature-card {
-            background: white;
-            padding: 2rem;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .feature-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 5px;
-            background: var(--gradient-2);
-        }
-
-        .feature-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
-        }
-
-        .feature-icon {
-            width: 60px;
-            height: 60px;
-            background: var(--gradient-2);
-            border-radius: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 1.5rem;
-            font-size: 1.5rem;
-        }
-
-        .feature-card h3 {
-            margin-bottom: 1rem;
-            color: var(--text-dark);
-            font-size: 1.3rem;
-        }
-
-        .feature-card p {
-            color: var(--text-light);
-            line-height: 1.6;
-        }
-
-        /* スクリーンショットセクション */
-        .screenshots {
-            padding: 5rem 5%;
-            background: var(--bg-light);
-        }
-
-        .screenshot-container {
-            display: flex;
-            gap: 2rem;
-            justify-content: center;
-            flex-wrap: wrap;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .screenshot {
-            width: 250px;
-            height: 500px;
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
-            transition: all 0.3s ease;
-        }
-
-        .screenshot:hover {
-            transform: scale(1.05);
-            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.2);
-        }
-
-        .screenshot-img {
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, #f5f5f5 0%, #e0e0e0 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--text-light);
-        }
-
-        /* CTA セクション */
-        .cta-section {
-            padding: 5rem 5%;
-            background: var(--gradient-1);
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .cta-section::before {
-            content: '';
-            position: absolute;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(255,255,255,0.1) 2px, transparent 2px);
-            background-size: 60px 60px;
-            animation: float 30s linear infinite reverse;
-        }
-
-        .cta-content {
-            position: relative;
-            z-index: 1;
-        }
-
-        .cta-section h2 {
-            font-size: 2.5rem;
-            color: white;
-            margin-bottom: 1rem;
-        }
-
-        .cta-section p {
-            font-size: 1.2rem;
-            color: rgba(255, 255, 255, 0.9);
-            margin-bottom: 2rem;
-        }
-
-        .store-buttons {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        .store-btn {
-            background: white;
-            color: var(--text-dark);
-            padding: 1rem 2rem;
-            border-radius: 10px;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            transition: all 0.3s ease;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-        }
-
-        .store-btn:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
-        }
-
-        /* フッター */
-        footer {
-            background: var(--text-dark);
-            color: white;
-            padding: 3rem 5%;
-            text-align: center;
-        }
-
-        .footer-content {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .footer-links {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            margin-bottom: 2rem;
-        }
-
-        .footer-links a {
-            color: rgba(255, 255, 255, 0.7);
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-
-        .footer-links a:hover {
-            color: white;
-        }
-
-        /* レスポンシブ */
-        @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-            }
-
-            .menu-toggle {
-                display: flex;
-            }
-
-            .hero-content {
-                grid-template-columns: 1fr;
-                text-align: center;
-            }
-
-            .hero-text h1 {
-                font-size: 2.5rem;
-            }
-
-            .hero-text p {
-                font-size: 1.1rem;
-            }
-
-            .cta-buttons {
-                justify-content: center;
-                flex-direction: column;
-            }
-
-            .phone-mockup {
-                width: 250px;
-                height: 500px;
-            }
-
-            .features-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .news-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .screenshot {
-                width: 200px;
-                height: 400px;
-            }
-        }
-
-        /* アニメーション */
-        .fade-in {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.6s ease;
-        }
-
-        .fade-in.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    </style>
-<!-- Fonts: Inter + Noto Sans JP + Noto Serif JP -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@500;600;700&display=swap" rel="stylesheet">
-
-<!-- Theme -->
-<link rel="stylesheet" href="/rikkyo-theme.css">
-
-
-
-
-
-
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>ELM PORT | 北海道大学のキャンパスライフ支援アプリ</title>
+  <meta name="description" content="ELM PORTは、時間割・休講情報・ニュース・成績分析など北大生の毎日を支えるオールインワンアプリです。">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;600;700&family=Noto+Serif+JP:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/nu-theme.css">
+  <script defer src="/nu-tweaks.js"></script>
+  <link rel="icon" href="/favicon.ico">
+  <meta property="og:title" content="ELM PORT" />
+  <meta property="og:description" content="北大生の毎日を支えるオールインワンアプリ" />
+  <meta property="og:type" content="website" />
 </head>
-<body class="rikkyo">
-    <!-- ヘッダー -->
-    <header>
-        <nav>
-            <div class="logo">
-                📚 ELM PORT
-            </div>
-            <ul class="nav-links">
-                <li><a href="#features">機能</a></li>
-                <li><a href="#news">お知らせ</a></li>
-                <li><a href="#screenshots">スクリーンショット</a></li>
-                <li><a href="#download">ダウンロード</a></li>
-                <li><a href="/news" class="news-link">📰 最新ニュース</a></li>
-            </ul>
-            <div class="menu-toggle">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-        </nav>
-    </header>
+<body>
+  <!-- Top thin bar -->
+  <div class="topbar" aria-hidden="true"></div>
 
-    <!-- ヒーローセクション -->
-    <section class="hero">
-        <div class="hero-content">
-            <div class="hero-text">
-                <h1>大学生活を<br>もっとスマートに</h1>
-                <p>ELM PORTは北海道大学生のための<br>オールインワン・キャンパスライフアプリ</p>
-                <div class="cta-buttons">
-                    <a href="#download" class="btn btn-primary">
-                        📱 今すぐダウンロード
-                    </a>
-                    <a href="#features" class="btn btn-secondary">
-                        詳しく見る →
-                    </a>
-                </div>
-            </div>
-            <div class="hero-image">
-                <div class="phone-mockup">
-                    <div class="phone-screen">
-                        <div class="app-header">ELM PORT</div>
-                        <div class="app-content">
-                            <div class="app-card">📚 時間割管理</div>
-                            <div class="app-card">📊 GPA分析</div>
-                            <div class="app-card">📰 キャンパスニュース</div>
-                            <div class="app-card">💬 学生SNS</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+  <header class="site-header" role="banner">
+    <div class="container hdr-inner">
+      <a class="brand" href="/">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span class="brand-text">
+          <strong>ELM PORT</strong>
+          <small>Campus Life Support for Hokkaido Univ.</small>
+        </span>
+      </a>
+      <button class="nav-toggle" aria-expanded="false" aria-controls="site-nav">メニュー</button>
+      <nav id="site-nav" class="site-nav" role="navigation">
+        <ul>
+          <li><a href="#features">特長</a></li>
+          <li><a href="#functions">機能</a></li>
+          <li><a href="#screens">スクリーンショット</a></li>
+          <li><a href="/news">お知らせ</a></li>
+          <li><a class="btn btn-ghost" href="#download">ダウンロード</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container hero-inner">
+      <h1>毎日が、もっとスムーズに。</h1>
+      <p>時間割・休講・ニュース・成績分析をひとつに。北大生のためのオールインワンアプリ</p>
+      <div class="hero-cta">
+        <a class="btn btn-solid" href="#download">無料で使ってみる</a>
+        <a class="btn btn-ghost" href="#features">特長を見る</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section id="features" class="section">
+    <div class="container">
+      <h2 class="sec-title">ELM PORT の特長</h2>
+      <div class="cards">
+        <article class="card">
+          <div class="card-icon" aria-hidden="true">📅</div>
+          <h3>時間割と休講を自動で同期</h3>
+          <p>複数コマ対応の時間割登録と、休講・補講の反映で予定の見落としを防止。</p>
+        </article>
+        <article class="card">
+          <div class="card-icon" aria-hidden="true">📰</div>
+          <h3>ニュース/掲示を横断表示</h3>
+          <p>北大TIMESや学内掲示の重要情報を一元表示。フィルタ・保存も可能。</p>
+        </article>
+        <article class="card">
+          <div class="card-icon" aria-hidden="true">📊</div>
+          <h3>成績分布の可視化</h3>
+          <p>科目・担当別に分布を可視化して履修計画を支援。GPA推移も確認できます。</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Functions (grid like NU news layout) -->
+  <section id="functions" class="section section-alt">
+    <div class="container">
+      <h2 class="sec-title">主な機能</h2>
+      <div class="grid">
+        <div class="tile">
+          <h4>ダッシュボード</h4>
+          <p>今日のコマ、タスク、最新情報をひと目で。</p>
         </div>
-    </section>
-
-    <!-- 機能セクション -->
-    <section id="features" class="features">
-        <h2 class="section-title fade-in">充実の機能</h2>
-        <p class="section-subtitle fade-in">大学生活に必要な機能をすべて1つのアプリに</p>
-        
-        <div class="features-grid">
-            <div class="feature-card fade-in">
-                <div class="feature-icon">📅</div>
-                <h3>時間割管理</h3>
-                <p>講義スケジュールを簡単に管理。教室番号の登録や変更も簡単に行えます。</p>
-            </div>
-            
-            <div class="feature-card fade-in">
-                <div class="feature-icon">📊</div>
-                <h3>GPA分析</h3>
-                <p>過去の成績データを基にGPA分布を確認。自分の位置を把握して学習計画を立てましょう。</p>
-            </div>
-            
-            <div class="feature-card fade-in">
-                <div class="feature-icon">📰</div>
-                <h3>キャンパスニュース</h3>
-                <p>大学からの最新情報やイベント情報をリアルタイムで受け取れます。</p>
-            </div>
-            
-            <div class="feature-card fade-in">
-                <div class="feature-icon">💬</div>
-                <h3>学生SNS</h3>
-                <p>同じ大学の仲間とつながる。質問や情報共有が簡単にできます。</p>
-            </div>
-            
-            <div class="feature-card fade-in">
-                <div class="feature-icon">🔔</div>
-                <h3>スマート通知</h3>
-                <p>重要な情報を見逃さない。講義の変更や締切をプッシュ通知でお知らせ。</p>
-            </div>
-            
-            <div class="feature-card fade-in">
-                <div class="feature-icon">🔗</div>
-                <h3>便利なリンク集</h3>
-                <p>大学の各種サービスへのアクセスを一箇所に集約。ワンタップでアクセス可能。</p>
-            </div>
+        <div class="tile">
+          <h4>科目検索</h4>
+          <p>曖昧検索・担当・学期フィルタなど高度な検索に対応。</p>
         </div>
-    </section>
-
-    <!-- お知らせセクション -->
-    <section id="news" class="news-section">
-        <div class="news-container">
-            <div class="news-header fade-in">
-                <span class="news-badge">NEW!</span>
-                <h2 class="section-title">最新のお知らせ</h2>
-                <p class="section-subtitle">キャンパスの最新情報をチェック</p>
-            </div>
-
-            <div class="news-grid fade-in">
-                <div class="news-card">
-                    <span class="news-category article">記事</span>
-                    <h3 class="news-title">大学からの重要なお知らせ</h3>
-                    <p class="news-description">学内イベント、授業変更、施設利用に関する最新情報を配信しています。アプリで詳細をご確認ください。</p>
-                </div>
-
-                <div class="news-card">
-                    <span class="news-category arbeit">アルバイト</span>
-                    <h3 class="news-title">学生向けアルバイト情報</h3>
-                    <p class="news-description">大学生活と両立しやすいアルバイト情報を厳選して掲載。条件や勤務地から検索できます。</p>
-                </div>
-
-                <div class="news-card">
-                    <span class="news-category work">就職</span>
-                    <h3 class="news-title">就活・インターン情報</h3>
-                    <p class="news-description">企業説明会、インターンシップ、就職活動に役立つ情報を随時更新しています。</p>
-                </div>
-
-                <div class="news-card">
-                    <span class="news-category board">掲示板</span>
-                    <h3 class="news-title">学生掲示板</h3>
-                    <p class="news-description">サークル募集、教科書売買、情報交換など、学生同士のコミュニケーションの場です。</p>
-                </div>
-            </div>
-
-            <div class="news-cta fade-in">
-                <a href="/news" class="news-btn">
-                    📰 すべてのお知らせを見る
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M5 12h14M12 5l7 7-7 7"/>
-                    </svg>
-                </a>
-            </div>
+        <div class="tile">
+          <h4>共有/バックアップ</h4>
+          <p>時間割をクラウドへ同期。端末移行も安心。</p>
         </div>
-    </section>
-
-    <!-- スクリーンショット -->
-    <section id="screenshots" class="screenshots">
-        <h2 class="section-title fade-in">アプリ画面</h2>
-        <p class="section-subtitle fade-in">直感的で使いやすいインターフェース</p>
-        
-        <div class="screenshot-container">
-            <div class="screenshot fade-in">
-                <div class="screenshot-img">ホーム画面</div>
-            </div>
-            <div class="screenshot fade-in">
-                <div class="screenshot-img">時間割画面</div>
-            </div>
-            <div class="screenshot fade-in">
-                <div class="screenshot-img">ニュース画面</div>
-            </div>
-            <div class="screenshot fade-in">
-                <div class="screenshot-img">SNS画面</div>
-            </div>
+        <div class="tile">
+          <h4>通知</h4>
+          <p>休講・差し替え等の重要情報をプッシュでお知らせ。</p>
         </div>
-    </section>
+      </div>
+    </div>
+  </section>
 
-    <!-- CTA セクション -->
-    <section id="download" class="cta-section">
-        <div class="cta-content">
-            <h2>今すぐELM PORTをダウンロード</h2>
-            <p>大学生活をより充実させる第一歩を踏み出しましょう</p>
-            
-            <div class="store-buttons">
-                <a href="#" class="store-btn">
-                    <svg width="30" height="30" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M17.05 20.28c-.98.95-2.05.88-3.08.4-1.09-.5-2.08-.48-3.24 0-1.44.62-2.2.44-3.06-.4C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.53 4.09l-.05-.01zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/>
-                    </svg>
-                    <div>
-                        <div style="font-size: 0.8rem;">Download on the</div>
-                        <div style="font-size: 1.2rem; font-weight: bold;">App Store</div>
-                    </div>
-                </a>
-                
-                <a href="#" class="store-btn">
-                    <svg width="30" height="30" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M3,20.5V3.5C3,2.91 3.34,2.39 3.84,2.15L13.69,12L3.84,21.85C3.34,21.6 3,21.09 3,20.5M16.81,15.12L6.05,21.34L14.54,12.85L16.81,15.12M20.16,10.81C20.5,11.08 20.75,11.5 20.75,12C20.75,12.5 20.53,12.9 20.18,13.18L17.89,14.5L15.39,12L17.89,9.5L20.16,10.81M6.05,2.66L16.81,8.88L14.54,11.15L6.05,2.66Z"/>
-                    </svg>
-                    <div>
-                        <div style="font-size: 0.8rem;">GET IT ON</div>
-                        <div style="font-size: 1.2rem; font-weight: bold;">Google Play</div>
-                    </div>
-                </a>
-            </div>
+  <!-- Screenshots -->
+  <section id="screens" class="section">
+    <div class="container">
+      <h2 class="sec-title">スクリーンショット</h2>
+      <div class="screens">
+        <figure class="screen"><img src="/images/screen1.png" alt="ダッシュボード画面（例）"></figure>
+        <figure class="screen"><img src="/images/screen2.png" alt="時間割画面（例）"></figure>
+        <figure class="screen"><img src="/images/screen3.png" alt="成績分布画面（例）"></figure>
+      </div>
+      <p class="note">※ 画像は開発中のものを含みます。</p>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section id="download" class="section section-cta">
+    <div class="container cta-inner">
+      <h2 class="sec-title">今すぐはじめる</h2>
+      <p>ELM PORT は無料でご利用いただけます。</p>
+      <div class="store-buttons">
+        <a class="store-btn" href="#" aria-label="App Store で入手"> App Store</a>
+        <a class="store-btn" href="#" aria-label="Google Play で手に入れよう">Google Play</a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div>
+        <div class="brand small">
+          <span class="brand-mark" aria-hidden="true"></span>
+          <strong>ELM PORT</strong>
         </div>
-    </section>
-
-    <!-- フッター -->
-    <footer id="contact">
-        <div class="footer-content">
-            <div class="footer-links">
-                <a href="/">ホーム</a>
-                <a href="/news">ニュース</a>
-                <a href="/updates">更新情報</a>
-                <a href="/contact">お問い合わせ</a>
-                <a href="#">利用規約</a>
-                <a href="#">プライバシーポリシー</a>
-            </div>
-            <p>&copy; 2024 ELM PORT. All rights reserved.</p>
-            <p style="margin-top: 1rem; color: rgba(255, 255, 255, 0.6);">
-                北海道大学の学生による、学生のためのアプリ
-            </p>
-        </div>
-    </footer>
-
-    <script>
-        // スクロールアニメーション
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
-            });
-        }, observerOptions);
-
-        document.querySelectorAll('.fade-in').forEach(el => {
-            observer.observe(el);
-        });
-
-        // スムーススクロール
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
-
-        // モバイルメニュー
-        const menuToggle = document.getElementById('menuToggle');
-        const mobileMenu = document.getElementById('mobileMenu');
-        const menuOverlay = document.getElementById('menuOverlay');
-        const menuClose = document.getElementById('menuClose');
-        const mobileMenuItems = document.querySelectorAll('.mobile-menu-item');
-        
-        // メニューを開く
-        menuToggle.addEventListener('click', () => {
-            menuToggle.classList.add('active');
-            mobileMenu.classList.add('active');
-            menuOverlay.classList.add('active');
-            document.body.style.overflow = 'hidden';
-        });
-        
-        // メニューを閉じる関数
-        const closeMenu = () => {
-            menuToggle.classList.remove('active');
-            mobileMenu.classList.remove('active');
-            menuOverlay.classList.remove('active');
-            document.body.style.overflow = '';
-        };
-        
-        // 閉じるボタン
-        menuClose.addEventListener('click', closeMenu);
-        
-        // オーバーレイクリックで閉じる
-        menuOverlay.addEventListener('click', closeMenu);
-        
-        // メニューアイテムクリックで閉じる（ページ内リンクの場合）
-        mobileMenuItems.forEach(item => {
-            item.addEventListener('click', () => {
-                if (item.getAttribute('href').startsWith('#')) {
-                    closeMenu();
-                }
-            });
-        });
-        
-        // ESCキーで閉じる
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && mobileMenu.classList.contains('active')) {
-                closeMenu();
-            }
-        });
-
-        // ヘッダーのスクロール効果
-        let lastScroll = 0;
-        window.addEventListener('scroll', () => {
-            const currentScroll = window.pageYOffset;
-            const header = document.querySelector('header');
-            
-            if (currentScroll > 100) {
-                header.style.background = 'rgba(255, 255, 255, 0.98)';
-                header.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.1)';
-            } else {
-                header.style.background = 'rgba(255, 255, 255, 0.95)';
-                header.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.05)';
-            }
-            
-            lastScroll = currentScroll;
-        });
-
-        // パララックス効果
-        window.addEventListener('scroll', () => {
-            const scrolled = window.pageYOffset;
-            const parallax = document.querySelector('.hero');
-            parallax.style.transform = `translateY(${scrolled * 0.5}px)`;
-        });
-    </script>
+        <p class="muted">© 2025 ELM PORT Team</p>
+      </div>
+      <nav aria-label="フッターメニュー">
+        <ul>
+          <li><a href="/news">お知らせ</a></li>
+          <li><a href="#">利用規約</a></li>
+          <li><a href="#">プライバシー</a></li>
+          <li><a href="#">お問い合わせ</a></li>
+        </ul>
+      </nav>
+    </div>
+  </footer>
 </body>
 </html>
