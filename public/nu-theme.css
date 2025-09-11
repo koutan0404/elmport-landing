@@ -18,7 +18,10 @@ body{
   line-height:1.7;
   font-size:16px;
 }
-h1,h2,h3,h4{font-family:"Noto Serif JP","Noto Sans JP",serif;line-height:1.25;color:#111}
+h1,h3,h4{font-family:"Noto Serif JP","Noto Sans JP",serif;line-height:1.25;color:#111}
+img{max-width:100%;display:block}
+
+h2{font-family:"Noto Serif JP","Noto Sans JP",serif;line-height:1.25;color:#111}
 img{max-width:100%;display:block}
 
 .container{max-width:var(--container);margin:auto;padding:0 20px}
