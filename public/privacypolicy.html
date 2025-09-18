@@ -4,280 +4,305 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>プライバシーポリシー - ELM PORT</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;600;700&family=Noto+Serif+JP:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        :root{
+            --nu-green:#006E4F;
+            --nu-green-600:#005542;
+            --ink:#1a1a1a;
+            --muted:#6b7280;
+            --line:#e5e7eb;
+            --surface:#f7f8f7;
+            --radius:14px;
+            --container:1120px;
+        }
+
+        *{box-sizing:border-box}
+        html,body{margin:0;padding:0}
+        body{
+            font-family:"Noto Sans JP",system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue","Hiragino Kaku Gothic ProN","Hiragino Sans",Meiryo,sans-serif;
+            color:var(--ink);
+            background:#fff;
+            line-height:1.7;
+            font-size:16px;
+        }
+        h1,h2,h3,h4{font-family:"Noto Serif JP","Noto Sans JP",serif;line-height:1.25;color:#111}
+        
+        .container{max-width:var(--container);margin:auto;padding:0 20px}
+        
+        .topbar{height:6px;background:var(--nu-green)}
+        
+        .site-header{
+            position:sticky;top:0;z-index:50;
+            background:#fff;border-bottom:1px solid var(--line);
+        }
+        .hdr-inner{display:flex;align-items:center;gap:16px;min-height:64px}
+        .brand{display:flex;gap:12px;align-items:center;text-decoration:none;color:inherit}
+        .brand .brand-mark{
+            width:32px;height:32px;border-radius:8px;
+            background:var(--nu-green);
+            box-shadow:inset 0 0 0 4px #fff, 0 0 0 1px #0d3b2f33;
+        }
+        .brand .brand-text{display:flex;flex-direction:column}
+        .brand .brand-text strong{font-size:18px}
+        .brand .brand-text small{color:var(--muted);font-size:12px}
+        
+        .hero{
+            background:linear-gradient(180deg, var(--nu-green), var(--nu-green-600));
+            color:#fff; padding:64px 0;
+        }
+        .hero-inner{padding:24px 0 8px}
+        .hero h1{font-size:clamp(28px,4.2vw,44px);margin:0 0 10px;color:#fff}
+        .hero p{opacity:.95;margin:0 0 18px}
+        .hero-badge{
+            display:inline-block;
+            background:rgba(255,255,255,0.2);
+            border:1px solid rgba(255,255,255,0.3);
+            padding:6px 12px;
+            border-radius:8px;
+            font-size:14px;
+            margin-top:16px;
         }
         
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Hiragino Sans", "Yu Gothic UI", "Meiryo UI", sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
+        .notice-card{
+            background:rgba(0,110,79,0.08);
+            border:1px solid rgba(0,110,79,0.2);
+            border-radius:var(--radius);
+            padding:20px;
+            margin:24px 0;
+            display:flex;
+            align-items:center;
+            gap:15px;
+        }
+        .notice-icon{
+            font-size:24px;
+            color:var(--nu-green);
+        }
+        .notice-text{
+            color:#374151;
+            font-weight:500;
         }
         
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 20px;
+        .section{padding:56px 0}
+        
+        .privacy-section{
+            background:#fff;
+            border:1px solid var(--line);
+            border-radius:var(--radius);
+            padding:24px;
+            margin-bottom:20px;
+            box-shadow:0 4px 10px #00000008;
         }
         
-        .app-bar {
-            background: rgba(255, 255, 255, 0.95);
-            padding: 15px 20px;
-            margin-bottom: 20px;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        .privacy-title{
+            background:linear-gradient(90deg, rgba(0,110,79,0.1), transparent);
+            border-left:4px solid var(--nu-green);
+            padding:10px 15px;
+            margin:-24px -24px 20px -24px;
+            font-size:18px;
+            font-weight:700;
+            color:var(--nu-green);
+            border-radius:var(--radius) var(--radius) 0 0;
         }
         
-        .app-bar h1 {
-            font-size: 24px;
-            color: #333;
+        .privacy-content{
+            color:#374151;
+            white-space:pre-line;
+            line-height:1.8;
         }
         
-        .header-card {
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            color: white;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.2);
-            margin-bottom: 30px;
+        .contact-card{
+            background:var(--surface);
+            border:1px solid var(--line);
+            border-radius:var(--radius);
+            padding:28px;
+            margin-top:20px;
         }
         
-        .header-card .header-content {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            margin-bottom: 20px;
+        .contact-header{
+            display:flex;
+            align-items:center;
+            gap:12px;
+            margin-bottom:20px;
+            color:var(--nu-green);
         }
         
-        .header-card .icon {
-            font-size: 32px;
+        .contact-header h3{
+            font-size:22px;
+            margin:0;
         }
         
-        .header-card h2 {
-            font-size: 28px;
-            margin-bottom: 5px;
+        .contact-item{
+            display:flex;
+            align-items:flex-start;
+            gap:12px;
+            margin-bottom:15px;
         }
         
-        .header-card .subtitle {
-            font-size: 18px;
-            opacity: 0.9;
+        .contact-item .icon{
+            width:24px;
+            text-align:center;
+            color:var(--muted);
         }
         
-        .update-badge {
-            display: inline-block;
-            background: rgba(255,255,255,0.2);
-            border: 1px solid rgba(255,255,255,0.3);
-            padding: 6px 12px;
-            border-radius: 5px;
-            font-size: 14px;
+        .contact-item .content{
+            flex:1;
         }
         
-        .notice-card {
-            background: rgba(102,126,234,0.1);
-            border-radius: 10px;
-            padding: 20px;
-            margin-bottom: 30px;
-            display: flex;
-            align-items: center;
-            gap: 15px;
+        .contact-item .label{
+            color:var(--muted);
+            font-size:14px;
+            margin-bottom:2px;
         }
         
-        .notice-card .icon {
-            color: #667eea;
-            font-size: 24px;
+        .contact-item .value{
+            color:#374151;
         }
         
-        .notice-card p {
-            color: #333;
-            font-weight: 500;
+        .contact-item a{
+            color:var(--nu-green);
+            text-decoration:none;
+            border-bottom:1px solid var(--nu-green);
+            transition:opacity 0.3s;
         }
         
-        .section {
-            background: white;
-            border-radius: 10px;
-            padding: 25px;
-            margin-bottom: 20px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        .contact-item a:hover{
+            opacity:0.7;
         }
         
-        .section-title {
-            background: linear-gradient(90deg, rgba(102,126,234,0.1), transparent);
-            border-left: 4px solid #667eea;
-            padding: 10px 15px;
-            margin-bottom: 15px;
-            font-size: 18px;
-            font-weight: bold;
-            color: #667eea;
+        .data-protection-card{
+            background:rgba(103,58,183,0.05);
+            border:1px solid rgba(103,58,183,0.15);
+            border-radius:var(--radius);
+            padding:24px;
+            margin-top:20px;
         }
         
-        .section-content {
-            padding: 0 15px;
-            color: #555;
-            white-space: pre-line;
+        .data-protection-header{
+            display:flex;
+            align-items:center;
+            gap:12px;
+            margin-bottom:15px;
+            color:#673ab7;
         }
         
-        .contact-card {
-            background: white;
-            border-radius: 10px;
-            padding: 25px;
-            margin-bottom: 20px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        .data-protection-header h3{
+            margin:0;
+            font-size:20px;
         }
         
-        .contact-header {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 20px;
-            color: #667eea;
+        .footer-card{
+            background:var(--surface);
+            border:1px solid var(--line);
+            border-radius:var(--radius);
+            padding:40px;
+            text-align:center;
+            margin-top:40px;
         }
         
-        .contact-header h3 {
-            font-size: 20px;
+        .footer-card .icon{
+            font-size:48px;
+            margin-bottom:20px;
         }
         
-        .contact-item {
-            display: flex;
-            align-items: flex-start;
-            gap: 12px;
-            margin-bottom: 15px;
+        .footer-card h3{
+            font-size:22px;
+            margin:0 0 12px 0;
+            color:var(--nu-green);
         }
         
-        .contact-item .label {
-            color: #666;
-            font-size: 14px;
-            margin-bottom: 2px;
+        .footer-card p{
+            color:#374151;
+            margin:0 0 20px 0;
         }
         
-        .contact-item .value {
-            color: #333;
+        .btn{
+            display:inline-block;
+            padding:12px 24px;
+            border:2px solid var(--nu-green);
+            color:var(--nu-green);
+            text-decoration:none;
+            border-radius:10px;
+            font-weight:600;
+            transition:all 0.3s;
         }
         
-        .contact-item a {
-            color: #667eea;
-            text-decoration: none;
-            border-bottom: 1px solid #667eea;
-            transition: opacity 0.3s;
+        .btn:hover{
+            background:var(--nu-green);
+            color:white;
         }
         
-        .contact-item a:hover {
-            opacity: 0.7;
+        .site-footer{
+            border-top:1px solid var(--line);
+            padding:28px 0;
+            background:#fff;
+            margin-top:56px;
         }
         
-        .footer-card {
-            background: rgba(255,255,255,0.95);
-            border-radius: 10px;
-            padding: 30px;
-            text-align: center;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        .footer-content{
+            text-align:center;
+            color:var(--muted);
+            font-size:14px;
         }
         
-        .footer-card .icon {
-            font-size: 48px;
-            color: #667eea;
-            margin-bottom: 20px;
-        }
-        
-        .footer-card h3 {
-            font-size: 20px;
-            margin-bottom: 10px;
-            color: #333;
-        }
-        
-        .footer-card p {
-            color: #666;
-            margin-bottom: 20px;
-        }
-        
-        .btn {
-            display: inline-block;
-            padding: 10px 20px;
-            border: 2px solid #667eea;
-            color: #667eea;
-            text-decoration: none;
-            border-radius: 5px;
-            transition: all 0.3s;
-        }
-        
-        .btn:hover {
-            background: #667eea;
-            color: white;
-        }
-        
-        .data-protection-card {
-            background: rgba(103,58,183,0.05);
-            border-radius: 10px;
-            padding: 25px;
-            margin-bottom: 30px;
-        }
-        
-        .data-protection-header {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 15px;
-            color: #673ab7;
-        }
-        
-        @media (max-width: 768px) {
-            .container {
-                padding: 10px;
+        @media (max-width:860px){
+            .hero h1{font-size:24px}
+            .privacy-section{padding:20px}
+            .privacy-title{
+                margin:-20px -20px 16px -20px;
+                font-size:16px;
             }
-            
-            .header-card h2 {
-                font-size: 22px;
-            }
-            
-            .header-card .subtitle {
-                font-size: 16px;
-            }
-            
-            .section {
-                padding: 20px 15px;
-            }
-            
-            .notice-card {
-                flex-direction: column;
-                text-align: center;
+            .notice-card{
+                flex-direction:column;
+                text-align:center;
             }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="app-bar">
-            <h1>プライバシーポリシー</h1>
-        </div>
-        
-        <div class="header-card">
-            <div class="header-content">
-                <div class="icon">🔒</div>
-                <div>
-                    <h2>プライバシーポリシー</h2>
-                    <div class="subtitle">個人情報保護方針</div>
-                </div>
+    <div class="topbar"></div>
+    
+    <header class="site-header">
+        <div class="container">
+            <div class="hdr-inner">
+                <a href="#" class="brand">
+                    <div class="brand-mark"></div>
+                    <div class="brand-text">
+                        <strong>ELM PORT</strong>
+                        <small>プライバシーポリシー</small>
+                    </div>
+                </a>
             </div>
-            <span class="update-badge">最終更新日: 2025年8月</span>
         </div>
-        
-        <div class="notice-card">
-            <div class="icon">ℹ️</div>
-            <p>ELM PORT開発元は、お客様の個人情報を適切に保護し、取り扱うことが社会的責任であると考えています。</p>
+    </header>
+    
+    <div class="hero">
+        <div class="container">
+            <div class="hero-inner">
+                <h1>プライバシーポリシー</h1>
+                <p>個人情報保護に関する方針と取り扱いについて</p>
+                <span class="hero-badge">最終更新日: 2025年8月</span>
+            </div>
         </div>
-        
-        <div class="section">
-            <div class="section-title">1. 個人情報の定義</div>
-            <div class="section-content">本プライバシーポリシーにおいて、個人情報とは、個人情報保護法に規定される「個人情報」を指すものとし、生存する個人に関する情報であって、当該情報に含まれる氏名、生年月日、住所、電話番号、連絡先その他の記述等により特定の個人を識別できる情報及び容貌、指紋、声紋にかかるデータ、及び健康保険証の保険者番号などの当該情報単体から特定の個人を識別できる情報（個人識別情報）を指します。</div>
-        </div>
-        
-        <div class="section">
-            <div class="section-title">2. 収集する個人情報</div>
-            <div class="section-content">当アプリケーションは、お客様から以下の情報を収集することがあります：
+    </div>
+    
+    <div class="section">
+        <div class="container">
+            <div class="notice-card">
+                <div class="notice-icon">ℹ️</div>
+                <div class="notice-text">ELM PORT開発元は、お客様の個人情報を適切に保護し、取り扱うことが社会的責任であると考えています。</div>
+            </div>
+            
+            <div class="privacy-section">
+                <div class="privacy-title">1. 個人情報の定義</div>
+                <div class="privacy-content">本プライバシーポリシーにおいて、個人情報とは、個人情報保護法に規定される「個人情報」を指すものとし、生存する個人に関する情報であって、当該情報に含まれる氏名、生年月日、住所、電話番号、連絡先その他の記述等により特定の個人を識別できる情報及び容貌、指紋、声紋にかかるデータ、及び健康保険証の保険者番号などの当該情報単体から特定の個人を識別できる情報（個人識別情報）を指します。</div>
+            </div>
+            
+            <div class="privacy-section">
+                <div class="privacy-title">2. 収集する個人情報</div>
+                <div class="privacy-content">当アプリケーションは、お客様から以下の情報を収集することがあります：
 
 【アカウント情報】
 • メールアドレス
@@ -296,13 +321,14 @@
 
 【ソーシャル機能】
 • フォロー・フォロワー情報
+
 【位置情報】
 • おおよその位置情報（IPアドレスから推定）</div>
-        </div>
-        
-        <div class="section">
-            <div class="section-title">3. 個人情報の利用目的</div>
-            <div class="section-content">当アプリケーションは、収集した個人情報を以下の目的で利用します：
+            </div>
+            
+            <div class="privacy-section">
+                <div class="privacy-title">3. 個人情報の利用目的</div>
+                <div class="privacy-content">当アプリケーションは、収集した個人情報を以下の目的で利用します：
 
 【サービス提供】
 • アカウントの作成・管理
@@ -326,22 +352,22 @@
 【マーケティング】
 • お知らせやキャンペーン情報の送信（同意を得た場合）
 • 統計データの作成（個人を特定できない形式）</div>
-        </div>
-        
-        <div class="section">
-            <div class="section-title">4. 個人情報の第三者提供</div>
-            <div class="section-content">当アプリケーションは、次に掲げる場合を除いて、あらかじめユーザーの同意を得ることなく、第三者に個人情報を提供することはありません：
+            </div>
+            
+            <div class="privacy-section">
+                <div class="privacy-title">4. 個人情報の第三者提供</div>
+                <div class="privacy-content">当アプリケーションは、次に掲げる場合を除いて、あらかじめユーザーの同意を得ることなく、第三者に個人情報を提供することはありません：
 
 • 法令に基づく場合
 • 人の生命、身体または財産の保護のために必要がある場合であって、本人の同意を得ることが困難であるとき
 • 公衆衛生の向上または児童の健全な育成の推進のために特に必要がある場合であって、本人の同意を得ることが困難であるとき
 • 国の機関もしくは地方公共団体またはその委託を受けた者が法令の定める事務を遂行することに対して協力する必要がある場合であって、本人の同意を得ることにより当該事務の遂行に支障を及ぼすおそれがあるとき
 • 予め次の事項を告知あるいは公表し、かつ当社が個人情報保護委員会に届出をしたとき</div>
-        </div>
-        
-        <div class="section">
-            <div class="section-title">5. 個人情報の安全管理</div>
-            <div class="section-content">当アプリケーションは、個人情報の漏洩、滅失またはき損の防止その他の個人情報の安全管理のために、以下のような措置を講じています：
+            </div>
+            
+            <div class="privacy-section">
+                <div class="privacy-title">5. 個人情報の安全管理</div>
+                <div class="privacy-content">当アプリケーションは、個人情報の漏洩、滅失またはき損の防止その他の個人情報の安全管理のために、以下のような措置を講じています：
 
 【技術的対策】
 • SSL/TLS暗号化通信の使用
@@ -355,11 +381,11 @@
 • 従業員への教育・研修
 • 個人情報へのアクセス制限
 • 定期的な監査の実施</div>
-        </div>
-        
-        <div class="section">
-            <div class="section-title">6. Cookieの使用について</div>
-            <div class="section-content">当アプリケーションは、以下の目的でCookieを使用することがあります：
+            </div>
+            
+            <div class="privacy-section">
+                <div class="privacy-title">6. Cookieの使用について</div>
+                <div class="privacy-content">当アプリケーションは、以下の目的でCookieを使用することがあります：
 
 • ログイン状態の保持
 • ユーザー設定の保存
@@ -367,11 +393,11 @@
 • 広告配信の最適化
 
 ユーザーは、ブラウザの設定によりCookieの使用を拒否することができます。ただし、Cookieを無効にすることで、当アプリケーションの一部の機能が利用できなくなる場合があります。</div>
-        </div>
-        
-        <div class="section">
-            <div class="section-title">7. 第三者サービスの利用</div>
-            <div class="section-content">当アプリケーションは、以下の第三者サービスを利用しています。各サービスのプライバシーポリシーについては、それぞれのリンクをご確認ください：
+            </div>
+            
+            <div class="privacy-section">
+                <div class="privacy-title">7. 第三者サービスの利用</div>
+                <div class="privacy-content">当アプリケーションは、以下の第三者サービスを利用しています。各サービスのプライバシーポリシーについては、それぞれのリンクをご確認ください：
 
 【認証・データ管理】
 • Firebase Authentication（Google）
@@ -388,18 +414,18 @@
 • Cloudflare R2 Storage
 
 これらのサービスは独自のプライバシーポリシーに基づいて個人情報を取り扱います。</div>
-        </div>
-        
-        <div class="section">
-            <div class="section-title">8. 子どもの個人情報について</div>
-            <div class="section-content">当アプリケーションは、原則として13歳未満の子どもから個人情報を収集しません。13歳未満の子どもが当アプリケーションを利用する場合は、保護者の同意が必要です。
+            </div>
+            
+            <div class="privacy-section">
+                <div class="privacy-title">8. 子どもの個人情報について</div>
+                <div class="privacy-content">当アプリケーションは、原則として13歳未満の子どもから個人情報を収集しません。13歳未満の子どもが当アプリケーションを利用する場合は、保護者の同意が必要です。
 
 保護者の方へ：お子様が保護者の同意なく個人情報を提供したことが判明した場合は、速やかにお問い合わせ窓口までご連絡ください。</div>
-        </div>
-        
-        <div class="section">
-            <div class="section-title">9. 個人情報の開示・訂正・削除</div>
-            <div class="section-content">ユーザーは、当アプリケーションに対して、個人情報保護法の定めに基づき以下の権利を有しています：
+            </div>
+            
+            <div class="privacy-section">
+                <div class="privacy-title">9. 個人情報の開示・訂正・削除</div>
+                <div class="privacy-content">ユーザーは、当アプリケーションに対して、個人情報保護法の定めに基づき以下の権利を有しています：
 
 • 個人情報の開示を求める権利
 • 個人情報の内容が事実でない場合、内容の訂正、追加または削除を求める権利
@@ -407,11 +433,11 @@
 • 個人情報が不正に取得された場合、利用の停止を求める権利
 
 これらの請求を行う場合は、本人確認のための書類提出を求めることがあります。請求方法については、お問い合わせ窓口までご連絡ください。</div>
-        </div>
-        
-        <div class="section">
-            <div class="section-title">10. 個人情報の保存期間</div>
-            <div class="section-content">当アプリケーションは、以下の期間、個人情報を保存します：
+            </div>
+            
+            <div class="privacy-section">
+                <div class="privacy-title">10. 個人情報の保存期間</div>
+                <div class="privacy-content">当アプリケーションは、以下の期間、個人情報を保存します：
 
 • アカウント情報：アカウントが有効な期間及び削除後90日間
 • 利用履歴：最終利用日から2年間
@@ -419,63 +445,63 @@
 • 法令により保存が義務付けられている情報：法定保存期間
 
 保存期間を経過した個人情報は、速やかに削除または匿名化します。</div>
-        </div>
-        
-        <div class="section">
-            <div class="section-title">11. 個人情報の国外への移転</div>
-            <div class="section-content">当アプリケーションは、以下の場合に個人情報を日本国外に移転することがあります：
+            </div>
+            
+            <div class="privacy-section">
+                <div class="privacy-title">11. 個人情報の国外への移転</div>
+                <div class="privacy-content">当アプリケーションは、以下の場合に個人情報を日本国外に移転することがあります：
 
 • クラウドサービスの利用（データセンターが国外にある場合）
 • 国際的なサービス連携
 
 国外への移転を行う場合は、個人情報保護法に基づき、適切な保護措置を講じます。</div>
-        </div>
-        
-        <div class="section">
-            <div class="section-title">12. プライバシーポリシーの変更</div>
-            <div class="section-content">当アプリケーションは、法令の変更、サービス内容の変更、その他の事情により、本プライバシーポリシーを変更することがあります。
+            </div>
+            
+            <div class="privacy-section">
+                <div class="privacy-title">12. プライバシーポリシーの変更</div>
+                <div class="privacy-content">当アプリケーションは、法令の変更、サービス内容の変更、その他の事情により、本プライバシーポリシーを変更することがあります。
 
 重要な変更を行う場合は、アプリ内通知、メール、またはウェブサイトでの告知により、ユーザーに事前にお知らせします。
 
 変更後のプライバシーポリシーは、アプリ内に掲載した時点から効力を生じるものとします。</div>
-        </div>
-        
-        <div class="section">
-            <div class="section-title">13. お問い合わせ窓口</div>
-            <div class="section-content">本プライバシーポリシーに関するお問い合わせは、以下の窓口までお願いいたします：</div>
-        </div>
-        
-        <div class="contact-card">
-            <div class="contact-header">
-                <span style="font-size: 24px;">🏢</span>
-                <h3>ELM PORT　開発元</h3>
             </div>
-            <div class="contact-item">
-                <span style="width: 24px; text-align: center;">✉️</span>
-                <div>
-                    <div class="label">メール</div>
-                    <a href="mailto:mbtsdmn@gmail.com">mbtsdmn@gmail.com</a>
+            
+            <div class="privacy-section">
+                <div class="privacy-title">13. お問い合わせ窓口</div>
+                <div class="privacy-content">本プライバシーポリシーに関するお問い合わせは、以下の窓口までお願いいたします：</div>
+            </div>
+            
+            <div class="contact-card">
+                <div class="contact-header">
+                    <span style="font-size:24px;">🏢</span>
+                    <h3>ELM PORT 開発元</h3>
+                </div>
+                <div class="contact-item">
+                    <span class="icon">✉️</span>
+                    <div class="content">
+                        <div class="label">メール</div>
+                        <a href="mailto:mbtsdmn@gmail.com">mbtsdmn@gmail.com</a>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <span class="icon">📝</span>
+                    <div class="content">
+                        <div class="label">お問い合わせフォーム</div>
+                        <a href="mailto:mbtsdmn@gmail.com">mbtsdmn@gmail.com</a>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <span class="icon">🕐</span>
+                    <div class="content">
+                        <div class="label">受付時間</div>
+                        <div class="value">平日 10:00-18:00（土日祝日を除く）</div>
+                    </div>
                 </div>
             </div>
-            <div class="contact-item">
-                <span style="width: 24px; text-align: center;">📝</span>
-                <div>
-                    <div class="label">お問い合わせフォーム</div>
-                    <a href="mailto:mbtsdmn@gmail.com">mbtsdmn@gmail.com</a>
-                </div>
-            </div>
-            <div class="contact-item">
-                <span style="width: 24px; text-align: center;">🕐</span>
-                <div>
-                    <div class="label">受付時間</div>
-                    <div class="value">平日 10:00-18:00（土日祝日を除く）</div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="section">
-            <div class="section-title">14. GDPR/CCPA対応のご案内</div>
-            <div class="section-content">EU一般データ保護規則（GDPR）またはカリフォルニア州消費者プライバシー法（CCPA）が適用されるユーザーの方は、以下の権利を有しています：
+            
+            <div class="privacy-section">
+                <div class="privacy-title">14. GDPR/CCPA対応のご案内</div>
+                <div class="privacy-content">EU一般データ保護規則（GDPR）またはカリフォルニア州消費者プライバシー法（CCPA）が適用されるユーザーの方は、以下の権利を有しています：
 
 【GDPR（EU居住者）】
 • データポータビリティの権利
@@ -489,26 +515,35 @@
 • 差別されない権利
 
 これらの権利の行使については、お問い合わせ窓口までご連絡ください。</div>
-        </div>
-        
-        <div class="data-protection-card">
-            <div class="data-protection-header">
-                <span style="font-size: 24px;">🛡️</span>
-                <h3>データ保護に関するお問い合わせ</h3>
             </div>
-            <p style="margin-bottom: 12px;">個人情報の取り扱いに関するお問い合わせは以下に記載のメールアドレスから件名を明記の上、お寄せください。</p>
-            <p style="color: #666; font-size: 14px;">※迅速な回答を心がけますが、お時間いただく場合がございます。ご了承ください。</p>
-            <p style="margin-top: 12px;">
-                <a href="mailto:mbtsdmn@gmail.com" style="color: #667eea; text-decoration: underline;">mbtsdmn@gmail.com</a>
-            </p>
-        </div>
-        
-        <div class="footer-card">
-            <div class="icon">🔐</div>
-            <h3>あなたのプライバシーを守ります</h3>
-            <p>ELM PORTは、ユーザーの皆様の個人情報を適切に保護し、安心してご利用いただけるサービスの提供に努めています。</p>
-            <a href="#" class="btn" onclick="alert('認証・認定に関する詳細情報は準備中です'); return false;">認証・認定について</a>
+            
+            <div class="data-protection-card">
+                <div class="data-protection-header">
+                    <span style="font-size:24px;">🛡️</span>
+                    <h3>データ保護に関するお問い合わせ</h3>
+                </div>
+                <p style="margin-bottom:12px;">個人情報の取り扱いに関するお問い合わせは以下に記載のメールアドレスから件名を明記の上、お寄せください。</p>
+                <p style="color:var(--muted);font-size:14px;">※迅速な回答を心がけますが、お時間いただく場合がございます。ご了承ください。</p>
+                <p style="margin-top:12px;">
+                    <a href="mailto:mbtsdmn@gmail.com" style="color:var(--nu-green);text-decoration:underline;">mbtsdmn@gmail.com</a>
+                </p>
+            </div>
+            
+            <div class="footer-card">
+                <div class="icon">🔐</div>
+                <h3>あなたのプライバシーを守ります</h3>
+                <p>ELM PORTは、ユーザーの皆様の個人情報を適切に保護し、安心してご利用いただけるサービスの提供に努めています。</p>
+                <a href="#" class="btn" onclick="alert('認証・認定に関する詳細情報は準備中です'); return false;">認証・認定について</a>
+            </div>
         </div>
     </div>
+    
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-content">
+                <p>&copy; 2025 ELM PORT. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
 </body>
 </html>
