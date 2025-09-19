@@ -14,23 +14,34 @@
   <style>
     .hero{background:linear-gradient(180deg,var(--nu-green),var(--nu-green-600));color:#fff;padding:48px 0}
     .hero-inner{max-width:var(--container);margin:auto;padding:0 20px}
-    .contact-grid{max-width:var(--container);margin:-24px auto 24px;padding:0 20px;display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
-    .card{background:#fff;border:1px solid var(--line);border-radius:16px;box-shadow:0 8px 24px #00000010;padding:18px;text-align:center}
-    .card .icon{width:60px;height:60px;margin:0 auto 10px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg,#fff,#f4faf7);border:1px solid var(--line);font-size:1.4rem;color:var(--nu-green)}
-    .main{max-width:var(--container);margin:0 auto;padding:22px 20px;display:grid;grid-template-columns:1fr 1fr;gap:24px}
-    .panel{background:#fff;border:1px solid var(--line);border-radius:16px;box-shadow:0 5px 16px #0000000a;padding:18px}
-    .section-title{font-size:1.3rem;margin:0 0 12px}
-    .form-group{margin-bottom:12px}
-    .form-label{display:block;margin-bottom:6px;font-weight:600}
-    .required{color:#e11d48;margin-left:4px}
-    .input,.select,.textarea{width:100%;padding:10px;border:1px solid var(--line);border-radius:10px;font:inherit}
-    .textarea{min-height:120px;resize:vertical}
-    .actions{display:flex;gap:10px;margin-top:12px}
-    .btn-outline{background:#fff;border:2px solid var(--line);border-radius:12px;padding:10px 18px}
-    .btn-outline:hover{background:var(--surface)}
-    .success{display:none;background:#10b981;color:#fff;border-radius:10px;padding:10px;margin-bottom:10px}
-    @media (max-width:860px){ .main{grid-template-columns:1fr} }
-  .textarea1 {width:100%;padding:10px;border:1px solid var(--line);border-radius:10px;font:inherit}
+    .main{max-width:var(--container);margin:32px auto;padding:0 20px;display:grid;grid-template-columns:2fr 3fr;gap:32px}
+    .panel{background:#fff;border:1px solid var(--line);border-radius:16px;box-shadow:0 5px 16px #0000000a;padding:24px}
+    .section-title{font-size:1.4rem;margin:0 0 20px;font-weight:700}
+    .form-cards{display:grid;gap:16px}
+    .form-card{background:#fafafa;border:1px solid var(--line);border-radius:12px;padding:20px;transition:all .2s}
+    .form-card:hover{background:#f5f5f5;border-color:var(--nu-green)}
+    .form-card-header{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+    .form-icon{width:40px;height:40px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1.2rem}
+    .form-card h4{margin:0;font-size:1.05rem;color:#333}
+    .form-card p{margin:0 0 12px;font-size:0.85rem;color:#666;line-height:1.5}
+    .form-card .btn-primary{display:inline-flex;align-items:center;gap:6px;background:var(--nu-green);color:#fff;padding:10px 20px;border-radius:8px;text-decoration:none;font-weight:600;transition:all .2s}
+    .form-card .btn-primary:hover{background:var(--nu-green-600);transform:translateX(2px)}
+    .icon-bug{background:#fee2e2;color:#dc2626}
+    .icon-account{background:#dbeafe;color:#2563eb}
+    .icon-business{background:#fef3c7;color:#d97706}
+    .icon-consulting{background:#e9d5ff;color:#9333ea}
+    .faq{display:grid;gap:12px}
+    .faq details{background:#fafafa;border:1px solid var(--line);border-radius:12px;padding:16px;transition:all .2s}
+    .faq details[open]{background:#fff;border-color:var(--nu-green)}
+    .faq summary{cursor:pointer;font-weight:600;list-style:none;display:flex;justify-content:space-between;align-items:center}
+    .faq summary::after{content:"▶";transition:transform .2s;color:#999}
+    .faq details[open] summary::after{transform:rotate(90deg)}
+    .faq p{margin:12px 0 0;padding-top:12px;border-top:1px solid #eee;line-height:1.6}
+    .notice{background:#f0fdf4;border:1px solid #86efac;border-radius:12px;padding:16px;margin-bottom:20px;display:flex;gap:12px;align-items:start}
+    .notice-icon{flex-shrink:0;width:24px;height:24px;background:#22c55e;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px}
+    @media (max-width:860px){ 
+      .main{grid-template-columns:1fr}
+    }
   </style>
 </head>
 <body>
@@ -40,75 +51,102 @@
     <div class="container hdr-inner">
       <a class="brand" href="/"><span class="brand-mark"></span><span class="brand-text"><strong>ELM PORT</strong><small>Campus Life Support</small></span></a>
       <button class="nav-toggle" aria-expanded="false" aria-controls="site-nav">メニュー</button>
-<nav id="site-nav" class="site-nav" role="navigation">
-  <ul>
-    <li><a href="/"          data-path="/">ホーム</a></li>
-    <li><a href="/news"      data-path="/news">ニュース</a></li>
-    <li><a href="/updates"   data-path="/updates">更新情報</a></li>
-    <li><a href="/sns"       data-path="/sns">SNS</a></li>
-    <li><a href="/contact"   data-path="/contact">お問い合わせ</a></li>
-  </ul>
-</nav>
+      <nav id="site-nav" class="site-nav" role="navigation">
+        <ul>
+          <li><a href="/" data-path="/">ホーム</a></li>
+          <li><a href="/news" data-path="/news">ニュース</a></li>
+          <li><a href="/updates" data-path="/updates">更新情報</a></li>
+          <li><a href="/sns" data-path="/sns">SNS</a></li>
+          <li><a href="/contact" data-path="/contact">お問い合わせ</a></li>
+        </ul>
+      </nav>
     </div>
   </header>
 
   <!-- ヒーロー -->
-  <section class="hero"><div class="hero-inner"><h1>お問い合わせ</h1><p>ご質問やご要望をお聞かせください</p></div></section>
-
-  <!-- 連絡方法カード -->
-  <div class="contact-grid">
-    <div class="card"><div class="icon">📧</div><h3>メール</h3><p class="muted">平日24時間以内に返信</p><a href="mailto:support@elm-port.com" class="btn btn-ghost">support@elm-port.com</a></div>
-    <div class="card"><div class="icon">💬</div><h3>アプリ内チャット</h3><p class="muted">リアルタイムサポート</p><span class="muted">営業時間: 平日 9:00-18:00</span></div>
-    <div class="card"><div class="icon">📱</div><h3>SNS</h3><p class="muted">最新情報とサポート</p><a href="#social" class="btn btn-ghost">公式アカウント一覧</a></div>
-  </div>
-
-  <!-- メイン（フォーム & FAQ） -->
-  <div class="main">
-    <div class="panel">
-      <h2 class="section-title">お問い合わせフォーム</h2>
-      <div class="success" id="ok">✅ お問い合わせを受け付けました。</div>
-      <form id="f">
-        <div class="form-group"><label class="form-label">お問い合わせ種別<span class="required">*</span></label>
-          <select class="select" name="category" required>
-            <option value="">選択してください</option>
-            <option value="bug">不具合・バグ報告</option><option value="feature">機能要望</option>
-            <option value="account">アカウント関連</option><option value="payment">課金・支払い</option><option value="other">その他</option>
-          </select>
-        </div>
-        <div class="form-group"><label class="form-label">お名前<span class="required">*</span></label><input class="input" name="name" required></div>
-        <div class="form-group"><label class="form-label">メールアドレス<span class="required">*</span>
-          <input type="email" class="input" name="email" required>
-        </label>
-        </div>
-        <div class="form-group"><label class="form-label">学籍番号</label><input class="input" name="studentId" placeholder="例: 12345678"></div>
-        <div class="form-group"><label class="form-label">件名<span class="required">*</span></label><input class="input" name="subject" required></div>
-        <div class="form-group"><label class="form-label">お問い合わせ内容<span class="required">*</span></label><textarea class="textarea" name="message" required></textarea></div>
-        <div class="actions">
-          <button class="btn btn-solid" type="submit">送信する</button>
-          <button class="btn-outline" type="reset">クリア</button>
-        </div>
-      </form>
+  <section class="hero">
+    <div class="hero-inner">
+      <h1>よくある質問とお問い合わせ</h1>
     </div>
+  </section>
 
-    <div class="panel">
-      <h2 class="section-title">よくある質問</h2>
-      <div class="faq">
-        <details class="card" open><summary><strong>ELM PORTは無料で使えますか？</strong></summary><p class="muted">基本機能は無料。高度機能は将来有料オプション予定です。</p></details>
-        <details class="card"><summary><strong>パスワードを忘れました</strong></summary><p class="muted">ログイン画面の「パスワードを忘れた方」からリセットしてください。</p></details>
-        <details class="card"><summary><strong>通知が届きません</strong></summary><p class="muted">端末設定の通知許可とアプリ内設定をご確認ください。</p></details>
+  <!-- メイン（フォームリンク） -->
+  <div class="main">
+    <div class="panel" style="grid-column: 1 / -1; max-width: 800px; margin: 0 auto;">
+      <h2 class="section-title">お問い合わせフォーム</h2>
+      
+      <div class="notice">
+        <div class="notice-icon">✓</div>
+        <div>
+          <strong>Google Formで受付中</strong><br>
+          <span style="font-size:0.9rem;color:#666">お問い合わせ内容に応じて、以下のフォームをご利用ください。</span>
+        </div>
+      </div>
+
+      <div class="form-cards">
+        <!-- アカウント・プライバシー -->
+        <div class="form-card">
+          <div class="form-card-header">
+            <div class="form-icon icon-account">👤</div>
+            <h4>アカウント・プライバシー</h4>
+          </div>
+          <p>アカウントに関する問題、個人情報の取り扱い、プライバシー設定についてのお問い合わせ</p>
+          <a href="https://docs.google.com/forms/d/e/1FAIpQLSccxQuk8T33nVfIrj2YG1mtt8OjJghXT4kihaXEKSFZCNemZw/viewform?usp=header" target="_blank" rel="noopener noreferrer" class="btn-primary">
+            フォームを開く →
+          </a>
+        </div>
+
+        <!-- バグ報告・機能要望 -->
+        <div class="form-card">
+          <div class="form-card-header">
+            <div class="form-icon icon-bug">🐛</div>
+            <h4>バグ報告・機能要望</h4>
+          </div>
+          <p>不具合の報告、新機能のリクエスト、改善提案など技術的なフィードバック</p>
+          <a href="https://docs.google.com/forms/d/e/1FAIpQLSfV-I7HBgjTfTNhzcH3q_1pvxAklhqu5caT4jCw1o3TQzW2XQ/viewform?usp=dialog" target="_blank" rel="noopener noreferrer" class="btn-primary">
+            フォームを開く →
+          </a>
+        </div>
+
+        <!-- 法人向け広告募集 -->
+        <div class="form-card">
+          <div class="form-card-header">
+            <div class="form-icon icon-business">📢</div>
+            <h4>法人向け広告募集</h4>
+          </div>
+          <p>ELM PORT内での広告掲載、プロモーション、学生向けサービスの告知について</p>
+          <a href="https://docs.google.com/forms/d/e/1FAIpQLSdwNVW0CxmZ3aHaLhuUDqVeTaqSbmNNqmzOI11GlYBhCpg3pQ/viewform?usp=header" target="_blank" rel="noopener noreferrer" class="btn-primary">
+            フォームを開く →
+          </a>
+        </div>
+
+        <!-- IT研修・コンサルティング -->
+        <div class="form-card">
+          <div class="form-card-header">
+            <div class="form-icon icon-consulting">💼</div>
+            <h4>IT研修・技術コンサルティング</h4>
+          </div>
+          <p>企業様向けのIT研修プログラム、技術コンサルティング、開発支援サービスのご相談</p>
+          <a href="https://docs.google.com/forms/d/e/1FAIpQLSf0mPGTHWEHWgKYbTNDKZ_lqA70iFHiv3VpADEFCUXrGzncTA/viewform?usp=header" target="_blank" rel="noopener noreferrer" class="btn-primary">
+            フォームを開く →
+          </a>
+        </div>
       </div>
     </div>
+
+
   </div>
 
   <!-- SNS -->
   <section class="section">
     <div class="container" id="social" style="text-align:center">
       <h2 class="sec-title">公式SNSアカウント</h2>
-      <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:8px">
-        <a href="#" class="btn btn-ghost">𝕏</a>
-        <a href="#" class="btn btn-ghost">📷</a>
-        <a href="#" class="btn btn-ghost">💬</a>
-        <a href="#" class="btn btn-ghost">▶️</a>
+      <p class="muted" style="margin-bottom:20px">最新情報やお知らせを配信しています</p>
+      <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+        <a href="#" class="btn btn-ghost" title="X (Twitter)">𝕏</a>
+        <a href="#" class="btn btn-ghost" title="Instagram">📷</a>
+        <a href="#" class="btn btn-ghost" title="LINE">💬</a>
+        <a href="#" class="btn btn-ghost" title="YouTube">▶️</a>
       </div>
     </div>
   </section>
@@ -116,28 +154,19 @@
   <!-- 共通フッター -->
   <footer class="site-footer">
     <div class="container footer-grid">
-      <div><div class="brand small"><span class="brand-mark"></span><strong>ELM PORT</strong></div><p class="muted">© 2025 ELM PORT Team</p></div>
-      <nav><ul>
-        <li><a href="/news">ニュース</a></li>
-        <li><a href="/updates">更新情報</a></li>
-        <li><a href="#">利用規約</a></li>
-        <li><a href="#">プライバシー</a></li>
-      </ul></nav>
+      <div>
+        <div class="brand small"><span class="brand-mark"></span><strong>ELM PORT</strong></div>
+        <p class="muted">© 2025 ELM PORT Team</p>
+      </div>
+      <nav>
+        <ul>
+          <li><a href="/news">ニュース</a></li>
+          <li><a href="/updates">更新情報</a></li>
+          <li><a href="https://ambitiousstars.org/terms">利用規約</a></li>
+          <li><a href="https://ambitiousstars.org/privacypolicy">プライバシー</a></li>
+        </ul>
+      </nav>
     </div>
   </footer>
-
-  <script>
-    // 送信：Cloudflare Worker側に /api/contact を用意しておくと実送信に切替可
-    const form=document.getElementById('f'), ok=document.getElementById('ok');
-    form.addEventListener('submit', async (e)=>{
-      e.preventDefault();
-      const data=Object.fromEntries(new FormData(form).entries());
-      try{
-        const r=await fetch('/api/contact',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)});
-        if(r.ok){ ok.style.display='block'; form.reset(); setTimeout(()=>ok.style.display='none',5000); }
-        else{ alert('送信に失敗しました'); }
-      }catch{ ok.style.display='block'; form.reset(); setTimeout(()=>ok.style.display='none',5000); }
-    });
-  </script>
 </body>
 </html>
