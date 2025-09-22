@@ -59,14 +59,8 @@
   .hero p {
     text-shadow: 0 2px 8px rgba(0, 0, 0, 0.7), 0 0 20px rgba(0, 0, 0, 0.5);
     font-size: clamp(16px, 2vw, 20px);
-    margin-bottom: 32px;
     max-width: 700px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-  
-  .hero-cta {
-    margin-top: 24px;
+    margin: 0 auto;
   }
   
   /* --- モバイル向け余白調整 --- */
@@ -104,7 +98,87 @@
   .spinner{width:44px;height:44px;border:4px solid var(--line);border-top-color:var(--nu-green);border-radius:50%;animation:spin .8s linear infinite;margin:30px auto}
   @keyframes spin{to{transform:rotate(360deg)}}
   
-  /* --- セクション全般の余白調整 --- */
+  /* --- スクリーンショットセクション --- */
+  .screens-wrapper {
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .screens {
+    display: flex;
+    gap: 16px;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    padding: 8px 0 20px; /* 下部にスクロールバー用の余白 */
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  .screens::-webkit-scrollbar {
+    height: 8px;
+  }
+  
+  .screens::-webkit-scrollbar-track {
+    background: var(--surface);
+    border-radius: 4px;
+  }
+  
+  .screens::-webkit-scrollbar-thumb {
+    background: var(--nu-green);
+    border-radius: 4px;
+  }
+  
+  .screens::-webkit-scrollbar-thumb:hover {
+    background: var(--nu-green-600);
+  }
+  
+  .screen {
+    flex: 0 0 auto;
+    width: 300px;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    overflow: hidden;
+    background: #fff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    transition: transform 0.2s;
+  }
+  
+  .screen:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  }
+  
+  .screen img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  
+  /* タブレット向け */
+  @media (max-width: 1024px) {
+    .screen {
+      width: 280px;
+    }
+  }
+  
+  /* モバイル向け */
+  @media (max-width: 640px) {
+    .screens {
+      gap: 12px;
+      padding: 8px 16px 20px;
+      margin: 0 -16px; /* コンテナの余白を打ち消し */
+    }
+    
+    .screen {
+      width: 240px;
+    }
+  }
+  
+  .note {
+    color: var(--muted);
+    font-size: 14px;
+    margin-top: 16px;
+    text-align: center;
+  }
   .section {
     padding: 60px 0;
   }
@@ -211,14 +285,10 @@
       <img src="https://imagedelivery.net/ogAIW_Vdq_bAijSDyryXCQ/0269c99f-a805-4786-721e-dacf01fbcb00/public" alt="">
     </div>
     
-    <!-- コンテンツ（オーバーレイなし） -->
+    <!-- コンテンツ（ボタンなし） -->
     <div class="container hero-inner">
       <h1>毎日を、もっと便利に。</h1>
       <p>必要な情報・機能をひとつに。北大生のためのオールインワンアプリ</p>
-      <div class="hero-cta">
-        <a class="btn btn-solid" href="#download">無料で使ってみる</a>
-        <a class="btn btn-ghost" href="#features">特長を見る</a>
-      </div>
     </div>
   </section>
 
@@ -287,12 +357,12 @@
   <section id="screens" class="section">
     <div class="container">
       <h2 class="sec-title">スクリーンショット</h2>
-      <div class="screens">
-        <figure class="screen"><img src="/images/screen1.png" alt="ダッシュボード画面（例）"></figure>
-        <figure class="screen"><img src="/images/screen2.png" alt="時間割画面（例）"></figure>
-        <figure class="screen"><img src="/images/screen3.png" alt="成績分布画面（例）"></figure>
+      <div class="screens-wrapper">
+        <div class="screens" id="screenshotsList">
+          <!-- JavaScriptで動的に生成されます -->
+        </div>
       </div>
-      <p class="note">※ 画像は開発中のものを含みます。</p>
+      <p class="note">※ 画像は開発中のものを含みます。横スクロールで他の画面もご覧いただけます。</p>
     </div>
   </section>
 
@@ -334,6 +404,25 @@
   const SHOW_LIMIT = 6;            // トップで表示する件数
   const CF_ACCOUNT = 'ogAIW_Vdq_bAijSDyryXCQ'; // Cloudflare Images のアカウントID
 
+  // スクリーンショット画像のIDリスト（実際のIDに置き換えてください）
+  const SCREENSHOT_IDS = [
+    'f3238832-99be-4750-0e6f-1ffc2304c700',
+    '6a98f181-3e05-49c2-6a79-a9927a658f00', 
+    'bf7a4f2f-2211-4376-432c-c0363acc8600',
+    'c52daf4b-f3cc-45bb-c684-0a82a0bc5400',
+    '0f45089d-6e73-496f-319f-15a1fefe4900',
+    'af5118a4-1db9-43a7-257c-f5d881d86300'
+  ];
+  
+  const SCREENSHOT_ALTS = [
+    'ダッシュボード画面',
+    '時間割画面',
+    '成績分布画面',
+    'ニュース一覧画面',
+    '科目検索画面',
+    '設定画面'
+  ];
+
   // ===== ユーティリティ =====
   const cfImg = (id) => {
     if (!id || id.includes('null')) return '';
@@ -348,6 +437,24 @@
     const date = `${d.getFullYear()}/${d.getMonth()+1}/${d.getDate()}`;
     return { date, isNew };
   };
+
+  // ===== スクリーンショット描画 =====
+  function loadScreenshots() {
+    const container = document.getElementById('screenshotsList');
+    if (!container) return;
+    
+    const screenshotsHTML = SCREENSHOT_IDS.map((id, index) => {
+      const imgUrl = cfImg(id);
+      const altText = SCREENSHOT_ALTS[index] || `スクリーンショット ${index + 1}`;
+      return `
+        <figure class="screen">
+          <img src="${imgUrl}" alt="${altText}" loading="lazy">
+        </figure>
+      `;
+    }).join('');
+    
+    container.innerHTML = screenshotsHTML;
+  }
 
   // ===== 取得 → フィルタ → 描画 =====
   async function loadLatestArticles(){
@@ -400,7 +507,10 @@
       </div>`;
   }
 
-  document.addEventListener('DOMContentLoaded', loadLatestArticles);
+  document.addEventListener('DOMContentLoaded', () => {
+    loadLatestArticles();
+    loadScreenshots();
+  });
 </script>
 
 </body>
