@@ -3,80 +3,180 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>ニュース - ELM PORT</title>
-  <meta name="description" content="北海道大学の最新ニュース、アルバイト情報、就職情報、掲示板">
-  <!-- Fonts -->
+  <title>ELM PORT | 北海道大学のキャンパスライフ支援アプリ</title>
+  <meta name="description" content="ELM PORTは北大生の毎日を支えるオールインワンアプリです。">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;600;700&family=Noto+Serif+JP:wght@500;700&display=swap" rel="stylesheet">
-  <!-- Theme -->
   <link rel="stylesheet" href="/nu-theme.css">
-  <script defer src="/nu-tweaks.js"></script>
-
-  <style>
+<style>
+  /* --- ヒーローセクション画像背景対応 --- */
+  .hero {
+    position: relative;
+    color: #fff;
+    padding: 64px 0;
+    overflow: hidden;
+    /* グラデーションを削除し、フォールバック背景色のみ設定 */
+    background: var(--nu-green);
+  }
+  
+  /* 背景画像用のレイヤー */
+  .hero-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 0;
+  }
+  
+  .hero-bg img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+  
+  /* 画像の上にオーバーレイ（任意：テキストの可読性向上のため） */
+  .hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(180deg, 
+      rgba(0, 110, 79, 0.7) 0%, 
+      rgba(0, 85, 66, 0.8) 100%
+    );
+    z-index: 1;
+  }
+  
+  /* コンテンツを前面に */
+  .hero-inner {
+    position: relative;
+    z-index: 2;
+    padding: 24px 20px 8px;
+  }
+  
+  /* テキストに影を追加（可読性向上） */
+  .hero h1 {
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  }
+  
+  .hero p {
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+  }
+  
+  /* --- モバイル向け余白調整 --- */
+  .container {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+  
+  /* --- Latest News (index only) --- */
+  .news-wrap{max-width:var(--container);margin:auto;padding:0 20px}
+  .news-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  @media (max-width:1024px){.news-grid{grid-template-columns:repeat(2,1fr)}}
+  @media (max-width:640px){
+    .news-grid{grid-template-columns:1fr}
+    .news-wrap{padding:0 16px}
+    .hero {
+      padding: 40px 0;
+    }
+    .hero-inner {
+      padding: 24px 16px 8px;
+    }
+  }
+  .news-card{background:#fff;border:1px solid var(--line);border-radius:14px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 6px 16px #00000008}
+  .news-thumb{aspect-ratio:16/9;object-fit:cover;background:var(--surface)}
+  .news-body{padding:12px 14px;display:flex;flex-direction:column;gap:6px}
+  .news-meta{display:flex;gap:8px;align-items:center;font-size:.82rem;color:var(--muted)}
+  .news-title{font-weight:700;line-height:1.35}
+  .news-sub{color:var(--muted);font-size:.92rem;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+  .news-cta{display:flex;justify-content:center;margin-top:16px}
+  .badge-new{background:#e11d48;color:#fff;border-radius:6px;padding:2px 6px;font-size:.72rem}
+  .spinner{width:44px;height:44px;border:4px solid var(--line);border-top-color:var(--nu-green);border-radius:50%;animation:spin .8s linear infinite;margin:30px auto}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  
+  /* --- セクション全般の余白調整 --- */
+  .section {
+    padding: 60px 0;
+  }
+  
+  @media (max-width: 640px) {
+    .section {
+      padding: 40px 0;
+    }
     
-    .tabs{
-      background:#fff;border-bottom:1px solid var(--line);
-      position:sticky;top:70px;z-index:40;
+    .container {
+      padding-left: 16px;
+      padding-right: 16px;
     }
-    .tabs-content{max-width:var(--container);margin:auto;display:flex;gap:2rem;padding:0 20px}
-    .tab{padding:14px 0;cursor:pointer;border-bottom:3px solid transparent;color:var(--muted)}
-    .tab.active{color:var(--nu-green);border-bottom-color:var(--nu-green)}
-    .filters{background:#fff;border:1px solid var(--line);border-radius:12px;margin:16px auto;max-width:var(--container);padding:12px}
-    .filter-buttons{display:flex;flex-wrap:wrap;gap:10px}
-    .filter-btn{padding:8px 14px;border:1px solid var(--line);border-radius:20px;background:#fff}
-    .filter-btn.active,.filter-btn:hover{border-color:var(--nu-green);color:var(--nu-green)}
-    .articles-container{max-width:var(--container);margin:auto;padding:0 20px}
-    .article-card{display:flex;gap:14px;padding:14px 0;border-bottom:1px solid var(--line);cursor:pointer}
-    .article-card:hover{background:var(--surface)}
-    .article-content{flex:1}
-    .article-date{font-size:.9rem;font-weight:600;color:#111}
-    .new-badge{background:#e11d48;color:#fff;font-size:.7rem;padding:2px 6px;border-radius:4px}
-    .article-title{font-size:1rem;font-weight:700;margin:2px 0 4px}
-    .article-subtitle{color:var(--muted);font-size:.9rem;line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-    .article-meta{display:flex;gap:8px;align-items:center;font-size:.8rem;color:var(--muted)}
-    .by-badge{background:#111;color:#fff;border-radius:4px;font-size:.7rem;padding:2px 6px}
-    .article-genre{color:#065f46;font-weight:600}
-    .article-thumbnail{width:140px;height:78px;border-radius:10px;object-fit:cover;background:var(--surface)}
-    .load-more{display:block;margin:24px auto;padding:10px 22px;border:2px solid var(--nu-green);border-radius:30px;background:#fff;color:var(--nu-green);font-weight:700}
-    .load-more:hover{background:var(--nu-green);color:#fff}
-    .no-articles,.error{padding:48px;text-align:center;color:var(--muted)}
-    /* モーダル */
-    .modal{display:none;position:fixed;inset:0;background:#0006;z-index:1000;overflow:auto}
-    .modal.active{display:block}
-    .modal-content{background:#fff;max-width:860px;margin:40px auto;border-radius:14px;overflow:hidden;animation:slideUp .25s ease}
-    @keyframes slideUp{from{transform:translateY(40px);opacity:0}to{transform:translateY(0);opacity:1}}
-    .modal-header{padding:12px 16px;border-bottom:1px solid var(--line);position:relative}
-    .modal-close{position:absolute;right:12px;top:12px;width:36px;height:36px;border:none;border-radius:50%;background:var(--surface);cursor:pointer}
-    .modal-body{padding:18px}
-    .article-detail-image{width:100%;max-height:420px;object-fit:cover;border-radius:10px;margin-bottom:12px}
-    .article-detail-title{font-size:1.6rem;margin:4px 0 6px}
-    .article-detail-subtitle{color:var(--muted);margin:0 0 12px}
-    .comments-section{margin-top:22px;padding-top:18px;border-top:1px solid var(--line)}
-    .comment{background:var(--surface);padding:12px;border-radius:10px;margin-bottom:10px}
-    .comment-meta{display:flex;justify-content:space-between;color:var(--muted);font-size:.9rem}
-    /* ローディングスピナー */
-    .spinner-container{min-height:80px;display:flex;justify-content:center;align-items:center}
-    .spinner{width:36px;height:36px;border:4px solid var(--line);border-top-color:var(--nu-green);border-radius:50%;animation:spin 1s linear infinite}
-    @keyframes spin{to{transform:rotate(360deg)}}
-    /* ヒーロー */
-    .hero{background:linear-gradient(180deg, var(--nu-green), var(--nu-green-600));color:#fff;padding:48px 0}
-    .hero-inner{max-width:var(--container);margin:auto;padding:0 20px}
-    .hero h1{margin:0 0 6px}
-    @media (max-width:860px){
-      .tabs{top:70px}
-      .article-card{flex-direction:column}
-      .article-thumbnail{width:100%;height:200px}
-      .modal-content{margin:0;border-radius:0;min-height:100vh}
+    
+    .cards {
+      gap: 12px;
+      padding: 0 8px;
     }
+    
+    .grid {
+      gap: 12px;
+      padding: 0 8px;
+    }
+    
+    .screens {
+      padding: 0 8px;
+      gap: 12px;
+    }
+    
+    .site-footer {
+      padding: 30px 16px;
+    }
+    
+    .cta-inner {
+      padding: 0 16px;
+    }
+    
+    .hdr-inner {
+      padding: 0 16px;
+    }
+  }
+  
+  @media (min-width: 641px) and (max-width: 1024px) {
+    .container {
+      padding-left: 24px;
+      padding-right: 24px;
+    }
+    
+    .hero-inner {
+      padding: 24px 24px 8px;
+    }
+    
+    .news-wrap {
+      padding: 0 24px;
+    }
+  }
+</style>
+
+  <script defer src="/nu-tweaks.js"></script>
+  <link rel="icon" href="/favicon.ico">
+  <style type="text/css">
+  @import url("nu-theme.css");
   </style>
+<meta property="og:title" content="ELM PORT" />
+  <meta property="og:description" content="北大生の毎日を支えるオールインワンアプリ" />
+  <meta property="og:type" content="website" />
 </head>
 <body>
-  <!-- 共通ヘッダー -->
+  <!-- Top thin bar -->
   <div class="topbar" aria-hidden="true"></div>
+
   <header class="site-header" role="banner">
     <div class="container hdr-inner">
-      <a class="brand" href="/"><span class="brand-mark" aria-hidden="true"></span>
-        <span class="brand-text"><strong>ELM PORT</strong><small>Campus Life Support</small></span>
+      <a class="brand" href="/">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span class="brand-text">
+          <strong>ELM PORT</strong>
+          <small>Campus Life Support for Hokkaido Univ.</small>
+        </span>
       </a>
       <button class="nav-toggle" aria-expanded="false" aria-controls="site-nav">メニュー</button>
 <nav id="site-nav" class="site-nav" role="navigation">
@@ -91,199 +191,208 @@
     </div>
   </header>
 
-  <!-- ヒーロー -->
+  <!-- Hero -->
   <section class="hero">
-    <div class="hero-inner">
-      <h1>ニュース</h1>
-      <p>記事・アルバイト・掲示板の最新情報</p>
+    <!-- 背景画像レイヤー -->
+    <div class="hero-bg">
+      <!-- ここに画像IDを指定してください。例: hero-background-01 -->
+      <img src="https://imagedelivery.net/ogAIW_Vdq_bAijSDyryXCQ/0269c99f-a805-4786-721e-dacf01fbcb00/public" alt="">
+    </div>
+    
+    <!-- オーバーレイ（任意） -->
+    <div class="hero-overlay"></div>
+    
+    <!-- コンテンツ -->
+    <div class="container hero-inner">
+      <h1>毎日を、もっと便利に。</h1>
+      <p>必要な情報・機能をひとつに。北大生のためのオールインワンアプリ</p>
+      <div class="hero-cta">
+        <a class="btn btn-solid" href="#download">無料で使ってみる</a>
+        <a class="btn btn-ghost" href="#features">特長を見る</a>
+      </div>
     </div>
   </section>
 
-  <!-- タブ -->
-  <div class="tabs">
-    <div class="tabs-content">
-      <div class="tab active" data-featured="article">記事</div>
-      <div class="tab" data-featured="arbeit">アルバイト</div>
-      <div class="tab" data-featured="work">仕事</div>
-      <div class="tab" data-featured="board">掲示板</div>
+  <section id="latest-news" class="section section-alt">
+  <div class="news-wrap">
+    <h2 class="sec-title">最新ニュース</h2>
+    <div id="newsList">
+      <div class="spinner" aria-label="読み込み中"></div>
+    </div>
+    <div class="news-cta">
+      <a class="btn btn-ghost" href="/news">もっと見る</a>
     </div>
   </div>
+</section>
 
-  <!-- フィルター -->
-  <div class="filters">
-    <div class="filter-buttons">
-      <button class="filter-btn active" data-status="published">最新の記事</button>
-      <button class="filter-btn" data-status="archived">過去の記事</button>
+  <!-- Features -->
+  <section id="features" class="section">
+    <div class="container">
+      <h2 class="sec-title">ELM PORT の特長</h2>
+      <div class="cards">
+        <article class="card">
+          <div class="card-icon" aria-hidden="true">📅</div>
+          <h3>時間割を登録＆共有</h3>
+          <p>時間割を登録・共有しよう。</p>
+        </article>
+        <article class="card">
+          <div class="card-icon" aria-hidden="true">📰</div>
+          <h3>ニュース/掲示を横断表示</h3>
+          <p>北大TIMESや学内掲示の重要情報を一元表示。フィルタ・保存も可能。</p>
+        </article>
+        <article class="card">
+          <div class="card-icon" aria-hidden="true">📊</div>
+          <h3>成績分布の可視化</h3>
+          <p>科目・担当別に分布を可視化して履修計画を支援。GPA推移も確認できます。</p>
+        </article>
+      </div>
     </div>
-  </div>
+  </section>
 
-  <!-- 記事リスト -->
-  <div class="articles-container" id="articles">
-    <div style="display:flex;justify-content:center;align-items:center;min-height:240px">
-      <div class="spinner" style="width:44px;height:44px;border:4px solid var(--line);border-top-color:var(--nu-green);border-radius:50%;animation:spin .8s linear infinite"></div>
+  <!-- Functions (grid like NU news layout) -->
+  <section id="functions" class="section section-alt">
+    <div class="container">
+      <h2 class="sec-title">主な機能</h2>
+      <div class="grid">
+        <div class="tile">
+          <h4>ダッシュボード</h4>
+          <p>今日のコマ、タスク、最新情報をひと目で。</p>
+        </div>
+        <div class="tile">
+          <h4>科目検索</h4>
+          <p>曖昧検索・担当・学期フィルタなど高度な検索に対応。</p>
+        </div>
+        <div class="tile">
+          <h4>共有/バックアップ</h4>
+          <p>時間割をクラウドへ同期。端末移行も安心。</p>
+        </div>
+        <div class="tile">
+          <h4>通知</h4>
+          <p>休講・差し替え等の重要情報をプッシュでお知らせ。</p>
+        </div>
+      </div>
     </div>
-  </div>
-  <button class="load-more" id="loadMore" style="display:none">もっと読む</button>
+  </section>
 
-  <!-- モーダル -->
-  <div class="modal" id="articleModal">
-    <div class="modal-content">
-      <div class="modal-header"><button class="modal-close" onclick="closeModal()">✕</button></div>
-      <div class="modal-body" id="modalBody"></div>
+  <!-- Screenshots -->
+  <section id="screens" class="section">
+    <div class="container">
+      <h2 class="sec-title">スクリーンショット</h2>
+      <div class="screens">
+        <figure class="screen"><img src="/images/screen1.png" alt="ダッシュボード画面（例）"></figure>
+        <figure class="screen"><img src="/images/screen2.png" alt="時間割画面（例）"></figure>
+        <figure class="screen"><img src="/images/screen3.png" alt="成績分布画面（例）"></figure>
+      </div>
+      <p class="note">※ 画像は開発中のものを含みます。</p>
     </div>
-  </div>
+  </section>
 
-  <!-- 共通フッター -->
+  <!-- CTA -->
+  <section id="download" class="section section-cta">
+    <div class="container cta-inner">
+      <h2 class="sec-title">今すぐはじめる</h2>
+      <p>ELM PORT は無料でご利用いただけます。</p>
+      <div class="store-buttons">
+        <a class="store-btn" href="#" aria-label="App Store で入手">App Store</a>
+        <a class="store-btn" href="#" aria-label="Google Play で手に入れよう">Google Play</a>
+      </div>
+    </div>
+  </section>
+
   <footer class="site-footer">
     <div class="container footer-grid">
-      <div><div class="brand small"><span class="brand-mark" aria-hidden="true"></span><strong>ELM PORT</strong></div>
-        <p class="muted">© 2025 ELM PORT Team</p></div>
+      <div>
+        <div class="brand small">
+          <span class="brand-mark" aria-hidden="true"></span>
+          <strong>ELM PORT</strong>
+        </div>
+        <p class="muted">© 2025 ELM PORT Team</p>
+      </div>
       <nav aria-label="フッターメニュー">
         <ul>
-          <li><a href="/updates">更新情報</a></li>
+          <li><a href="/news">お知らせ</a></li>
+          <li><a href="/terms">利用規約</a></li>
+          <li><a href="/privacypolicy">プライバシー</a></li>
           <li><a href="/contact">お問い合わせ</a></li>
-          <li><a href="/term">利用規約</a></li>
-          <li><a href="/privacyporicy">プライバシー</a></li>
         </ul>
       </nav>
     </div>
   </footer>
+<script>
+  // ===== 設定 =====
+  const API_BASE = '';             // 同一ドメイン配信なら空のまま
+  const DB_PARAM = '?db=1';
+  const SHOW_LIMIT = 6;            // トップで表示する件数
+  const CF_ACCOUNT = 'ogAIW_Vdq_bAijSDyryXCQ'; // Cloudflare Images のアカウントID
 
-  <script>
-    // ===== 設定 =====
-    const API_BASE = '';               // 同一ドメインにリバースプロキシする場合は空のまま
-    const DB_PARAM = '?db=1';
-    const CF_ACCOUNT = 'ogAIW_Vdq_bAijSDyryXCQ'; // そのまま流用
+  // ===== ユーティリティ =====
+  const cfImg = (id) => {
+    if (!id || id.includes('null')) return '';
+    if (id.startsWith('http')) return id;
+    return `https://imagedelivery.net/${CF_ACCOUNT}/${id}/public`;
+  };
+  const esc = (t) => { const d=document.createElement('div'); d.textContent=t??''; return d.innerHTML; };
+  const fmt = (ts) => {
+    if (!ts) return { date: '', isNew: false };
+    const d = new Date(ts); const now = new Date();
+    const isNew = (now - d) / 86400000 <= 3; // 3日以内は New
+    const date = `${d.getFullYear()}/${d.getMonth()+1}/${d.getDate()}`;
+    return { date, isNew };
+  };
 
-    // ===== ユーティリティ =====
-    function cfImg(id){ if(!id||id.includes('null')) return ''; if(id.startsWith('http')) return id; return `https://imagedelivery.net/${CF_ACCOUNT}/${id}/public`; }
-    function formatDate(ts){ const d=new Date(ts); const now=new Date(); const days=Math.floor((now-d)/(864e5)); return {dateStr:`${d.getFullYear()}/${d.getMonth()+1}/${d.getDate()}`,isNew:days<=3}; }
-    function relTime(ts){ const d=new Date(ts),now=new Date(),diff=now-d; const m=Math.floor(diff/6e4),h=Math.floor(diff/36e5),dd=Math.floor(diff/864e5); if(m<1)return'たった今'; if(m<60)return`${m}分前`; if(h<24)return`${h}時間前`; return`${dd}日前`; }
-    function escapeHtml(t){ const div=document.createElement('div'); div.textContent=t??''; return div.innerHTML; }
-    function md(content){
-      if(!content) return '';
-      content = escapeHtml(content)
-        .replace(/^### (.*?)$/gm,'<h3>$1</h3>')
-        .replace(/^## (.*?)$/gm,'<h2>$1</h2>')
-        .replace(/^# (.*?)$/gm,'<h1>$1</h1>')
-        .replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>')
-        .replace(/\*(.*?)\*/g,'<em>$1</em>')
-        .replace(/\[([^\]]+)\]\(([^)]+)\)/g,'<a href="$2" target="_blank" rel="noopener">$1</a>')
-        .replace(/\n\n/g,'</p><p>').replace(/\n/g,'<br>');
-      return `<p>${content}</p>`;
+  // ===== 取得 → フィルタ → 描画 =====
+  async function loadLatestArticles(){
+    const host = `${API_BASE}/api/articles${DB_PARAM}`;
+    try{
+      const r = await fetch(host);
+      const all = await r.json();
+
+      // featured=article & status=published のみ
+      const list = all
+        .filter(a => a.featured === 'article' && a.status === 'published')
+        .sort((a,b) => (b.updatedAt||b.createdAt||0) - (a.updatedAt||a.createdAt||0))
+        .slice(0, SHOW_LIMIT);
+
+      renderNews(list);
+    }catch(e){
+      console.error(e);
+      document.getElementById('newsList').innerHTML = '<p class="muted">ニュースの読み込みに失敗しました。</p>';
     }
+  }
 
-    // ===== 状態 =====
-    let allArticles=[], filtered=[], currentFeatured='article', currentStatus='published', visible=6, currentArticle=null, currentComments=[];
-
-    // ===== データ取得 =====
-    async function fetchArticles(){
-      try{
-        const r=await fetch(`${API_BASE}/api/articles${DB_PARAM}`);
-        const data=await r.json();
-        allArticles=data; applyFilter(); render();
-      }catch(e){
-        console.error(e);
-        document.getElementById('articles').innerHTML='<div class="error">記事の読み込みに失敗しました。</div>';
-      }
+  function renderNews(items){
+    const root = document.getElementById('newsList');
+    if (!items.length){
+      root.innerHTML = '<p class="muted">現在表示できるニュースはありません。</p>';
+      return;
     }
-    function applyFilter(){
-      filtered=allArticles.filter(a=>a.featured===currentFeatured&&a.status===currentStatus);
-      filtered.sort((a,b)=>{const at=!!(a.thumbnailUrl&&!a.thumbnailUrl.includes('/null')), bt=!!(b.thumbnailUrl&&!b.thumbnailUrl.includes('/null')); if(at&&!bt) return -1; if(!at&&bt) return 1; return (b.createdAt||0)-(a.createdAt||0);});
-      visible=6;
-    }
-    function render(){
-      const c=document.getElementById('articles');
-      const arr=filtered.slice(0,visible);
-      if(arr.length===0){ c.innerHTML='<div class="no-articles">記事がありません</div>'; document.getElementById('loadMore').style.display='none'; return; }
-      c.innerHTML=arr.map(a=>{
-        const {dateStr,isNew}=formatDate(a.updatedAt||a.createdAt);
-        const thumb=a.thumbnailUrl?cfImg(a.thumbnailUrl):'';
-        const has=thumb&&!thumb.includes('/null');
-        return `
-        <div class="article-card" onclick="showArticle('${a.id}')">
-          <div class="article-content">
-            <div class="article-date-row"><span class="article-date">${dateStr}</span> ${isNew?'<span class="new-badge">New!</span>':''}</div>
-            <h3 class="article-title">${escapeHtml(a.title)}</h3>
-            ${a.subtitle?`<p class="article-subtitle">${escapeHtml(a.subtitle)}</p>`:''}
-            <div class="article-meta">
-              <span class="by-badge">By</span><span>${escapeHtml(a.author||'Anonymous')}</span>
-              <span class="article-genre">${escapeHtml(a.genre||'未分類')}</span>
-            </div>
-          </div>
-          ${has?`<img class="article-thumbnail" src="${thumb}" alt="">`:''}
-        </div>`;
-      }).join('');
-      document.getElementById('loadMore').style.display = filtered.length>visible ? 'block':'none';
-    }
-
-    async function showArticle(id){
-      const a=allArticles.find(x=>x.id===id); if(!a) return; currentArticle=a;
-      incrementView(id);
-      const img=a.imageUrl||a.thumbnailUrl; const url=img?cfImg(img):'';
-      document.getElementById('modalBody').innerHTML = `
-        ${url&&!url.includes('/null')?`<img class="article-detail-image" src="${url}" alt="">`:''}
-        <h1 class="article-detail-title">${escapeHtml(a.title)}</h1>
-        ${a.subtitle?`<p class="article-detail-subtitle">${escapeHtml(a.subtitle)}</p>`:''}
-        <div class="article-detail-content">${md(a.content)}</div>
-        ${a.commentsEnabled?`
-          <div class="comments-section" id="commentsSection">
-            <h3 class="comments-title">コメント欄</h3>
-            <div id="commentsList">
-              <div class="spinner-container">
-                <div class="spinner"></div>
+    root.innerHTML = `
+      <div class="news-grid">
+        ${items.map(a => {
+          const thumb = cfImg(a.thumbnailUrl || a.imageUrl);
+          const hasThumb = thumb && !thumb.includes('/null');
+          const { date, isNew } = fmt(a.updatedAt || a.createdAt);
+          return `
+            <article class="news-card" onclick="location.href='/news#${a.id}'" role="link">
+              ${hasThumb ? `<img class="news-thumb" src="${thumb}" alt="">` : `<div class="news-thumb" aria-hidden="true"></div>`}
+              <div class="news-body">
+                <div class="news-meta">
+                  <span>${esc(a.genre || 'お知らせ')}</span>
+                  <span>・</span>
+                  <span>${date}</span>
+                  ${isNew ? `<span class="badge-new">New</span>` : ``}
+                </div>
+                <div class="news-title">${esc(a.title)}</div>
+                ${a.subtitle ? `<div class="news-sub">${esc(a.subtitle)}</div>` : ``}
               </div>
-            </div>
-            <div class="comment-form" style="margin-top:12px">
-              <input type="text" class="form-input" id="nameInput" placeholder="お名前（省略可）" style="width:100%;padding:10px;border:1px solid var(--line);border-radius:10px;margin-bottom:8px">
-              <textarea class="form-input" id="commentInput" rows="3" placeholder="コメントを入力" style="width:100%;padding:10px;border:1px solid var(--line);border-radius:10px"></textarea>
-              <button class="btn btn-solid" style="margin-top:8px" onclick="postComment()">送信</button>
-            </div>
-          </div>`:''
-        }`;
-      document.getElementById('articleModal').classList.add('active'); document.body.style.overflow='hidden';
-      if(a.commentsEnabled) loadComments(id);
-    }
-    function closeModal(){ document.getElementById('articleModal').classList.remove('active'); document.body.style.overflow=''; currentArticle=null; currentComments=[]; }
-    async function incrementView(id){ try{ await fetch(`${API_BASE}/api/articles/${id}/view${DB_PARAM}`,{method:'POST'});}catch{} }
-    async function loadComments(id){
-      try{ const r=await fetch(`${API_BASE}/api/articles/${id}/comments${DB_PARAM}`); currentComments=await r.json(); renderComments(); }
-      catch{ document.getElementById('commentsList').innerHTML='<div class="error">コメントの読み込みに失敗しました</div>'; }
-    }
-    function renderComments(){
-      const c=document.getElementById('commentsList');
-      if(!currentComments.length){ c.innerHTML='<p class="muted" style="text-align:center">まだコメントはありません</p>'; return; }
-      c.innerHTML=currentComments.map(cm=>`
-        <div class="comment">
-          <p>${escapeHtml(cm.body)}</p>
-          <div class="comment-meta"><span>${escapeHtml(cm.author||'Anonymous')} • ${relTime(cm.createdAt)}</span><span>👍 ${cm.likes||0}</span></div>
-        </div>`).join('');
-    }
-    function getFP(){ let fp=localStorage.getItem('fp'); if(!fp){ fp=crypto.randomUUID(); localStorage.setItem('fp',fp);} return fp; }
-    async function postComment(){
-      const body=(document.getElementById('commentInput').value||'').trim(); if(!body){ alert('コメントを入力してください'); return; }
-      const name=(document.getElementById('nameInput').value||'').trim()||'Anonymous';
-      try{
-        const r=await fetch(`/api/articles/${currentArticle.id}/comments${DB_PARAM}`,{method:'POST',headers:{'Content-Type':'application/json','x-client-fingerprint':getFP()},body:JSON.stringify({body,author:name})});
-        if(r.ok){ document.getElementById('commentInput').value=''; document.getElementById('nameInput').value=''; loadComments(currentArticle.id); }
-      }catch{ alert('コメントの投稿に失敗しました'); }
-    }
+            </article>
+          `;
+        }).join('')}
+      </div>`;
+  }
 
-    // 画面イベント
-    document.addEventListener('DOMContentLoaded',()=>{
-      document.querySelectorAll('.tab').forEach(t=>t.addEventListener('click',e=>{
-        document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));
-        e.currentTarget.classList.add('active'); currentFeatured=e.currentTarget.dataset.featured; applyFilter(); render();
-      }));
-      document.querySelectorAll('.filter-btn').forEach(b=>b.addEventListener('click',e=>{
-        document.querySelectorAll('.filter-btn').forEach(x=>x.classList.remove('active'));
-        e.currentTarget.classList.add('active'); currentStatus=e.currentTarget.dataset.status; applyFilter(); render();
-      }));
-      document.getElementById('loadMore').addEventListener('click',()=>{ visible+=6; render(); });
-      document.getElementById('articleModal').addEventListener('click',e=>{ if(e.target.id==='articleModal') closeModal();});
-      document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeModal(); });
-      fetchArticles();
-    });
-  </script>
+  document.addEventListener('DOMContentLoaded', loadLatestArticles);
+</script>
+
 </body>
 </html>
