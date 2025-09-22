@@ -243,7 +243,14 @@
 </style>
 
   <script defer src="/nu-tweaks.js"></script>
-  <link rel="icon" href="/favicon.ico">
+
+<!-- ファビコン設定 -->
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+
+
   <style type="text/css">
   @import url("nu-theme.css");
   </style>
@@ -257,13 +264,17 @@
 
   <header class="site-header" role="banner">
     <div class="container hdr-inner">
-      <a class="brand" href="/">
-        <span class="brand-mark" aria-hidden="true"></span>
-        <span class="brand-text">
-          <strong>ELM PORT</strong>
-          <small>Campus Life Support for Hokkaido Univ.</small>
-        </span>
-      </a>
+<a class="brand" href="/">
+  <!-- 画像アイコンを使用 -->
+  <span class="brand-icon" aria-hidden="true">
+    <img src="/images/logo.png" alt="ELM PORT">
+  </span>
+  
+  <span class="brand-text">
+    <strong>ELM PORT</strong>
+    <small>Campus Life Support for Hokkaido Univ.</small>
+  </span>
+</a>
       <button class="nav-toggle" aria-expanded="false" aria-controls="site-nav">メニュー</button>
 <nav id="site-nav" class="site-nav" role="navigation">
   <ul>
