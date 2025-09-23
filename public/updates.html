@@ -92,122 +92,16 @@
     </div>
   </section>
 
-  <!-- SNSカードは割愛（必要なら後で差し戻し可） -->
-
-  <!-- フィルタ -->
-  <div class="filter-tabs">
-    <div class="filter-tab active" data-filter="all">すべて</div>
-    <div class="filter-tab" data-filter="feature">新機能</div>
-    <div class="filter-tab" data-filter="fix">不具合修正</div>
-    <div class="filter-tab" data-filter="improvement">改善</div>
-    <div class="filter-tab" data-filter="announcement">お知らせ</div>
-  </div>
-
-  <!-- タイムライン（元データをそのまま流用） -->
-  <div class="timeline-container">
-    <div class="timeline" id="timeline">
-      <!-- v2.3.0 -->
-      <div class="timeline-item major" data-type="feature">
-        <div class="timeline-marker"></div>
-        <div class="timeline-content">
-          <div class="update-header">
-            <div><span class="version-badge">v2.3.0</span> <span class="muted">2024年12月15日</span></div>
-            <div><span class="type-badge feature">新機能</span> <span class="type-badge improvement">改善</span></div>
-          </div>
-          <h3 class="update-title">冬季アップデート 🎄</h3>
-          <p class="muted">年末に向けた大型アップデート！新しいSNS機能と、より使いやすくなったUIをお楽しみください。</p>
-          <ul class="update-list">
-            <li class="update-list-item new">学生SNS機能を追加 - 同じ大学の仲間とつながろう</li>
-            <li class="update-list-item new">リアルタイム通知機能の実装</li>
-            <li class="update-list-item improve">時間割画面のデザインを刷新</li>
-            <li class="update-list-item improve">アプリ起動速度を30%改善</li>
-            <li class="update-list-item fix">一部端末でクラッシュする問題を修正</li>
-          </ul>
-        </div>
-      </div>
-
-      <!-- v2.2.0 -->
-      <div class="timeline-item" data-type="feature">
-        <div class="timeline-marker"></div>
-        <div class="timeline-content">
-          <div class="update-header">
-            <div><span class="version-badge">v2.2.0</span> <span class="muted">2024年11月20日</span></div>
-            <div><span class="type-badge feature">新機能</span></div>
-          </div>
-          <h3 class="update-title">GPA分析機能リリース</h3>
-          <p class="muted">過去の成績データを基にしたGPA分布表示機能を追加しました。</p>
-          <ul class="update-list">
-            <li class="update-list-item new">GPA分布グラフの表示</li>
-            <li class="update-list-item new">学部・学科別の統計情報</li>
-            <li class="update-list-item new">目標GPA設定機能</li>
-          </ul>
-        </div>
-      </div>
-
-      <!-- v2.1.5 -->
-      <div class="timeline-item" data-type="fix">
-        <div class="timeline-marker"></div>
-        <div class="timeline-content">
-          <div class="update-header">
-            <div><span class="version-badge">v2.1.5</span> <span class="muted">2024年11月5日</span></div>
-            <div><span class="type-badge fix">不具合修正</span></div>
-          </div>
-          <h3 class="update-title">安定性の向上</h3>
-          <p class="muted">フィードバックを元に、各種不具合を修正しました。</p>
-          <ul class="update-list">
-            <li class="update-list-item fix">iOS 17での表示崩れを修正</li>
-            <li class="update-list-item fix">通知が重複する問題を解決</li>
-            <li class="update-list-item fix">ログイン状態が保持されない問題を修正</li>
-          </ul>
-        </div>
-      </div>
-
-      <!-- お知らせ -->
-      <div class="timeline-item" data-type="announcement">
-        <div class="timeline-marker"></div>
-        <div class="timeline-content">
-          <div class="update-header">
-            <div><span class="muted">2024年10月30日</span></div>
-            <div><span class="type-badge announcement">お知らせ</span></div>
-          </div>
-          <h3 class="update-title">メンテナンスのお知らせ</h3>
-          <p class="muted">11月1日(金) 深夜2:00〜4:00にサーバーメンテナンスを実施します。</p>
-        </div>
-      </div>
-
-      <!-- v2.1.0 -->
-      <div class="timeline-item major" data-type="feature">
-        <div class="timeline-marker"></div>
-        <div class="timeline-content">
-          <div class="update-header">
-            <div><span class="version-badge">v2.1.0</span> <span class="muted">2024年10月15日</span></div>
-            <div><span class="type-badge feature">新機能</span> <span class="type-badge improvement">改善</span></div>
-          </div>
-          <h3 class="update-title">秋の大型アップデート 🍂</h3>
-          <p class="muted">後期授業に向けた新機能を多数追加しました。</p>
-          <ul class="update-list">
-            <li class="update-list-item new">ダークモード対応</li>
-            <li class="update-list-item new">授業資料の共有機能</li>
-            <li class="update-list-item new">カレンダー同期機能</li>
-            <li class="update-list-item improve">UI/UXの全面改善</li>
-            <li class="update-list-item improve">バッテリー消費を20%削減</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
-
   <!-- 今後の予定 -->
   <section class="roadmap-section">
     <div class="roadmap-container">
       <h2 class="sec-title" style="text-align:center">今後の予定</h2>
       <div class="roadmap-grid">
-        <div class="roadmap-card"><span class="roadmap-status development">開発中</span><h3>AI学習アシスタント</h3><p class="muted">学習パターンを分析し提案。</p></div>
-        <div class="roadmap-card"><span class="roadmap-status testing">テスト中</span><h3>オフラインモード</h3><p class="muted">接続なしでも基本機能。</p></div>
+        <div class="roadmap-card"><span class="roadmap-status development">開発中</span><h3>AI機能追加</h3><p class="muted">GPAの統計データから、基礎クラスごとの履修計画を作成。</p></div>
+        <div class="roadmap-card"><span class="roadmap-status testing">計画中</span><h3>学科・コースコミュニティ</h3><p class="muted">学科を登録すると、学科・コースの人と連絡可能。テスト情報などの共有ができる。</p></div>
         <div class="roadmap-card"><span class="roadmap-status planning">計画中</span><h3>他大学連携</h3><p class="muted">北海道内の他大学と連携。</p></div>
-        <div class="roadmap-card"><span class="roadmap-status development">開発中</span><h3>ウィジェット</h3><p class="muted">時間割や通知をホームで。</p></div>
-        <div class="roadmap-card"><span class="roadmap-status planning">計画中</span><h3>Apple Watch対応</h3><p class="muted">授業通知・教室場所の確認。</p></div>
-        <div class="roadmap-card"><span class="roadmap-status testing">テスト中</span><h3>音声アシスタント</h3><p class="muted">音声でクエリ可能に。</p></div>
+        <div class="roadmap-card"><span class="roadmap-status development">開発着手中</span><h3>天気・交通情報</h3><p class="muted">札幌市北区の気象情報と、JRと市営地下鉄の運行情報タブの掲載</p></div>
+        <div class="roadmap-card"><span class="roadmap-status planning">計画中</span><h3>Apple Watch対応</h3><p class="muted">次の教室番号をApple Watchに追加</p></div>
       </div>
     </div>
   </section>
