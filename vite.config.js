@@ -4,21 +4,18 @@ import path from 'node:path'
 
 export default defineConfig({
   plugins: [react()],
+  publicDir: false,                // public コピーは使わない
   build: {
-    outDir: 'public',
-    emptyOutDir: false,
+    outDir: 'public/admin/assets', // 直接 /admin/assets/ に出す
+    emptyOutDir: true,             // 毎回クリア
     rollupOptions: {
-      input: {
-        admin: path.resolve(process.cwd(), 'public/admin/index.html'),
-      },
+      // 入口は TSX（HTMLは触らない）
+      input: path.resolve(process.cwd(), 'src/main.tsx'),
       output: {
-        // ★ 出力は 1 本だけ
-        inlineDynamicImports: true,
-        entryFileNames: 'admin/assets/main.js',
-        // チャンクや資産を作らない（後方互換で残してもOK）
-        chunkFileNames: 'admin/assets/main.js',
-        assetFileNames: 'admin/assets/[name]-[hash][extname]',
-      },
-    },
-  },
+        inlineDynamicImports: true,     // チャンク分割なし＝1本に束ねる
+        entryFileNames: 'main.js',      // 必ず main.js を作る
+        assetFileNames: 'assets/[name]-[hash][extname]'
+      }
+    }
+  }
 })
