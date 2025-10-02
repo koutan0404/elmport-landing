@@ -5,11 +5,12 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <title>News Admin</title>
+    <!-- CDN警告は無視してOK（後でCLI化すれば良い） -->
     <script src="https://cdn.tailwindcss.com"></script>
   </head>
   <body class="bg-neutral-50 text-neutral-900">
     <div id="root"></div>
-    <!-- ← ここを “必ず” 本番JSに。src/main.tsx は使わない -->
-    <script type="module" src="/admin/assets/main.js"></script>
+    <!-- ★ここを “ソース” に戻す。/src/main.tsx を指すのが正解 -->
+    <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
