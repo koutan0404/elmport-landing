@@ -8,15 +8,16 @@ export default defineConfig({
     outDir: 'public',
     emptyOutDir: false,
     rollupOptions: {
-      // 入口HTML（存在している必要あり）
       input: {
         admin: path.resolve(process.cwd(), 'public/admin/index.html'),
       },
-      // 出力を固定（/admin/assets/main.js）
       output: {
+        // ★ 出力は 1 本だけ
+        inlineDynamicImports: true,
         entryFileNames: 'admin/assets/main.js',
-        chunkFileNames: 'admin/assets/chunks/[name]-[hash].js',
-        assetFileNames: 'admin/assets/assets/[name]-[hash][extname]',
+        // チャンクや資産を作らない（後方互換で残してもOK）
+        chunkFileNames: 'admin/assets/main.js',
+        assetFileNames: 'admin/assets/[name]-[hash][extname]',
       },
     },
   },
