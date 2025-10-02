@@ -9,9 +9,30 @@
     "deploy:preview": "wrangler deploy --env preview"
   },
   "devDependencies": {
+    "@types/react": "^19.2.0",
+    "@types/react-dom": "^19.2.0",
+    "@vitejs/plugin-react": "^5.0.4",
+    "typescript": "^5.9.3",
+    "vite": "^7.1.8",
     "wrangler": "^4.33.2"
   },
   "engines": {
     "node": ">=18.0.0"
-  }
+  },
+  "dependencies": {
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0"
+  },
+  "main": "_worker.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/koutan0404/elmport-landing.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/koutan0404/elmport-landing/issues"
+  },
+  "homepage": "https://github.com/koutan0404/elmport-landing#readme"
 }
