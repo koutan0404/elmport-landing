@@ -8,11 +8,11 @@ export default defineConfig({
     outDir: 'public',
     emptyOutDir: false,
     rollupOptions: {
-      // 入口HTMLを明示
+      // 入口HTML（存在している必要あり）
       input: {
         admin: path.resolve(process.cwd(), 'public/admin/index.html'),
       },
-      // 出力を固定
+      // 出力を固定（/admin/assets/main.js）
       output: {
         entryFileNames: 'admin/assets/main.js',
         chunkFileNames: 'admin/assets/chunks/[name]-[hash].js',

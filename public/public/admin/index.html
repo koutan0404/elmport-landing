@@ -1,3 +1,4 @@
+<!-- public/admin/index.html -->
 <!doctype html>
 <html lang="ja">
   <head>
@@ -9,7 +10,7 @@
   </head>
   <body class="bg-neutral-50 text-neutral-900">
     <div id="root"></div>
-
-    <!-- ここが重要：ビルド“前”のエントリにする。Viteが本番用に書き換えます -->
+    <!-- ← ここを “必ず” 本番JSに。src/main.tsx は使わない -->
+    <script type="module" src="/admin/assets/main.js"></script>
   </body>
 </html>
