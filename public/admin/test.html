@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>認証テスト</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+        .test-section {
+            margin: 20px 0;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        button {
+            padding: 10px 20px;
+            background: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #45a049;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            background: #f0f0f0;
+            border-radius: 4px;
+            white-space: pre-wrap;
+            font-family: monospace;
+        }
+        .success {
+            background: #d4edda;
+            border: 1px solid #28a745;
+        }
+        .error {
+            background: #f8d7da;
+            border: 1px solid #dc3545;
+        }
+    </style>
+</head>
+<body>
+    <h1>🔑 認証テストツール</h1>
+    
+    <div class="test-section">
+        <h2>1. 記事リスト取得テスト（認証不要）</h2>
+        <button onclick="testGetArticles()">テスト実行</button>
+        <div id="getResult"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>2. 認証テスト（x-api-key）</h2>
+        <input type="text" id="apiKey" placeholder="APIキーを入力（例: test123）">
+        <button onclick="testWithApiKey()">テスト実行</button>
+        <div id="apiKeyResult"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>3. 認証テスト（Bearer token）</h2>
+        <input type="text" id="bearerToken" placeholder="Bearer tokenを入力">
+        <button onclick="testWithBearer()">テスト実行</button>
+        <div id="bearerResult"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>4. 記事作成テスト</h2>
+        <input type="text" id="testApiKey" placeholder="動作するAPIキーを入力">
+        <button onclick="testCreateArticle()">記事作成テスト</button>
+        <div id="createResult"></div>
+    </div>
+
+    <script>
+        const API_BASE = 'https://news-images-worker.news-images-247.workers.dev';
+        const DB = '1';
+
+        // 1. 記事リスト取得（認証不要）
+        async function testGetArticles() {
+            const resultDiv = document.getElementById('getResult');
+            resultDiv.innerHTML = 'テスト中...';
+            
+            try {
+                const response = await fetch(`${API_BASE}/api/articles?db=${DB}`);
+                const data = await response.json();
+                
+                resultDiv.className = 'result success';
+                resultDiv.innerHTML = `✅ 成功！\nステータス: ${response.status}\n記事数: ${data.length}件\n\n最初の記事:\n${JSON.stringify(data[0], null, 2)}`;
+            } catch (error) {
+                resultDiv.className = 'result error';
+                resultDiv.innerHTML = `❌ エラー: ${error.message}`;
+            }
+        }
+
+        // 2. x-api-key テスト
+        async function testWithApiKey() {
+            const apiKey = document.getElementById('apiKey').value;
+            const resultDiv = document.getElementById('apiKeyResult');
+            
+            if (!apiKey) {
+                resultDiv.className = 'result error';
+                resultDiv.innerHTML = 'APIキーを入力してください';
+                return;
+            }
+            
+            resultDiv.innerHTML = 'テスト中...';
+            
+            try {
+                const response = await fetch(`${API_BASE}/api/admin/articles?db=${DB}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'x-api-key': apiKey
+                    },
+                    body: JSON.stringify({
+                        title: 'テスト記事',
+                        content: 'これはテストです',
+                        status: 'draft',
+                        author: 'テスター',
+                        genre: 'テスト',
+                        tags: ['test'],
+                        publishedAt: Date.now()
+                    })
+                });
+                
+                const text = await response.text();
+                
+                if (response.ok) {
+                    resultDiv.className = 'result success';
+                    resultDiv.innerHTML = `✅ 認証成功！\nAPIキー: ${apiKey}\nレスポンス: ${text}`;
+                    
+                    // 成功したキーを他のフィールドにも設定
+                    document.getElementById('testApiKey').value = apiKey;
+                } else {
+                    resultDiv.className = 'result error';
+                    resultDiv.innerHTML = `❌ 認証失敗\nステータス: ${response.status}\nレスポンス: ${text}\n\n使用したキー: ${apiKey}`;
+                }
+            } catch (error) {
+                resultDiv.className = 'result error';
+                resultDiv.innerHTML = `❌ エラー: ${error.message}`;
+            }
+        }
+
+        // 3. Bearer token テスト
+        async function testWithBearer() {
+            const token = document.getElementById('bearerToken').value;
+            const resultDiv = document.getElementById('bearerResult');
+            
+            if (!token) {
+                resultDiv.className = 'result error';
+                resultDiv.innerHTML = 'Bearer tokenを入力してください';
+                return;
+            }
+            
+            resultDiv.innerHTML = 'テスト中...';
+            
+            const authHeader = token.startsWith('Bearer ') ? token : `Bearer ${token}`;
+            
+            try {
+                const response = await fetch(`${API_BASE}/api/admin/articles?db=${DB}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': authHeader
+                    },
+                    body: JSON.stringify({
+                        title: 'テスト記事',
+                        content: 'これはテストです',
+                        status: 'draft'
+                    })
+                });
+                
+                const text = await response.text();
+                
+                if (response.ok) {
+                    resultDiv.className = 'result success';
+                    resultDiv.innerHTML = `✅ 認証成功！\nレスポンス: ${text}`;
+                } else {
+                    resultDiv.className = 'result error';
+                    resultDiv.innerHTML = `❌ 認証失敗\nステータス: ${response.status}\nレスポンス: ${text}`;
+                }
+            } catch (error) {
+                resultDiv.className = 'result error';
+                resultDiv.innerHTML = `❌ エラー: ${error.message}`;
+            }
+        }
+
+        // 4. 実際の記事作成テスト
+        async function testCreateArticle() {
+            const apiKey = document.getElementById('testApiKey').value;
+            const resultDiv = document.getElementById('createResult');
+            
+            if (!apiKey) {
+                resultDiv.className = 'result error';
+                resultDiv.innerHTML = 'APIキーを入力してください';
+                return;
+            }
+            
+            resultDiv.innerHTML = '記事作成中...';
+            
+            const articleData = {
+                title: `テスト記事 ${new Date().toLocaleString()}`,
+                subtitle: 'これはテスト記事です',
+                content: '# テスト\n\nこれはテスト記事の本文です。',
+                author: 'テスター',
+                genre: 'テスト',
+                status: 'draft',
+                tags: ['test', 'demo'],
+                featured: 'article',
+                commentsEnabled: 1,
+                publishedAt: Date.now()
+            };
+            
+            try {
+                const response = await fetch(`${API_BASE}/api/admin/articles?db=${DB}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'x-api-key': apiKey
+                    },
+                    body: JSON.stringify(articleData)
+                });
+                
+                const result = await response.json();
+                
+                if (response.ok) {
+                    resultDiv.className = 'result success';
+                    resultDiv.innerHTML = `✅ 記事作成成功！\n\nID: ${result.id}\nレスポンス: ${JSON.stringify(result, null, 2)}\n\n✨ このAPIキーを使ってください: ${apiKey}`;
+                } else {
+                    resultDiv.className = 'result error';
+                    resultDiv.innerHTML = `❌ 作成失敗\nステータス: ${response.status}\nエラー: ${JSON.stringify(result, null, 2)}`;
+                }
+            } catch (error) {
+                resultDiv.className = 'result error';
+                resultDiv.innerHTML = `❌ エラー: ${error.message}`;
+            }
+        }
+
+        // ページ読み込み時に記事リストを取得
+        window.addEventListener('DOMContentLoaded', testGetArticles);
+    </script>
+</body>
+</html>
