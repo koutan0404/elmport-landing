@@ -544,8 +544,8 @@
                         </select>
                     </div>
                     <div class="config-group">
-                        <label>認証キー (APIキー または Bearer token)</label>
-                        <input type="password" id="authKey" placeholder="b1d1c35f14eb4fb19b2a5d7fdf51b196711aa6cbd327650aedbe6f3a8681ded9">
+                        <label>認証キー (APIキー)</label>
+                        <input type="password" id="authKey" placeholder="認証キーを入力">
                     </div>
                     <button class="btn btn-white" onclick="saveConfig()">
                         💾 設定を保存
@@ -730,8 +730,13 @@
 
         // === 設定管理 ===
         function saveConfig() {
+            const authKey = document.getElementById('authKey').value;
+            if (!authKey) {
+                showToast('認証キーを入力してください', 'error');
+                return;
+            }
             localStorage.setItem('admin.db', document.getElementById('dbSelect').value);
-            localStorage.setItem('admin.auth', document.getElementById('authKey').value);
+            localStorage.setItem('admin.auth', authKey);
             showToast('設定を保存しました', 'success');
             loadArticles();
         }
@@ -744,6 +749,7 @@
             const auth = document.getElementById('authKey').value;
             
             if (auth) {
+                // Bearer token形式の場合はそのまま、それ以外はx-api-keyとして設定
                 if (auth.startsWith('Bearer ')) {
                     headers['Authorization'] = auth;
                 } else {
@@ -752,6 +758,44 @@
             }
             
             return headers;
+        }
+
+        // タグを配列に変換するヘルパー関数
+        function parseTagsToArray(tags) {
+            if (Array.isArray(tags)) {
+                return tags;
+            }
+            if (typeof tags === 'string') {
+                try {
+                    // JSON文字列の場合
+                    const parsed = JSON.parse(tags);
+                    if (Array.isArray(parsed)) {
+                        return parsed;
+                    }
+                } catch (e) {
+                    // JSON文字列でない場合は、カンマ区切りとして処理
+                    return tags.split(',').map(t => t.trim()).filter(Boolean);
+                }
+            }
+            return [];
+        }
+
+        // 関連記事を配列に変換するヘルパー関数  
+        function parseRelatedArticles(related) {
+            if (Array.isArray(related)) {
+                return related;
+            }
+            if (typeof related === 'string') {
+                try {
+                    const parsed = JSON.parse(related);
+                    if (Array.isArray(parsed)) {
+                        return parsed;
+                    }
+                } catch (e) {
+                    return related.split(',').map(t => t.trim()).filter(Boolean);
+                }
+            }
+            return [];
         }
 
         // === 記事リスト管理 ===
@@ -770,6 +814,14 @@
                 }
 
                 articles = await response.json();
+                
+                // tagsとrelatedArticlesを配列に正規化
+                articles = articles.map(article => ({
+                    ...article,
+                    tags: parseTagsToArray(article.tags),
+                    relatedArticles: parseRelatedArticles(article.relatedArticles)
+                }));
+                
                 renderArticleList();
             } catch (error) {
                 console.error('Load error:', error);
@@ -788,10 +840,11 @@
             const searchTerm = document.getElementById('searchBox').value.toLowerCase();
             
             const filtered = articles.filter(article => {
+                const tags = parseTagsToArray(article.tags);
                 return (article.title || '').toLowerCase().includes(searchTerm) ||
                        (article.subtitle || '').toLowerCase().includes(searchTerm) ||
                        (article.genre || '').toLowerCase().includes(searchTerm) ||
-                       (article.tags || []).join(',').toLowerCase().includes(searchTerm);
+                       tags.join(',').toLowerCase().includes(searchTerm);
             });
 
             if (filtered.length === 0) {
@@ -878,11 +931,16 @@
             document.getElementById('status').value = currentArticle.status || 'draft';
             document.getElementById('featured').value = currentArticle.featured || 'article';
             document.getElementById('commentsEnabled').value = currentArticle.commentsEnabled ?? 1;
-            document.getElementById('tags').value = (currentArticle.tags || []).join(', ');
+            
+            // タグと関連記事を安全に処理
+            const tags = parseTagsToArray(currentArticle.tags);
+            const relatedArticles = parseRelatedArticles(currentArticle.relatedArticles);
+            
+            document.getElementById('tags').value = tags.join(', ');
             document.getElementById('content').value = currentArticle.content || '';
             document.getElementById('imageUrl').value = currentArticle.imageUrl || '';
             document.getElementById('thumbnailUrl').value = currentArticle.thumbnailUrl || '';
-            document.getElementById('relatedArticles').value = (currentArticle.relatedArticles || []).join(', ');
+            document.getElementById('relatedArticles').value = relatedArticles.join(', ');
             
             // 日時の設定
             const date = new Date(currentArticle.publishedAt || Date.now());
@@ -918,6 +976,12 @@
             // バリデーション
             if (!articleData.title) {
                 showToast('タイトルは必須です', 'error');
+                return;
+            }
+
+            // 認証キーの確認
+            if (!document.getElementById('authKey').value) {
+                showToast('認証キーが設定されていません。設定を保存してください。', 'error');
                 return;
             }
 
@@ -975,6 +1039,12 @@
             }
 
             const db = document.getElementById('dbSelect').value;
+            
+            // 認証キーの確認
+            if (!document.getElementById('authKey').value) {
+                showToast('認証キーが設定されていません', 'error');
+                return;
+            }
 
             try {
                 const response = await fetch(
