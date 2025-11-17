@@ -9,186 +9,568 @@
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;600;700&family=Noto+Serif+JP:wght@500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/nu-theme.css">
 <style>
-  /* --- ヒーローセクション画像背景対応 --- */
-  .hero {
-    position: relative;
-    color: #fff;
-    min-height: 600px; /* 最小高さを設定 */
-    height: 80vh; /* ビューポートの80%の高さ */
-    max-height: 800px; /* 最大高さ制限 */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-    background: #333; /* フォールバック背景色 */
-  }
-  
-  /* 背景画像用のレイヤー */
-  .hero-bg {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    z-index: 0;
-  }
-  
-  .hero-bg img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center;
-  }
-  
-  /* コンテンツを前面に */
-  .hero-inner {
-    position: relative;
-    z-index: 2;
-    padding: 40px 20px;
-    text-align: center;
-    width: 100%;
-  }
-  
-  /* テキストに強い影を追加（画像背景でも読みやすく） */
-  .hero h1 {
-    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.7), 0 0 40px rgba(0, 0, 0, 0.5);
-    font-size: clamp(32px, 5vw, 56px);
-    margin-bottom: 20px;
-  }
-  
-  .hero p {
-    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.7), 0 0 20px rgba(0, 0, 0, 0.5);
-    font-size: clamp(16px, 2vw, 20px);
-    max-width: 700px;
-    margin: 0 auto;
-  }
-  
-  /* --- モバイル向け余白調整 --- */
-  .container {
-    padding-left: 20px;
-    padding-right: 20px;
-  }
-  
-  /* --- Latest News (index only) --- */
-  .news-wrap{max-width:var(--container);margin:auto;padding:0 20px}
-  .news-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-  @media (max-width:1024px){.news-grid{grid-template-columns:repeat(2,1fr)}}
-  @media (max-width:640px){
-    .news-grid{grid-template-columns:1fr}
-    .news-wrap{padding:0 16px}
-    .hero {
-      min-height: 500px;
-      height: 70vh;
+    :root{
+        --emerald:#0C8A62;
+        --emerald-dark:#0A5A45;
+        --emerald-light:#DAF1E8;
+        --ink:#0F1C24;
+        --muted:#5D6672;
+        --line:#E3E6ED;
+        --surface:#FFFFFF;
+        --sand:#F6F3EE;
+        --graphite:#091317;
+        --radius:18px;
+        --radius-lg:32px;
+        --container:1120px;
+        --shadow:0 35px 65px rgba(8,34,28,0.12);
     }
-    .hero-inner {
-      padding: 30px 16px;
-    }
-    .hero h1 {
-      font-size: clamp(28px, 6vw, 40px);
-    }
-  }
-  .news-card{background:#fff;border:1px solid var(--line);border-radius:14px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 6px 16px #00000008}
-  .news-thumb{aspect-ratio:16/9;object-fit:cover;background:var(--surface)}
-  .news-body{padding:12px 14px;display:flex;flex-direction:column;gap:6px}
-  .news-meta{display:flex;gap:8px;align-items:center;font-size:.82rem;color:var(--muted)}
-  .news-title{font-weight:700;line-height:1.35}
-  .news-sub{color:var(--muted);font-size:.92rem;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-  .news-cta{display:flex;justify-content:center;margin-top:16px}
-  .badge-new{background:#e11d48;color:#fff;border-radius:6px;padding:2px 6px;font-size:.72rem}
-  .spinner{width:44px;height:44px;border:4px solid var(--line);border-top-color:var(--nu-green);border-radius:50%;animation:spin .8s linear infinite;margin:30px auto}
-  @keyframes spin{to{transform:rotate(360deg)}}
-  
 
+    *{box-sizing:border-box}
+    body{
+        margin:0;
+        font-family:"Noto Sans JP",system-ui,-apple-system,"Segoe UI",Roboto,"Hiragino Sans","Hiragino Kaku Gothic ProN",Meiryo,sans-serif;
+        line-height:1.8;
+        color:var(--ink);
+        background:linear-gradient(180deg,#F9FCF9 0%,#F2F4F1 45%,#F8F7F3 100%);
+        font-size:16px;
+    }
+    img{max-width:100%;display:block}
 
- 
-  
-  /* タブレット向け */
-  @media (max-width: 1024px) {
-    .screen {
-      width: 280px;
+    .topbar{
+        height:4px;
+        background:linear-gradient(90deg,#0B5D45,#11A47B);
     }
-  }
-  
-  /* モバイル向け */
-  @media (max-width: 640px) {
-    .screens {
-      gap: 12px;
-      padding: 8px 16px 20px;
-      margin: 0 -16px; /* コンテナの余白を打ち消し */
+
+    .container{
+        max-width:var(--container);
+        margin:auto;
+        padding:0 24px;
     }
-    
-    .screen {
-      width: 240px;
+
+    .site-header{
+        position:sticky;
+        top:0;
+        z-index:30;
+        backdrop-filter:blur(16px);
+        background:rgba(255,255,255,0.92);
+        border-bottom:1px solid rgba(227,230,237,0.6);
     }
-  }
-  
-  .note {
-    color: var(--muted);
-    font-size: 14px;
-    margin-top: 16px;
-    text-align: center;
-  }
-  .section {
-    padding: 60px 0;
-  }
-  
-  @media (max-width: 640px) {
-    .section {
-      padding: 40px 0;
+
+    .hdr-inner{
+        display:flex;
+        align-items:center;
+        justify-content:space-between;
+        gap:24px;
+        min-height:76px;
     }
-    
-    .container {
-      padding-left: 16px;
-      padding-right: 16px;
+
+    .brand{
+        display:flex;
+        align-items:center;
+        gap:14px;
+        color:inherit;
+        text-decoration:none;
     }
-    
-    .cards {
-      gap: 12px;
-      padding: 0 8px;
+
+    .brand-icon{
+        width:42px;
+        height:42px;
+        border-radius:14px;
+        display:inline-flex;
+        justify-content:center;
+        align-items:center;
+        background:linear-gradient(135deg,#0B5D45,#0FA06F);
+        box-shadow:0 12px 25px rgba(10,90,69,0.35);
+        overflow:hidden;
     }
-    
-    .grid {
-      gap: 12px;
-      padding: 0 8px;
+
+    .brand-icon img{width:70%;height:70%;object-fit:contain}
+
+    .brand-text{
+        display:flex;
+        flex-direction:column;
+        font-size:18px;
+        letter-spacing:0.02em;
     }
-    
-    .screens {
-      padding: 0 8px;
-      gap: 12px;
+
+    .brand-text small{
+        font-size:12px;
+        color:var(--muted);
+        letter-spacing:0.08em;
     }
-    
-    .site-footer {
-      padding: 30px 16px;
+
+    .site-nav ul{
+        display:flex;
+        gap:24px;
+        list-style:none;
+        margin:0;
+        padding:0;
     }
-    
-    .cta-inner {
-      padding: 0 16px;
+
+    .site-nav a{
+        text-decoration:none;
+        color:var(--muted);
+        font-size:14px;
+        letter-spacing:0.06em;
+        text-transform:uppercase;
+        padding-bottom:6px;
+        border-bottom:2px solid transparent;
+        transition:color .2s,border-color .2s;
     }
-    
-    .hdr-inner {
-      padding: 0 16px;
+
+    .site-nav a:hover,
+    .site-nav a[data-active="true"]{
+        color:var(--emerald);
+        border-color:var(--emerald);
     }
-  }
-  
-  @media (min-width: 641px) and (max-width: 1024px) {
-    .container {
-      padding-left: 24px;
-      padding-right: 24px;
+
+    .nav-toggle{display:none}
+
+    main{display:block}
+
+    .section{
+        padding:80px 0;
     }
-    
-    .hero {
-      min-height: 550px;
-      height: 75vh;
+
+    .section-head{
+        max-width:720px;
+        margin:0 auto 48px;
+        text-align:center;
     }
-    
-    .hero-inner {
-      padding: 35px 24px;
+
+    .eyebrow{
+        text-transform:uppercase;
+        letter-spacing:0.32em;
+        font-size:12px;
+        color:var(--muted);
+        margin-bottom:18px;
     }
-    
-    .news-wrap {
-      padding: 0 24px;
+
+    .section-head h2{
+        margin:0 0 16px;
+        font-family:"Noto Serif JP","Noto Sans JP",serif;
+        font-size:32px;
+        color:var(--ink);
     }
-  }
+
+    .section-head p{
+        margin:0;
+        color:var(--muted);
+        font-size:16px;
+    }
+
+    .hero{
+        position:relative;
+        padding:120px 0 100px;
+        background:linear-gradient(135deg,#0A5A45 0%,#0F9A73 65%,#31C19A 100%);
+        color:#fff;
+        overflow:hidden;
+    }
+
+    .hero::after{
+        content:"";
+        position:absolute;
+        inset:0;
+        background:radial-gradient(circle at 10% 20%,rgba(255,255,255,0.18),transparent 55%),
+                   radial-gradient(circle at 80% 10%,rgba(255,255,255,0.25),transparent 45%);
+        opacity:.7;
+    }
+
+    .hero-grid{
+        position:relative;
+        z-index:1;
+        display:grid;
+        grid-template-columns:repeat(2,minmax(0,1fr));
+        gap:56px;
+        align-items:center;
+    }
+
+    .hero-copy h1{
+        margin:12px 0 18px;
+        font-size:clamp(34px,4.5vw,60px);
+        font-family:"Noto Serif JP","Noto Sans JP",serif;
+        line-height:1.2;
+    }
+
+    .hero-lede{
+        font-size:18px;
+        color:rgba(255,255,255,0.92);
+        margin:0 0 28px;
+    }
+
+    .hero-cta{
+        display:flex;
+        flex-wrap:wrap;
+        gap:16px;
+    }
+
+    .btn-primary,
+    .btn-outline{
+        display:inline-flex;
+        align-items:center;
+        justify-content:center;
+        gap:8px;
+        padding:14px 28px;
+        border-radius:999px;
+        font-weight:600;
+        text-decoration:none;
+        letter-spacing:0.04em;
+        font-size:14px;
+    }
+
+    .btn-primary{
+        background:#fff;
+        color:var(--emerald-dark);
+    }
+
+    .btn-outline{
+        border:1px solid rgba(255,255,255,0.5);
+        color:#fff;
+    }
+
+    .btn-outline.is-dark{
+        border-color:rgba(12,138,98,0.3);
+        color:var(--emerald-dark);
+    }
+
+    .hero-stats{
+        margin-top:36px;
+        display:flex;
+        gap:28px;
+        flex-wrap:wrap;
+        padding:0;
+    }
+
+    .hero-stats li{
+        list-style:none;
+        min-width:140px;
+    }
+
+    .stat-label{
+        display:block;
+        font-size:12px;
+        letter-spacing:0.18em;
+        text-transform:uppercase;
+        color:rgba(255,255,255,0.62);
+    }
+
+    .stat-value{
+        font-size:24px;
+        font-weight:600;
+    }
+
+    .hero-card{
+        background:rgba(255,255,255,0.1);
+        border:1px solid rgba(255,255,255,0.25);
+        border-radius:var(--radius-lg);
+        padding:36px;
+        box-shadow:0 35px 65px rgba(8,34,28,0.18);
+        backdrop-filter:blur(8px);
+    }
+
+    .hero-card h3{
+        margin:0 0 12px;
+        font-size:24px;
+        color:#fff;
+    }
+
+    .hero-card ul{
+        margin:0;
+        padding-left:18px;
+        color:rgba(255,255,255,0.9);
+        font-size:15px;
+        line-height:1.7;
+    }
+
+    .feature-grid{
+        display:grid;
+        grid-template-columns:repeat(3,minmax(0,1fr));
+        gap:28px;
+    }
+
+    .feature-card{
+        background:var(--surface);
+        border-radius:var(--radius-lg);
+        border:1px solid var(--line);
+        padding:32px;
+        box-shadow:var(--shadow);
+    }
+
+    .feature-card h3{
+        margin:12px 0 12px;
+        font-size:20px;
+        color:var(--emerald-dark);
+    }
+
+    .feature-card p{
+        margin:0;
+        color:var(--muted);
+    }
+
+    .feature-tag{
+        font-size:12px;
+        letter-spacing:0.2em;
+        text-transform:uppercase;
+        color:var(--muted);
+    }
+
+    .value-section{
+        background:var(--sand);
+    }
+
+    .value-grid{
+        display:grid;
+        grid-template-columns:repeat(2,minmax(0,1fr));
+        gap:32px;
+    }
+
+    .value-card{
+        background:var(--surface);
+        border-radius:var(--radius-lg);
+        border:1px solid var(--line);
+        padding:36px;
+    }
+
+    .value-card h3{
+        margin:0 0 12px;
+        font-size:22px;
+    }
+
+    .value-card p{margin:0 0 16px;color:var(--muted)}
+
+    .value-list{
+        display:flex;
+        flex-direction:column;
+        gap:10px;
+    }
+
+    .value-list span{
+        display:inline-flex;
+        align-items:center;
+        gap:10px;
+        font-size:15px;
+        color:var(--ink);
+    }
+
+    .value-list span::before{
+        content:"";
+        width:7px;
+        height:7px;
+        border-radius:50%;
+        background:var(--emerald);
+    }
+
+    .news-section{
+        padding:80px 0;
+    }
+
+    .news-grid{
+        display:grid;
+        grid-template-columns:repeat(3,minmax(0,1fr));
+        gap:22px;
+    }
+
+    .news-card{
+        background:#fff;
+        border-radius:var(--radius);
+        border:1px solid var(--line);
+        overflow:hidden;
+        display:flex;
+        flex-direction:column;
+        cursor:pointer;
+        box-shadow:0 18px 30px rgba(15,25,40,0.08);
+        transition:transform .2s,box-shadow .2s;
+    }
+
+    .news-card:hover{
+        transform:translateY(-4px);
+        box-shadow:0 25px 45px rgba(15,25,40,0.12);
+    }
+
+    .news-thumb{
+        aspect-ratio:16/9;
+        object-fit:cover;
+        background:var(--sand);
+    }
+
+    .news-body{
+        padding:18px;
+        display:flex;
+        flex-direction:column;
+        gap:10px;
+    }
+
+    .news-meta{
+        display:flex;
+        gap:8px;
+        align-items:center;
+        font-size:12px;
+        color:var(--muted);
+    }
+
+    .news-title{
+        font-weight:600;
+        font-size:17px;
+        line-height:1.4;
+    }
+
+    .news-sub{
+        color:var(--muted);
+        font-size:14px;
+        display:-webkit-box;
+        line-clamp:2;
+        -webkit-line-clamp:2;
+        -webkit-box-orient:vertical;
+        overflow:hidden;
+    }
+
+    .news-cta{
+        display:flex;
+        justify-content:center;
+        margin-top:32px;
+    }
+
+    .badge-new{
+        background:#e11d48;
+        color:#fff;
+        border-radius:999px;
+        padding:2px 8px;
+        font-size:11px;
+        letter-spacing:0.08em;
+    }
+
+    .spinner{
+        width:48px;
+        height:48px;
+        border:4px solid var(--line);
+        border-top-color:var(--emerald);
+        border-radius:50%;
+        animation:spin .9s linear infinite;
+        margin:40px auto;
+    }
+
+    @keyframes spin{to{transform:rotate(360deg)}}
+
+    .screens-area{
+        background:var(--surface);
+    }
+
+    .screens-rail{
+        display:flex;
+        gap:20px;
+        overflow:auto;
+        padding-bottom:10px;
+    }
+
+    .screens-rail::-webkit-scrollbar{height:6px}
+    .screens-rail::-webkit-scrollbar-thumb{background:rgba(0,0,0,0.2);border-radius:999px}
+
+    .screen{
+        flex:0 0 280px;
+        border-radius:28px;
+        border:1px solid var(--line);
+        box-shadow:0 25px 50px rgba(16,27,45,0.18);
+        overflow:hidden;
+        background:#000;
+    }
+
+    .screen img{width:100%;height:auto;display:block}
+
+    .cta-section{
+        background:linear-gradient(135deg,#0A5A45,#109B74);
+        color:#fff;
+        border-radius:var(--radius-lg);
+        padding:60px;
+        text-align:center;
+        box-shadow:0 45px 70px rgba(8,34,28,0.25);
+    }
+
+    .cta-section h2{
+        margin:0 0 16px;
+        font-size:32px;
+        font-family:"Noto Serif JP","Noto Sans JP",serif;
+    }
+
+    .cta-section p{
+        margin:0 0 24px;
+        color:rgba(255,255,255,0.85);
+    }
+
+    .store-buttons{
+        display:flex;
+        justify-content:center;
+        flex-wrap:wrap;
+        gap:14px;
+    }
+
+    .store-btn{
+        border:1px solid rgba(255,255,255,0.5);
+        border-radius:999px;
+        padding:12px 26px;
+        text-decoration:none;
+        color:#fff;
+        letter-spacing:0.08em;
+    }
+
+    .site-footer{
+        padding:48px 0 60px;
+        background:#fff;
+        border-top:1px solid rgba(17,24,39,0.08);
+        margin-top:80px;
+    }
+
+    .footer-grid{
+        display:flex;
+        justify-content:space-between;
+        flex-wrap:wrap;
+        gap:24px;
+        align-items:flex-start;
+    }
+
+    .footer-grid nav ul{
+        list-style:none;
+        margin:0;
+        padding:0;
+        display:flex;
+        gap:18px;
+        flex-wrap:wrap;
+    }
+
+    .footer-grid nav a{
+        color:var(--muted);
+        text-decoration:none;
+        font-size:14px;
+    }
+
+    .muted{color:var(--muted)}
+
+    @media (max-width:1024px){
+        .hero-grid{grid-template-columns:1fr}
+        .feature-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+        .value-grid{grid-template-columns:1fr}
+        .news-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+        .site-nav ul{gap:12px}
+    }
+
+    @media (max-width:768px){
+        .hdr-inner{flex-wrap:wrap}
+        .site-nav ul{
+            flex-wrap:wrap;
+            justify-content:flex-start;
+        }
+        .hero{padding:96px 0 80px}
+        .section{padding:64px 0}
+    }
+
+    @media (max-width:640px){
+        .container{padding:0 16px}
+        .hero-cta{flex-direction:column}
+        .feature-grid{grid-template-columns:1fr}
+        .news-grid{grid-template-columns:1fr}
+        .hero-card{padding:28px}
+        .cta-section{padding:40px 24px}
+        .screen{flex:0 0 220px}
+    }
 </style>
 
   <script defer src="/nu-tweaks.js"></script>
@@ -236,60 +618,154 @@
 </nav>
     </div>
   </header>
-
-  <!-- Hero -->
-  <section class="hero">
-    <!-- 背景画像レイヤー -->
-    <div class="hero-bg">
-      <!-- ここに画像IDを指定してください。例: hero-background-01 -->
-      <img src="https://imagedelivery.net/ogAIW_Vdq_bAijSDyryXCQ/ead9170a-5bd5-48bb-549b-bf68fad63e00/public" alt="">
-    </div>
-    
-    <!-- コンテンツ（ボタンなし） -->
-   
-  </section>
-
-  <section id="latest-news" class="section section-alt">
-  <div class="news-wrap">
-    <h2 class="sec-title">最新ニュース</h2>
-    <div id="newsList">
-      <div class="spinner" aria-label="読み込み中"></div>
-    </div>
-    <div class="news-cta">
-      <a class="btn btn-ghost" href="/news">もっと見る</a>
-    </div>
-  </div>
-</section>
-
-  
-
-
-  
-  <!-- Screenshots -->
- 
-
-  <!-- CTA -->
-  <section id="download" class="section section-cta">
-    <div class="container cta-inner">
-      <h2 class="sec-title">今すぐはじめる</h2>
-      <p>ELM PORT は無料でご利用いただけます。</p>
-      <div class="store-buttons">
-        <a class="store-btn" href="https://apps.apple.com/us/app/elm-port/id6752819521" aria-label="App Store で入手">App Store</a>
-        <a class="store-btn" href="#" aria-label="Android版、もう少々お待ちください。">Google Play</a>
+  <main>
+    <section class="hero" id="top">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <p class="eyebrow">Grow with campus life</p>
+          <h1>北大生の「いま」と「これから」を設計するオールインワンプラットフォーム</h1>
+          <p class="hero-lede">
+            ELM PORTは、時間割・課題・コミュニティ情報を一つに束ね、札幌キャンパスの毎日をしなやかにアップデートする公式ツールです。
+            アプリを開けば、必要な情報と次の一歩が自然とそろいます。
+          </p>
+          <div class="hero-cta">
+            <a class="btn-primary" href="https://apps.apple.com/us/app/elm-port/id6752819521">App Storeで入手</a>
+            <a class="btn-outline" href="#latest-news">最新ニュースを見る</a>
+          </div>
+          <ul class="hero-stats">
+            <li>
+              <span class="stat-label">Monthly Active</span>
+              <span class="stat-value">12,000+</span>
+            </li>
+            <li>
+              <span class="stat-label">Timetable Sync</span>
+              <span class="stat-value">3 faculties</span>
+            </li>
+            <li>
+              <span class="stat-label">Support Hours</span>
+              <span class="stat-value">10:00-18:00</span>
+            </li>
+          </ul>
+        </div>
+        <div class="hero-card">
+          <h3>授業も課題も、ひとつのタスクラインで。</h3>
+          <ul>
+            <li>講義コードと連動し、自動で時間割を差し替え。</li>
+            <li>教員からのお知らせをリアルタイムにプッシュ通知。</li>
+            <li>チーム課題やゼミの情報をキャンパス横断で共有。</li>
+            <li>クラウドベースのデータで紛失や端末変更も安心。</li>
+          </ul>
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
+
+    <section class="section" id="features">
+      <div class="container">
+        <div class="section-head">
+          <p class="eyebrow">Feature pillars</p>
+          <h2>北大の生活動線に寄り添った3つの基盤</h2>
+          <p>Growin' Partnersの採用サイトのように、落ち着いたトーンと立体感でエッセンシャルな体験をまとめました。</p>
+        </div>
+        <div class="feature-grid">
+          <article class="feature-card">
+            <span class="feature-tag">Timetable</span>
+            <h3>シラバス連動の時間割</h3>
+            <p>講義情報・教室変更・休講案内をひとつのビューに集約。自動同期で「知らなかった」をなくします。</p>
+          </article>
+          <article class="feature-card">
+            <span class="feature-tag">Community</span>
+            <h3>ゼミ・団体の情報共有</h3>
+            <p>メンバー間で予定や資料を共有し、コメントで意思決定をスムーズに。Slackいらずの軽快さ。</p>
+          </article>
+          <article class="feature-card">
+            <span class="feature-tag">Insights</span>
+            <h3>キャンパス全体の可視化</h3>
+            <p>行事・イベント・サークル募集を一覧化。おすすめ情報を個人の学部や興味に沿ってレコメンドします。</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section value-section" id="value">
+      <div class="container value-grid">
+        <article class="value-card">
+          <p class="feature-tag">Experience</p>
+          <h3>わずらわしさのないUIで集中度をキープ</h3>
+          <p>Growin' Partnersのビジュアルコンポーネントを参考に、ニュアンスカラーと空間設計で「読む→動く」の遷移を設計。</p>
+          <div class="value-list">
+            <span>学内公式ニュースをカード型でキュレート</span>
+            <span>オフライン時も閲覧できるキャッシュを搭載</span>
+            <span>端末やテーマを問わない高コントラスト設計</span>
+          </div>
+        </article>
+        <article class="value-card">
+          <p class="feature-tag">Support</p>
+          <h3>運営チームによる伴走サポート</h3>
+          <p>平日10:00-18:00の専任サポート。ガイドやテンプレートもアプリ内で提供し、導入後すぐに活用できます。</p>
+          <div class="value-list">
+            <span>ミーティングやイベントのテンプレート配布</span>
+            <span>プッシュ通知の配信設計をサポート</span>
+            <span>機能改善のリクエストループを常設</span>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="latest-news" class="section news-section">
+      <div class="container">
+        <div class="section-head">
+          <p class="eyebrow">Latest news</p>
+          <h2>最新のお知らせ</h2>
+          <p>更新情報やキャンパスイベントを毎日キュレーションし、重要度に応じてプッシュ通知を行います。</p>
+        </div>
+        <div id="newsList">
+          <div class="spinner" aria-label="読み込み中"></div>
+        </div>
+        <div class="news-cta">
+          <a class="btn-outline is-dark" href="/news">ニュース一覧を見る</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section screens-area" id="gallery">
+      <div class="container">
+        <div class="section-head">
+          <p class="eyebrow">Product gallery</p>
+          <h2>スクリーンから伝わる体験クオリティ</h2>
+          <p>ダーク・ライト双方のテーマに対応。講義、課題、コミュニティ、それぞれの操作感を直感的に整理しました。</p>
+        </div>
+        <div class="screens-rail" id="screenshotsList">
+          <div class="spinner" aria-label="読み込み中"></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="download" class="section">
+      <div class="container">
+        <div class="cta-section">
+          <p class="eyebrow">Get started</p>
+          <h2>ELM PORTと、次の1コマをはじめよう。</h2>
+          <p>アプリは無料でインストール可能。北大IDでログインして、すぐに時間割やお知らせを取り込めます。</p>
+          <div class="store-buttons">
+            <a class="store-btn" href="https://apps.apple.com/us/app/elm-port/id6752819521" aria-label="App Store で入手">App Store</a>
+            <a class="store-btn" href="#" aria-label="Android版、もう少々お待ちください。">Google Play（近日公開）</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
 
   <footer class="site-footer">
     <div class="container footer-grid">
       <div>
         <div class="brand small">
-  <span class="brand-icon" aria-hidden="true">
-    <img src="/images/logo.png" alt="ELM PORT">
-  </span>
-  
-  <span class="brand-text">
-          <strong>ELM PORT</strong>
+          <span class="brand-icon" aria-hidden="true">
+            <img src="/images/logo.png" alt="ELM PORT">
+          </span>
+          <span class="brand-text">
+            <strong>ELM PORT</strong>
+            <small>Campus Life Support</small>
+          </span>
         </div>
         <p class="muted">© 2025 ELM PORT Team</p>
       </div>
