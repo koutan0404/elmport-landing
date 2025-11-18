@@ -20,8 +20,6 @@
       --line:#E3E6ED;
       --surface:#F7F8F7;
       --container:1120px;
-      --p: var(--emerald);
-      --p2: var(--emerald-dark);
     }
 
     *{box-sizing:border-box}
@@ -37,58 +35,106 @@
     img{max-width:100%;display:block}
     .container{max-width:var(--container);margin:auto;padding:0 24px}
 
-    /* このページだけの軽い装飾（色はNUグリーンへ） */
-    .hero{
-      background:#fff;
-      color:var(--ink);
-      padding:72px 0 64px;
-      border-bottom:1px solid var(--line);
+    .updates-meta{
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+      margin:24px 0 32px;
+      font-size:13px;
+      letter-spacing:0.18em;
+      text-transform:uppercase;
+      color:var(--muted);
     }
-    .hero-inner{max-width:var(--container);margin:auto;padding:0 20px}
-    .hero h1{margin:0;font-family:"Noto Serif JP","Noto Sans JP",serif}
-    .hero p{margin:12px 0 0;color:var(--muted)}
-    .filter-tabs{max-width:var(--container);margin:20px auto;display:flex;gap:10px;padding:0 20px;flex-wrap:wrap;justify-content:center}
-    .filter-tab{padding:10px 18px;border:2px solid var(--line);background:#fff;cursor:pointer}
-    .filter-tab.active,.filter-tab:hover{border-color:var(--p);color:var(--p)}
-    .timeline-container{max-width:var(--container);margin:auto;padding:0 20px}
-    .timeline{position:relative;padding:22px 0}
-    .timeline:before{content:'';position:absolute;left:30px;top:0;bottom:0;width:2px;background:var(--line)}
-    .timeline-item{position:relative;padding:0 0 26px 70px;opacity:0;animation:fade .4s ease forwards}
-    @keyframes fade{from{opacity:0;transform:translateX(-10px)}to{opacity:1;transform:none}}
-    .timeline-marker{position:absolute;left:20px;top:0;width:20px;height:20px;background:#fff;border:3px solid var(--p)}
-    .timeline-item.major .timeline-marker{left:18px;width:24px;height:24px;background:var(--p);box-shadow:0 0 0 4px rgba(12,138,98,0.2)}
-    .timeline-content{background:#fff;border:1px solid var(--line);padding:16px;box-shadow:0 4px 12px #00000010}
-    .update-header{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:8px}
-    .version-badge{background:#0ea5e9;color:#fff;padding:4px 10px;font-weight:700}
-    .type-badge{padding:2px 6px;font-size:.75rem;font-weight:700}
-    .type-badge.feature{background:#10b9811a;color:#047857}
-    .type-badge.fix{background:#ef44441a;color:#b91c1c}
-    .type-badge.improvement{background:#3b82f61a;color:#1d4ed8}
-    .type-badge.announcement{background:#f59e0b1a;color:#b45309}
-    .update-title{font-size:1.2rem;margin:6px 0}
-    .update-list{list-style:none;margin:0;padding:0}
-    .update-list-item{padding:.4rem 0 .4rem 1.2rem;position:relative}
-    .update-list-item:before{content:'✓';position:absolute;left:0;color:#10b981;font-weight:700}
-    .update-list-item.fix:before{content:'🔧'}
-    .update-list-item.new:before{content:'✨'}
-    .update-list-item.improve:before{content:'💡'}
-    .roadmap-section{background:var(--surface);padding:44px 0;margin-top:24px}
-    .roadmap-container{max-width:var(--container);margin:auto;padding:0 20px}
-    .roadmap-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
-    .roadmap-card{background:#fff;border:1px solid var(--line);padding:16px;transition:.2s}
-    .roadmap-card:hover{transform:translateY(-3px);box-shadow:0 6px 18px #00000010}
-    .roadmap-status{display:inline-block;font-size:.8rem;margin-bottom:8px;padding:4px 10px}
-    .roadmap-status.development{background:#3b82f61a;color:#1d4ed8}
-    .roadmap-status.testing{background:#8b5cf61a;color:#6d28d9}
-    .roadmap-status.planning{background:#f59e0b1a;color:#b45309}
-    @media (max-width:768px){
-      .timeline:before{left:20px}.timeline-item{padding-left:54px}.timeline-marker{left:10px}.timeline-item.major .timeline-marker{left:8px}
+    .updates-meta span{display:inline-flex;align-items:center;gap:6px}
+
+    .release-notes-grid .news-card{min-height:100%}
+    .release-notes-grid .news-title{font-size:18px}
+    .release-notes-grid .news-sub{font-size:14px;color:var(--muted)}
+    .release-notes-grid .news-meta{justify-content:space-between}
+
+    .cta-section{
+      background:linear-gradient(135deg,#0A5A45,#109B74);
+      color:#fff;
+      padding:60px;
+      text-align:center;
+      box-shadow:0 45px 70px rgba(8,34,28,0.25);
+    }
+    .cta-section h2{
+      margin:0 0 16px;
+      font-size:32px;
+      font-family:"Noto Serif JP","Noto Sans JP",serif;
+    }
+    .cta-section p{margin:0 0 24px;color:rgba(255,255,255,0.85)}
+    .store-buttons{
+      display:flex;
+      justify-content:center;
+      flex-wrap:wrap;
+      gap:14px;
+    }
+    .store-btn{
+      border:1px solid rgba(255,255,255,0.5);
+      padding:12px 26px;
+      text-decoration:none;
+      color:#fff;
+      letter-spacing:0.08em;
+    }
+
+    .site-footer{
+      padding:48px 0 60px;
+      background:#fff;
+      border-top:1px solid rgba(17,24,39,0.08);
+      margin-top:80px;
+    }
+    .footer-grid{
+      display:flex;
+      justify-content:space-between;
+      flex-wrap:wrap;
+      gap:24px;
+      align-items:flex-start;
+    }
+    .footer-grid nav ul{
+      list-style:none;
+      margin:0;
+      padding:0;
+      display:flex;
+      gap:18px;
+      flex-wrap:wrap;
+    }
+    .footer-grid nav a{
+      color:var(--muted);
+      text-decoration:none;
+      font-size:14px;
+    }
+    .muted{color:var(--muted)}
+
+    @media (max-width:1024px){
+      .hero-grid{grid-template-columns:1fr}
+      .feature-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+      .news-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+      .value-grid{grid-template-columns:1fr}
+    }
+
+    @media (max-width:640px){
+      .container{padding:0 20px}
+      .hero{padding:88px 0 72px}
+      .hero-vertical-mark{display:none}
+      .hero-calligraphy{
+        width:100%;
+        padding:22px;
+        font-size:clamp(26px,8vw,38px);
+      }
+      .hero-nav-buttons{width:100%}
+      .hero-nav-buttons .hero-btn{width:100%;justify-content:flex-start}
+      .hero-lede{font-size:16px}
+      .news-grid{grid-template-columns:1fr}
+      .feature-grid{grid-template-columns:1fr}
+      .cta-section{padding:40px 24px}
     }
   </style>
 </head>
 <body>
-  <!-- 共通ヘッダー -->
   <div class="topbar" aria-hidden="true"></div>
+
   <header class="site-header" role="banner">
     <div class="container hdr-inner">
 <a class="brand" href="/">
@@ -103,7 +149,7 @@
   </span>
 </a>
       <button class="nav-toggle" aria-expanded="false" aria-controls="site-nav">メニュー</button>
- <nav id="site-nav" class="site-nav" role="navigation">
+<nav id="site-nav" class="site-nav" role="navigation">
   <ul>
     <li><a href="/"          data-path="/">ホーム</a></li>
     <li><a href="/news"      data-path="/news">ニュース</a></li>
@@ -115,55 +161,220 @@
     </div>
   </header>
 
-  <!-- ヒーロー -->
-  <section class="hero">
-    <div class="hero-inner">
-      <h1>アップデート情報</h1>
-      <p>最新機能と改善内容をお知らせします</p>
-    </div>
-  </section>
-
-  <!-- 今後の予定 -->
-  <section class="roadmap-section">
-    <div class="roadmap-container">
-      <h2 class="sec-title" style="text-align:center">今後の予定</h2>
-      <div class="roadmap-grid">
-        <div class="roadmap-card"><span class="roadmap-status development">開発中</span><h3>AI機能追加</h3><p class="muted">GPAの統計データから、基礎クラスごとの履修計画を作成。</p></div>
-        <div class="roadmap-card"><span class="roadmap-status testing">計画中</span><h3>学科・コースコミュニティ</h3><p class="muted">学科を登録すると、学科・コースの人と連絡可能。テスト情報などの共有ができる。</p></div>
-        <div class="roadmap-card"><span class="roadmap-status planning">計画中</span><h3>他大学連携</h3><p class="muted">北海道内の他大学と連携。</p></div>
-        <div class="roadmap-card"><span class="roadmap-status development">開発着手中</span><h3>天気・交通情報</h3><p class="muted">札幌市北区の気象情報と、JRと市営地下鉄の運行情報タブの掲載</p></div>
-        <div class="roadmap-card"><span class="roadmap-status planning">計画中</span><h3>Apple Watch対応</h3><p class="muted">次の教室番号をApple Watchに追加</p></div>
+  <main>
+    <section class="hero hero-yomiuri" id="top">
+      <div class="hero-backdrop" aria-hidden="true"></div>
+      <div class="hero-scroll" aria-hidden="true">Scroll</div>
+      <div class="container hero-grid hero-stage">
+        <div class="hero-vertical-mark" aria-hidden="true">
+          <span>ELM PORT</span>
+          <span>UPDATES</span>
+        </div>
+        <div class="hero-copy reveal-up">
+          <p class="hero-eyebrow">Release cadence</p>
+          <div class="hero-calligraphy">
+            <span>変化を素早く。</span>
+            <span>学生体験を磨く。</span>
+          </div>
+          <p class="hero-lede">
+            ELM PORT更新チームは、週次の改善と四半期ごとの大型アップデートで、北大生の学習体験を常に最適化しています。
+            最新リリースの要点と今後の開発ロードマップを、インデックスページと同じデザインシステムでお届けします。
+          </p>
+          <div class="updates-meta">
+            <span>最終更新 2025.11.12</span>
+            <span>Version 2.8.0</span>
+          </div>
+          <div class="hero-nav-buttons">
+            <a class="hero-btn btn-entry" href="#release-notes">VIEW NOTES</a>
+            <a class="hero-btn btn-mypage" href="/contact">REQUEST FEATURE</a>
+            <a class="hero-btn btn-intern" href="/news">LATEST NEWS</a>
+          </div>
+        </div>
+        <div class="hero-side reveal-up">
+          <div class="hero-press-card">
+            <div class="press-head">
+              <span>Release focus</span>
+              <span>2025.11.12</span>
+            </div>
+            <div class="press-body">
+              <p class="press-caption">ELM PORT 2.8.0</p>
+              <h3>欠席カウンターと時間割のフル連携を実装</h3>
+              <p>
+                欠席状況を自動で同期し、教室変更や代講情報とも紐づけ。
+                朝の確認にかかる時間を半分に短縮し、学内の情報伝達をさらにスムーズにしました。
+              </p>
+            </div>
+            <a class="press-link" href="#release-notes">READ MORE</a>
+          </div>
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- 共通フッター -->
+    <section class="section pick-section" id="release-highlights">
+      <div class="container reveal-up">
+        <div class="section-head">
+          <p class="eyebrow">Release highlights</p>
+          <h2>今回のアップデートで注目したい３つの改善</h2>
+          <p>トップページと同じカードレイアウトで、最新バージョンの要点を一目で把握できます。</p>
+        </div>
+        <div class="pick-grid">
+          <article class="pick-card">
+            <p class="pick-meta">2025.11.12 / Feature</p>
+            <h3>欠席カウンターの自動同期</h3>
+            <p>時間割と欠席情報がリアルタイムに連携。講義開始前の確認から教員への報告まで、ワンタップで対応できます。</p>
+            <a class="pick-link" href="#release-notes">View notes</a>
+          </article>
+          <article class="pick-card">
+            <p class="pick-meta">2025.11.12 / Dashboard</p>
+            <h3>ホームフィードを再設計</h3>
+            <p>天気・交通・イベント情報をカード化し、朝の確認導線をスリム化。指一本で今日の予定にアクセスできます。</p>
+            <a class="pick-link" href="#release-notes">View notes</a>
+          </article>
+          <article class="pick-card">
+            <p class="pick-meta">2025.11.12 / Safety</p>
+            <h3>災害モードのUIを刷新</h3>
+            <p>緊急テンプレートを常備し、オフラインでも読めるローカルキャッシュを搭載。公式・学生情報を同一タイムラインで共有します。</p>
+            <a class="pick-link" href="#roadmap">View roadmap</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="release-notes">
+      <div class="container">
+        <div class="section-head">
+          <p class="eyebrow">Release notes</p>
+          <h2>詳細アップデート一覧</h2>
+          <p>ハイライトの背景にある細かな改善と修正内容を、ニュースカードと同じフォーマットで整理しました。</p>
+        </div>
+        <div class="news-grid release-notes-grid">
+          <article class="news-card">
+            <div class="news-body">
+              <div class="news-meta">
+                <span>2025.11.12</span>
+                <span>Feature</span>
+              </div>
+              <div class="news-title">時間割ウィジェットで休講アラートを表示</div>
+              <div class="news-sub">教務システムと連携し、代講・休講情報をホームフィードへ自動反映。Push通知との重複も解消しました。</div>
+            </div>
+          </article>
+          <article class="news-card">
+            <div class="news-body">
+              <div class="news-meta">
+                <span>2025.11.12</span>
+                <span>Improvement</span>
+              </div>
+              <div class="news-title">コミュニティボードの検索体験を再設計</div>
+              <div class="news-sub">タグ・学部・日時でフィルタできる検索バーを追加。投稿の既読率を分析できるレポートも公開しました。</div>
+            </div>
+          </article>
+          <article class="news-card">
+            <div class="news-body">
+              <div class="news-meta">
+                <span>2025.11.12</span>
+                <span>Fix</span>
+              </div>
+              <div class="news-title">ELMS自動ログインの安定性を向上</div>
+              <div class="news-sub">一部ブラウザで発生していた二段階認証のループを解消。タイムアウト時にはリトライ解析ログを取得します。</div>
+            </div>
+          </article>
+          <article class="news-card">
+            <div class="news-body">
+              <div class="news-meta">
+                <span>2025.11.12</span>
+                <span>Improvement</span>
+              </div>
+              <div class="news-title">通知配信の配慮設定を細分化</div>
+              <div class="news-sub">夜間モードと授業中サイレントを個別に設定できるよう変更。重要度の高い通知のみを選択可能になりました。</div>
+            </div>
+          </article>
+          <article class="news-card">
+            <div class="news-body">
+              <div class="news-meta">
+                <span>2025.11.12</span>
+                <span>Accessibility</span>
+              </div>
+              <div class="news-title">スクリーンリーダー向けのランドマークを整備</div>
+              <div class="news-sub">主要セクションにARIAラベルを追加し、読み上げ順序を再調整。視覚支援モードとの併用も検証済みです。</div>
+            </div>
+          </article>
+          <article class="news-card">
+            <div class="news-body">
+              <div class="news-meta">
+                <span>2025.11.12</span>
+                <span>Security</span>
+              </div>
+              <div class="news-title">APIアクセス制御を段階的に強化</div>
+              <div class="news-sub">Cloudflare Turnstileを導入し、リクエストごとの署名チェックを追加。レート制限を役割ごとに設定しました。</div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section value-section" id="roadmap">
+      <div class="container value-grid">
+        <article class="value-card">
+          <p class="feature-tag">Next sprint</p>
+          <h3>学部別の推奨シラバスを提案</h3>
+          <p>12月リリースを目標に、履修モデルとAIレコメンドの検証を進めています。</p>
+          <div class="value-list">
+            <span>推奨講義のAIレコメンドを検証中</span>
+            <span>卒業要件との突合せアルゴリズムを最適化</span>
+            <span>シラバスPDFを自動でハイライト表示</span>
+          </div>
+        </article>
+        <article class="value-card">
+          <p class="feature-tag">Experience</p>
+          <h3>体験を磨くロードマップ</h3>
+          <p>ホームフィードや通知の体験を引き続き磨き込み、利用回数を最大化します。</p>
+          <div class="value-list">
+            <span>朝のひと目で分かるカード群をさらに最適化</span>
+            <span>ウィジェットやApple Watch対応を年内に検証</span>
+            <span>Slack / Teams 連携の技術調査を進行中</span>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="cta">
+      <div class="container">
+        <div class="cta-section">
+          <p class="eyebrow">Stay in touch</p>
+          <h2>北大の声から次のアップデートが生まれます</h2>
+          <p>改善の希望や不具合報告はすべて開発ボードでトリアージしています。率直なフィードバックをぜひお寄せください。</p>
+          <div class="store-buttons">
+            <a class="store-btn" href="/contact" aria-label="フィードバックフォーム">フィードバックフォーム</a>
+            <a class="store-btn" href="/news" aria-label="最新情報を確認">最新情報を確認</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
   <footer class="site-footer">
     <div class="container footer-grid">
-      <div><div class="brand small"><span class="brand-mark"></span><strong>ELM PORT</strong></div><p class="muted">© 2025 ELM PORT Team</p></div>
-      <nav><ul>
-        <li><a href="/news">ニュース</a></li>
-        <li><a href="/contact">お問い合わせ</a></li>
-        <li><a href="#">利用規約</a></li>
-        <li><a href="#">プライバシー</a></li>
-      </ul></nav>
+      <div>
+        <div class="brand small">
+          <span class="brand-icon" aria-hidden="true">
+            <img src="/images/logo.png" alt="ELM PORT">
+          </span>
+          <span class="brand-text">
+            <strong>ELM PORT</strong>
+            <small>Campus Life Support</small>
+          </span>
+        </div>
+        <p class="muted">© 2025 ELM PORT Team</p>
+      </div>
+      <nav aria-label="フッターメニュー">
+        <ul>
+          <li><a href="/news">ニュース</a></li>
+          <li><a href="/terms">利用規約</a></li>
+          <li><a href="/privacypolicy">プライバシー</a></li>
+          <li><a href="/contact">お問い合わせ</a></li>
+        </ul>
+      </nav>
     </div>
   </footer>
-
-  <script>
-    // フィルタ
-    const tabs=[...document.querySelectorAll('.filter-tab')];
-    const items=[...document.querySelectorAll('.timeline-item')];
-    tabs.forEach(t=>t.addEventListener('click',()=>{
-      tabs.forEach(x=>x.classList.remove('active')); t.classList.add('active');
-      const f=t.dataset.filter;
-      items.forEach(i=>{
-        i.style.display = (f==='all' || i.dataset.type===f) ? 'block' : 'none';
-      });
-    }));
-    // フェードイン
-    const ob=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.style.animationPlayState='running'}),{threshold:.1,rootMargin:'0px 0px -50px 0px'});
-    items.forEach(i=>ob.observe(i));
-  </script>
 </body>
 </html>
