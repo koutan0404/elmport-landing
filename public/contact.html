@@ -35,50 +35,171 @@
     img{max-width:100%;display:block}
     .container{max-width:var(--container);margin:auto;padding:0 24px}
 
-    .hero{
-      background:#fff;
-      color:var(--ink);
-      padding:72px 0 64px;
-      border-bottom:1px solid var(--line);
+    .hero-stage{padding:110px 0 40px;}
+
+    .contact-meta{
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+      margin:24px 0 32px;
+      font-size:13px;
+      letter-spacing:0.18em;
+      text-transform:uppercase;
+      color:var(--muted);
     }
-    .hero-inner{max-width:var(--container);margin:auto;padding:0 20px}
-    .hero h1{margin:0;font-family:"Noto Serif JP","Noto Sans JP",serif}
-    .main{max-width:var(--container);margin:32px auto;padding:0 20px;display:grid;grid-template-columns:2fr 3fr;gap:32px}
-    .panel{background:#fff;border:1px solid var(--line);box-shadow:0 5px 16px #0000000a;padding:24px}
-    .section-title{font-size:1.4rem;margin:0 0 20px;font-weight:700}
-    .form-cards{display:grid;gap:16px}
-    .form-card{background:#fafafa;border:1px solid var(--line);padding:20px;transition:all .2s}
-    .form-card:hover{background:#f5f5f5;border-color:var(--emerald-dark)}
-    .form-card-header{display:flex;align-items:center;gap:12px;margin-bottom:12px}
-    .form-icon{width:40px;height:40px;display:flex;align-items:center;justify-content:center;font-size:1.2rem}
-    .form-card h4{margin:0;font-size:1.05rem;color:#333}
-    .form-card p{margin:0 0 12px;font-size:0.85rem;color:#666;line-height:1.5}
-    .form-card .btn-primary{display:inline-flex;align-items:center;gap:6px;background:var(--emerald-dark);color:#fff;padding:10px 20px;text-decoration:none;font-weight:600;transition:all .2s}
-    .form-card .btn-primary:hover{background:var(--emerald);transform:translateX(2px)}
-    .icon-bug{background:#fee2e2;color:#dc2626}
-    .icon-account{background:#dbeafe;color:#2563eb}
-    .icon-business{background:#fef3c7;color:#d97706}
-    .icon-consulting{background:#e9d5ff;color:#9333ea}
-    .faq{display:grid;gap:12px}
-    .faq details{background:#fafafa;border:1px solid var(--line);padding:16px;transition:all .2s}
-    .faq details[open]{background:#fff;border-color:var(--emerald-dark)}
-    .faq summary{cursor:pointer;font-weight:600;list-style:none;display:flex;justify-content:space-between;align-items:center}
-    .faq summary::after{content:"▶";transition:transform .2s;color:#999}
-    .faq details[open] summary::after{transform:rotate(90deg)}
-    .faq p{margin:12px 0 0;padding-top:12px;border-top:1px solid #eee;line-height:1.6}
-    .notice{background:#f0fdf4;border:1px solid #86efac;padding:16px;margin-bottom:20px;display:flex;gap:12px;align-items:start}
-    .notice-icon{flex-shrink:0;width:24px;height:24px;background:#22c55e;color:#fff;display:flex;align-items:center;justify-content:center;font-size:14px}
-    @media (max-width:860px){ 
-      .main{grid-template-columns:1fr}
+    .contact-meta span{display:inline-flex;align-items:center;gap:6px;}
+
+    .contact-notice{
+      display:flex;
+      gap:12px;
+      align-items:flex-start;
+      background:#F0FDF4;
+      border:1px solid #86EFAC;
+      padding:16px 20px;
+      margin-bottom:24px;
+    }
+    .contact-notice-icon{
+      width:24px;
+      height:24px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background:#22C55E;
+      color:#fff;
+      font-size:14px;
+    }
+
+    .contact-link{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:12px 20px;
+      border:1px solid var(--emerald-dark);
+      color:var(--emerald-dark);
+      letter-spacing:0.12em;
+      text-transform:uppercase;
+      font-size:12px;
+      text-decoration:none;
+      transition:transform .2s,border-color .2s,color .2s;
+    }
+    .contact-link:hover{
+      border-color:var(--emerald);
+      color:var(--emerald);
+      transform:translateY(-2px);
+    }
+
+    .faq-list{
+      display:grid;
+      gap:16px;
+    }
+    .faq-list details{
+      border:1px solid var(--line);
+      background:#fff;
+      padding:20px;
+      transition:border-color .2s;
+    }
+    .faq-list details[open]{border-color:var(--emerald-dark);}
+    .faq-list summary{
+      cursor:pointer;
+      font-weight:600;
+      list-style:none;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:12px;
+    }
+    .faq-list summary::after{
+      content:'＋';
+      font-size:14px;
+      transition:transform .2s;
+      color:var(--muted);
+    }
+    .faq-list details[open] summary::after{transform:rotate(45deg);}
+    .faq-list p{margin:16px 0 0;color:var(--muted);line-height:1.7;}
+
+    .contact-channels .news-card{min-height:200px;}
+    .contact-channels .news-body{gap:12px;}
+
+    .cta-section{
+      background:linear-gradient(135deg,#0A5A45,#109B74);
+      color:#fff;
+      padding:60px;
+      text-align:center;
+      box-shadow:0 45px 70px rgba(8,34,28,0.25);
+    }
+    .cta-section h2{
+      margin:0 0 16px;
+      font-size:32px;
+      font-family:"Noto Serif JP","Noto Sans JP",serif;
+    }
+    .cta-section p{margin:0 0 24px;color:rgba(255,255,255,0.85);}
+    .store-buttons{
+      display:flex;
+      justify-content:center;
+      flex-wrap:wrap;
+      gap:14px;
+    }
+    .store-btn{
+      border:1px solid rgba(255,255,255,0.5);
+      padding:12px 26px;
+      text-decoration:none;
+      color:#fff;
+      letter-spacing:0.08em;
+    }
+
+    .site-footer{
+      padding:48px 0 60px;
+      background:#fff;
+      border-top:1px solid rgba(17,24,39,0.08);
+      margin-top:80px;
+    }
+    .footer-grid{
+      display:flex;
+      justify-content:space-between;
+      flex-wrap:wrap;
+      gap:24px;
+      align-items:flex-start;
+    }
+    .footer-grid nav ul{
+      list-style:none;
+      margin:0;
+      padding:0;
+      display:flex;
+      gap:18px;
+      flex-wrap:wrap;
+    }
+    .footer-grid nav a{
+      color:var(--muted);
+      text-decoration:none;
+      font-size:14px;
+    }
+    .muted{color:var(--muted);}
+
+    @media (max-width:1024px){
+      .value-grid{grid-template-columns:repeat(auto-fit,minmax(280px,1fr));}
+    }
+    @media (max-width:640px){
+      .container{padding:0 20px;}
+      .hero{padding:88px 0 72px;}
+      .hero-vertical-mark{display:none;}
+      .hero-calligraphy{
+        width:100%;
+        padding:22px;
+        font-size:clamp(26px,8vw,38px);
+      }
+      .hero-nav-buttons{width:100%;}
+      .hero-nav-buttons .hero-btn{width:100%;justify-content:flex-start;}
+      .hero-lede{font-size:16px;}
+      .cta-section{padding:40px 24px;}
     }
   </style>
 </head>
 <body>
-  <!-- 共通ヘッダー -->
   <div class="topbar" aria-hidden="true"></div>
+
   <header class="site-header" role="banner">
     <div class="container hdr-inner">
-  <a class="brand" href="/">
+<a class="brand" href="/">
   <!-- 画像アイコンを使用 -->
   <span class="brand-icon" aria-hidden="true">
     <img src="/images/logo.png" alt="ELM PORT">
@@ -102,96 +223,249 @@
     </div>
   </header>
 
-  <!-- ヒーロー -->
-  <section class="hero">
-    <div class="hero-inner">
-      <h1>お問い合わせフォーム</h1>
-    </div>
-  </section>
-
-  <!-- メイン（フォームリンク） -->
-  <div class="main">
-    <div class="panel" style="grid-column: 1 / -1; max-width: 800px; margin: 0 auto;">
-      <h2 class="section-title">お問い合わせフォーム</h2>
-      
-      <div class="notice">
-        <div class="notice-icon">✓</div>
-        <div>
-          <strong>Google Formで受付中</strong><br>
-          <span style="font-size:0.9rem;color:#666">お問い合わせ内容に応じて、以下のフォームをご利用ください。</span>
+  <main>
+    <section class="hero hero-yomiuri" id="top">
+      <div class="hero-backdrop" aria-hidden="true"></div>
+      <div class="hero-scroll" aria-hidden="true">Scroll</div>
+      <div class="container hero-grid hero-stage">
+        <div class="hero-vertical-mark" aria-hidden="true">
+          <span>ELM PORT</span>
+          <span>SUPPORT</span>
+        </div>
+        <div class="hero-copy reveal-up">
+          <p class="hero-eyebrow">Support desk</p>
+          <div class="hero-calligraphy">
+            <span>声を受け止める。</span>
+            <span>学生体験を磨く。</span>
+          </div>
+          <p class="hero-lede">
+            アカウントや機能に関するお問い合わせから法人連携まで、ワンストップで対応します。
+            すべてのフォームはトップページと同じビジュアルシステムで整理し、処理状況を可視化しています。
+          </p>
+          <div class="contact-meta">
+            <span>受付 平日 10:00-18:00</span>
+            <span>平均対応 24時間以内</span>
+          </div>
+          <div class="hero-nav-buttons">
+            <a class="hero-btn btn-entry" href="#forms">FORMS</a>
+            <a class="hero-btn btn-mypage" href="#faq">FAQ</a>
+            <a class="hero-btn btn-intern" href="#cta">MEET TEAM</a>
+          </div>
+        </div>
+        <div class="hero-side reveal-up">
+          <div class="hero-press-card">
+            <div class="press-head">
+              <span>Support focus</span>
+              <span>2025.11</span>
+            </div>
+            <div class="press-body">
+              <p class="press-caption">SERVICE DESK</p>
+              <h3>お問い合わせの全件を72時間以内にレビュー</h3>
+              <p>
+                自動トリアージと担当タグで、技術・運営・広報チームへ即時にエスカレーション。
+                返信テンプレートも刷新し、学生からのフィードバックを次のアップデートにつなげています。
+              </p>
+            </div>
+            <a class="press-link" href="#forms">CONTACT</a>
+          </div>
         </div>
       </div>
+    </section>
 
-      <div class="form-cards">
-        <!-- アカウント・プライバシー -->
-        <div class="form-card">
-          <div class="form-card-header">
-            <div class="form-icon icon-account">👤</div>
-            <h4>アカウント・プライバシー</h4>
-          </div>
-          <p>アカウントに関する問題、個人情報の取り扱い、プライバシー設定についてのお問い合わせ</p>
-          <a href="https://docs.google.com/forms/d/e/1FAIpQLSccxQuk8T33nVfIrj2YG1mtt8OjJghXT4kihaXEKSFZCNemZw/viewform?usp=header" target="_blank" rel="noopener noreferrer" class="btn-primary">
-            フォームを開く →
-          </a>
+    <section class="section pick-section" id="contact-highlights">
+      <div class="container reveal-up">
+        <div class="section-head">
+          <p class="eyebrow">Service highlights</p>
+          <h2>ELM PORTサポートの3つの窓口</h2>
+          <p>トップページと同じ矩形カードで、主要な問い合わせカテゴリを分かりやすく整理しました。</p>
         </div>
-
-        <!-- バグ報告・機能要望 -->
-        <div class="form-card">
-          <div class="form-card-header">
-            <div class="form-icon icon-bug">🐛</div>
-            <h4>バグ報告・機能要望</h4>
-          </div>
-          <p>不具合の報告、新機能のリクエスト、改善提案など技術的なフィードバック</p>
-          <a href="https://docs.google.com/forms/d/e/1FAIpQLSfV-I7HBgjTfTNhzcH3q_1pvxAklhqu5caT4jCw1o3TQzW2XQ/viewform?usp=dialog" target="_blank" rel="noopener noreferrer" class="btn-primary">
-            フォームを開く →
-          </a>
+        <div class="pick-grid">
+          <article class="pick-card">
+            <p class="pick-meta">01 / Account</p>
+            <h3>アカウント・プライバシー窓口</h3>
+            <p>ログインや個人情報の取り扱いに関する問い合わせを専任チームが担当。権限変更や退会もこちらから。</p>
+            <a class="pick-link" href="#forms">View detail</a>
+          </article>
+          <article class="pick-card">
+            <p class="pick-meta">02 / Feedback</p>
+            <h3>バグ報告・機能リクエスト</h3>
+            <p>改善点は開発ボードへ即時登録。優先順位とリリース予定を返信内で共有します。</p>
+            <a class="pick-link" href="#forms">View detail</a>
+          </article>
+          <article class="pick-card">
+            <p class="pick-meta">03 / Business</p>
+            <h3>法人連携・メディア対応</h3>
+            <p>広告掲載、取材、共同プロジェクトの相談は専用フォームで受付。資料やメディアキットも提供します。</p>
+            <a class="pick-link" href="#forms">View detail</a>
+          </article>
         </div>
-
-        <!-- 法人向け広告募集 -->
-        <div class="form-card">
-          <div class="form-card-header">
-            <div class="form-icon icon-business">📢</div>
-            <h4>法人向け広告募集</h4>
-          </div>
-          <p>ELM PORT内での広告掲載、プロモーション、学生向けサービスの告知について</p>
-          <a href="https://docs.google.com/forms/d/e/1FAIpQLSdwNVW0CxmZ3aHaLhuUDqVeTaqSbmNNqmzOI11GlYBhCpg3pQ/viewform?usp=header" target="_blank" rel="noopener noreferrer" class="btn-primary">
-            フォームを開く →
-          </a>
-        </div>
-
-        <!-- IT研修・コンサルティング -->
-        
-
-
-  </div>
-
-  <!-- SNS -->
-  <section class="section">
-    <div class="container" id="social" style="text-align:center">
-      <h2 class="sec-title">公式SNSアカウント</h2>
-      <p class="muted" style="margin-bottom:20px">最新情報やお知らせを配信しています</p>
-      <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
-        <a href="#" class="btn btn-ghost" title="X (Twitter)">𝕏</a>
-        <a href="#" class="btn btn-ghost" title="Instagram">📷</a>
-        <a href="#" class="btn btn-ghost" title="LINE">💬</a>
-        <a href="#" class="btn btn-ghost" title="YouTube">▶️</a>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- 共通フッター -->
+    <section class="section" id="forms">
+      <div class="container">
+        <div class="section-head">
+          <p class="eyebrow">Contact forms</p>
+          <h2>目的別にフォームをお選びください</h2>
+          <p>すべてGoogleフォームで受付し、担当チームへ自動アサインされます。</p>
+        </div>
+        <div class="contact-notice">
+          <div class="contact-notice-icon" aria-hidden="true">✓</div>
+          <div>
+            <strong>Google Formで受付中</strong><br>
+            <span class="muted">返信は原則24時間以内です。学内メールアドレスからのご連絡で回答が届かない場合は迷惑メールの設定をご確認ください。</span>
+          </div>
+        </div>
+        <div class="value-grid">
+          <article class="value-card">
+            <span class="feature-tag">Support</span>
+            <h3>アカウント・プライバシー</h3>
+            <p>ログインや認証、個人情報の閲覧・削除などに関するご相談はこちらから。</p>
+            <div class="value-list">
+              <span>パスワードリセットと多要素認証の設定</span>
+              <span>退会・データエクスポートのリクエスト</span>
+              <span>プライバシーポリシーに関するご質問</span>
+            </div>
+            <a class="contact-link" href="https://docs.google.com/forms/d/e/1FAIpQLSccxQuk8T33nVfIrj2YG1mtt8OjJghXT4kihaXEKSFZCNemZw/viewform?usp=header" target="_blank" rel="noopener noreferrer">フォームを開く</a>
+          </article>
+          <article class="value-card">
+            <span class="feature-tag">Feedback</span>
+            <h3>バグ報告・機能要望</h3>
+            <p>アプリの不具合や改善アイデアを開発チームへ直接お送りいただけます。</p>
+            <div class="value-list">
+              <span>スクリーンショットや動画の共有が可能</span>
+              <span>優先度を選択して送信</span>
+              <span>進捗は更新情報ページで公開</span>
+            </div>
+            <a class="contact-link" href="https://docs.google.com/forms/d/e/1FAIpQLSfV-I7HBgjTfTNhzcH3q_1pvxAklhqu5caT4jCw1o3TQzW2XQ/viewform?usp=dialog" target="_blank" rel="noopener noreferrer">フォームを開く</a>
+          </article>
+          <article class="value-card">
+            <span class="feature-tag">Business</span>
+            <h3>法人向け広告・連携</h3>
+            <p>キャンパス広告やイベント協賛、共同企画などのご相談を受け付けています。</p>
+            <div class="value-list">
+              <span>媒体資料・料金表のダウンロード</span>
+              <span>タイアップ施策の提案依頼</span>
+              <span>取材やメディア対応のアレンジ</span>
+            </div>
+            <a class="contact-link" href="https://docs.google.com/forms/d/e/1FAIpQLSdwNVW0CxmZ3aHaLhuUDqVeTaqSbmNNqmzOI11GlYBhCpg3pQ/viewform?usp=header" target="_blank" rel="noopener noreferrer">フォームを開く</a>
+          </article>
+          <article class="value-card">
+            <span class="feature-tag">Consulting</span>
+            <h3>IT研修・技術コンサルティング</h3>
+            <p>授業向けワークショップや自治体・企業向け研修、受託開発の相談はこちら。</p>
+            <div class="value-list">
+              <span>研修メニューとお見積もりのご案内</span>
+              <span>DX推進やデータ連携のご相談</span>
+              <span>共同研究・PoCプロジェクトの打ち合わせ</span>
+            </div>
+            <a class="contact-link" href="mailto:support@elmport.jp?subject=%5BELM%20PORT%5D%20IT%E7%A0%94%E4%BF%AE%E3%83%BB%E6%8A%80%E8%A1%93%E3%82%B3%E3%83%B3%E3%82%B5%E3%83%AB%E3%83%86%E3%82%A3%E3%83%B3%E3%82%B0%E3%81%AE%E3%81%94%E7%9B%B8%E8%AB%87" rel="noopener noreferrer">メールで相談</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="faq">
+      <div class="container">
+        <div class="section-head">
+          <p class="eyebrow">FAQ</p>
+          <h2>よくあるご質問</h2>
+          <p>お問い合わせ前によく頂く質問をまとめました。解決しない場合はフォームからご連絡ください。</p>
+        </div>
+        <div class="faq-list">
+          <details>
+            <summary>返信までどれくらい時間がかかりますか？</summary>
+            <p>平日10:00-18:00にいただいたお問い合わせは、原則24時間以内に担当チームよりご返信します。土日祝日に受信した内容は翌営業日の対応となります。</p>
+          </details>
+          <details>
+            <summary>バグ報告の際に必要な情報はありますか？</summary>
+            <p>発生した画面、時刻、操作手順、スクリーンショットをご共有いただくと調査がスムーズです。再現状況が複雑な場合は、オンラインでの聞き取りをご提案することがあります。</p>
+          </details>
+          <details>
+            <summary>法人向け資料はどこからダウンロードできますか？</summary>
+            <p>「法人向け広告・連携」フォームにご入力いただくと、媒体資料へのダウンロードリンクを自動返信メールにてお送りします。事前に閲覧されたい場合はお問い合わせください。</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="reachout">
+      <div class="container">
+        <div class="section-head">
+          <p class="eyebrow">Other channels</p>
+          <h2>すぐに連絡したい場合の窓口</h2>
+          <p>フォームのほか、チームへの連絡手段を用途別にご用意しています。</p>
+        </div>
+        <div class="news-grid contact-channels">
+          <article class="news-card">
+            <div class="news-body">
+              <div class="news-meta">
+                <span>メール</span>
+                <span>平日 10:00-18:00</span>
+              </div>
+              <div class="news-title">support@elmport.jp</div>
+              <div class="news-sub">機密情報を含むご相談はこちらへ。添付ファイルにも対応しています。</div>
+            </div>
+          </article>
+          <article class="news-card">
+            <div class="news-body">
+              <div class="news-meta">
+                <span>Discord</span>
+                <span>コミュニティ</span>
+              </div>
+              <div class="news-title">キャンパスコミュニティに参加</div>
+              <div class="news-sub">招待リンク：<a href="https://discord.gg/elmport" target="_blank" rel="noopener">discord.gg/elmport</a></div>
+            </div>
+          </article>
+          <article class="news-card">
+            <div class="news-body">
+              <div class="news-meta">
+                <span>GitHub</span>
+                <span>Issue</span>
+              </div>
+              <div class="news-title">技術的なご質問・Pull Request</div>
+              <div class="news-sub">リポジトリ：<a href="https://github.com/elmport" target="_blank" rel="noopener">github.com/elmport</a></div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="cta">
+      <div class="container">
+        <div class="cta-section">
+          <p class="eyebrow">Meet the team</p>
+          <h2>学生の声からサービスは進化します</h2>
+          <p>どんな小さな気づきでも歓迎です。みなさまのフィードバックが、次のアップデートやコンテンツづくりにつながります。</p>
+          <div class="store-buttons">
+            <a class="store-btn" href="/updates" aria-label="更新情報を見る">更新情報を見る</a>
+            <a class="store-btn" href="/sns" aria-label="SNS一覧にアクセス">SNS一覧にアクセス</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
   <footer class="site-footer">
     <div class="container footer-grid">
       <div>
-        <div class="brand small"><span class="brand-mark"></span><strong>ELM PORT</strong></div>
+        <div class="brand small">
+          <span class="brand-icon" aria-hidden="true">
+            <img src="/images/logo.png" alt="ELM PORT">
+          </span>
+          <span class="brand-text">
+            <strong>ELM PORT</strong>
+            <small>Campus Life Support</small>
+          </span>
+        </div>
         <p class="muted">© 2025 ELM PORT Team</p>
       </div>
-      <nav>
+      <nav aria-label="フッターメニュー">
         <ul>
           <li><a href="/news">ニュース</a></li>
-          <li><a href="/updates">更新情報</a></li>
-          <li><a href="https://ambitiousstars.org/terms">利用規約</a></li>
-          <li><a href="https://ambitiousstars.org/privacypolicy">プライバシー</a></li>
+          <li><a href="/terms">利用規約</a></li>
+          <li><a href="/privacypolicy">プライバシー</a></li>
+          <li><a href="/contact">お問い合わせ</a></li>
         </ul>
       </nav>
     </div>

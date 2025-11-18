@@ -45,60 +45,219 @@
     img{max-width:100%;display:block}
     .container{max-width:var(--container);margin:auto;padding:0 24px}
 
-    .hero{
-      background:#fff;
-      color:var(--ink);
-      padding:72px 0 64px;
-      border-bottom:1px solid var(--line);
+    .hero-stage{padding:110px 0 40px;}
+
+    .social-meta{
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+      margin:24px 0 32px;
+      font-size:13px;
+      letter-spacing:0.18em;
+      text-transform:uppercase;
+      color:var(--muted);
     }
-    .hero-inner{max-width:var(--container);margin:auto;padding:0 20px}
-    .hero h1{margin:0 0 6px;font-family:"Noto Serif JP","Noto Sans JP",serif}
-    .hero p{margin:0;color:var(--muted)}
+    .social-meta span{display:inline-flex;align-items:center;gap:6px;}
 
-    .intro{max-width:var(--container);margin:18px auto 0;padding:0 20px;color:var(--muted);opacity:1}
+    .social-filter{
+      display:flex;
+      justify-content:center;
+      gap:18px;
+      flex-wrap:wrap;
+      margin:32px 0;
+    }
+    .social-filter .tab{
+      padding:12px 24px;
+      border:1px solid var(--line);
+      background:#fff;
+      letter-spacing:0.18em;
+      font-size:11px;
+      text-transform:uppercase;
+      color:var(--muted);
+      cursor:pointer;
+      transition:color .2s,border-color .2s,background .2s;
+    }
+    .social-filter .tab:hover{
+      border-color:var(--emerald);
+      color:var(--emerald);
+    }
+    .social-filter .tab.active{
+      border-color:var(--emerald-dark);
+      color:var(--emerald-dark);
+    }
 
-    .tabs-wrap{position:sticky;top:70px;background:#fff;border-bottom:1px solid var(--line);z-index:40}
-    .tabs{max-width:var(--container);margin:auto;display:flex;gap:16px;padding:0 20px}
-    .tab{padding:14px 0;border-bottom:3px solid transparent;color:var(--muted);cursor:pointer}
-    .tab.active{color:var(--emerald-dark);border-bottom-color:var(--emerald-dark)}
+    .social-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+      gap:22px;
+    }
+    .social-card{
+      background:#fff;
+      border:1px solid var(--line);
+      box-shadow:0 18px 30px rgba(15,25,40,0.08);
+      padding:24px;
+      min-height:220px;
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+    }
+    .social-card header{
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-start;
+      gap:12px;
+    }
+    .social-card h3{
+      margin:0;
+      font-size:18px;
+      font-family:"Noto Serif JP","Noto Sans JP",serif;
+    }
+    .social-handle{
+      font-size:12px;
+      letter-spacing:0.2em;
+      text-transform:uppercase;
+      color:var(--muted);
+    }
+    .social-badges{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+    }
+    .social-badge{
+      border:1px solid var(--line);
+      padding:4px 10px;
+      font-size:12px;
+      letter-spacing:0.06em;
+      color:var(--muted);
+    }
+    .social-note{
+      margin:0;
+      color:var(--muted);
+      font-size:14px;
+      line-height:1.6;
+    }
+    .social-actions{
+      margin-top:auto;
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+    }
+    .social-btn{
+      border:1px solid var(--line);
+      background:#fff;
+      padding:8px 14px;
+      letter-spacing:0.12em;
+      text-transform:uppercase;
+      font-size:12px;
+      cursor:pointer;
+      transition:transform .2s,border-color .2s,color .2s;
+    }
+    .social-btn:hover{
+      border-color:var(--emerald);
+      color:var(--emerald);
+      transform:translateY(-2px);
+    }
 
-    .grid{max-width:var(--container);margin:22px auto;padding:0 20px;display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-    @media (max-width:1024px){.grid{grid-template-columns:repeat(2,1fr)}}
-    @media (max-width:640px){.grid{grid-template-columns:1fr}}
+    .value-card #x-embed{margin-top:18px;}
+    .value-card .badges{display:flex;flex-wrap:wrap;gap:10px;}
 
-    .card{background:#fff;border:1px solid var(--line);box-shadow:0 6px 18px #0000000a;padding:16px;display:flex;gap:14px;align-items:center}
-    .card .icon{width:56px;height:56px;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:26px;background:linear-gradient(180deg,#fff,#f3f7f5)}
-    .card h3{margin:0 0 2px}
-    .handle{display:inline-flex;gap:8px;align-items:center;color:var(--muted);font-size:.95rem}
-    .badges{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
-    .badge{background:var(--surface);border:1px solid var(--line);padding:4px 10px;font-size:.8rem}
-    .actions{display:flex;gap:8px;margin-left:auto;flex-wrap:wrap}
-    .btn-mini{border:1px solid var(--line);background:#fff;padding:8px 12px;cursor:pointer}
-    .btn-mini:hover{background:var(--surface)}
+    .cta-section{
+      background:linear-gradient(135deg,#0A5A45,#109B74);
+      color:#fff;
+      padding:60px;
+      text-align:center;
+      box-shadow:0 45px 70px rgba(8,34,28,0.25);
+    }
+    .cta-section h2{
+      margin:0 0 16px;
+      font-size:32px;
+      font-family:"Noto Serif JP","Noto Sans JP",serif;
+    }
+    .cta-section p{
+      margin:0 0 24px;
+      color:rgba(255,255,255,0.85);
+    }
+    .store-buttons{
+      display:flex;
+      justify-content:center;
+      flex-wrap:wrap;
+      gap:14px;
+    }
+    .store-btn{
+      border:1px solid rgba(255,255,255,0.5);
+      padding:12px 26px;
+      text-decoration:none;
+      color:#fff;
+      letter-spacing:0.08em;
+    }
 
-    .embed-section{max-width:var(--container);margin:8px auto 32px;padding:0 20px}
-    .embed-grid{display:grid;grid-template-columns:2fr 1fr;gap:16px}
-    @media (max-width:900px){.embed-grid{grid-template-columns:1fr}}
+    .site-footer{
+      padding:48px 0 60px;
+      background:#fff;
+      border-top:1px solid rgba(17,24,39,0.08);
+      margin-top:80px;
+    }
+    .footer-grid{
+      display:flex;
+      justify-content:space-between;
+      flex-wrap:wrap;
+      gap:24px;
+      align-items:flex-start;
+    }
+    .footer-grid nav ul{
+      list-style:none;
+      margin:0;
+      padding:0;
+      display:flex;
+      gap:18px;
+      flex-wrap:wrap;
+    }
+    .footer-grid nav a{
+      color:var(--muted);
+      text-decoration:none;
+      font-size:14px;
+    }
+    .muted{color:var(--muted);}
 
-    .panel{background:#fff;border:1px solid var(--line);box-shadow:0 6px 18px #0000000a;padding:16px}
-    .panel h2{margin:0 0 8px;font-size:1.2rem}
-    .note{color:var(--muted);font-size:.9rem}
+    .toast{
+      position:fixed;
+      left:50%;
+      bottom:20px;
+      transform:translateX(-50%);
+      background:#111;
+      color:#fff;
+      padding:10px 14px;
+      box-shadow:0 10px 30px #00000033;
+      opacity:0;
+      pointer-events:none;
+      transition:.2s;
+    }
+    .toast.show{opacity:1;}
 
-    .toast{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);background:#111;color:#fff;padding:10px 14px;box-shadow:0 10px 30px #00000033;opacity:0;pointer-events:none;transition:.2s}
-    .toast.show{opacity:1}
-
-    /* プラットフォームの配色（控えめ） */
-    .x   .icon{color:#111}
-    .ig  .icon{color:#c13584}
-
+    @media (max-width:1024px){
+      .social-grid{grid-template-columns:repeat(auto-fit,minmax(220px,1fr));}
+    }
+    @media (max-width:640px){
+      .container{padding:0 20px;}
+      .hero{padding:88px 0 72px;}
+      .hero-vertical-mark{display:none;}
+      .hero-calligraphy{
+        width:100%;
+        padding:22px;
+        font-size:clamp(26px,8vw,38px);
+      }
+      .hero-nav-buttons{width:100%;}
+      .hero-nav-buttons .hero-btn{width:100%;justify-content:flex-start;}
+      .hero-lede{font-size:16px;}
+      .cta-section{padding:40px 24px;}
+    }
   </style>
 </head>
 <body>
-  <!-- 共通ヘッダー -->
   <div class="topbar" aria-hidden="true"></div>
+
   <header class="site-header" role="banner">
     <div class="container hdr-inner">
-      
 <a class="brand" href="/">
   <!-- 画像アイコンを使用 -->
   <span class="brand-icon" aria-hidden="true">
@@ -123,139 +282,284 @@
     </div>
   </header>
 
-  <!-- ヒーロー -->
-  <section class="hero">
-    <div class="hero-inner">
-      <h1>SNS紹介</h1>
-      <p>公式アカウントと運用ポリシーのご案内</p>
-      <p class="intro">最新情報は X（旧Twitter）で最速配信。深掘り・写真は Instagram、動画は YouTube、コミュニティは Discord を中心に運用しています。</p>
-    </div>
-  </section>
-
-  <!-- タブ（ジャンル切替） -->
-  <div class="tabs-wrap" role="tablist" aria-label="SNSカテゴリ">
-    <div class="tabs">
-      <div class="tab active" data-filter="all" role="tab" aria-selected="true">すべて</div>
-      <div class="tab" data-filter="news" role="tab">最新情報</div>
-      <div class="tab" data-filter="media" role="tab">写真・動画</div>
-      <div class="tab" data-filter="community" role="tab">コミュニティ</div>
-      <div class="tab" data-filter="dev" role="tab">開発</div>
-    </div>
-  </div>
-
-  <!-- リンクカード -->
-  <section class="grid" id="cards">
-    <!-- 各カードは JS 側の設定から生成されます -->
-  </section>
-
-  <!-- 埋め込み（任意） -->
-  <section class="embed-section">
-    <div class="embed-grid">
-      <div class="panel">
-        <h2>X（旧Twitter）タイムライン</h2>
-        <p class="note">※ 表示されない場合はネットワーク制限をご確認ください。</p>
-        <div id="x-embed">
-          <!-- X timeline -->
-          <a class="twitter-timeline" data-height="520" href="https://x.com/">Tweets by ELM PORT</a>
+  <main>
+    <section class="hero hero-yomiuri" id="top">
+      <div class="hero-backdrop" aria-hidden="true"></div>
+      <div class="hero-scroll" aria-hidden="true">Scroll</div>
+      <div class="container hero-grid hero-stage">
+        <div class="hero-vertical-mark" aria-hidden="true">
+          <span>ELM PORT</span>
+          <span>SOCIAL</span>
+        </div>
+        <div class="hero-copy reveal-up">
+          <p class="hero-eyebrow">Social channels</p>
+          <div class="hero-calligraphy">
+            <span>つながりを育てる。</span>
+            <span>キャンパスの声を届ける。</span>
+          </div>
+          <p class="hero-lede">
+            学内外の最新トピックや運用ポリシーを、トップページと同じビジュアルシステムで整理しました。
+            速報はX、ストーリーはInstagram、コミュニティはDiscordを中心に発信しています。
+          </p>
+          <div class="social-meta">
+            <span>公式SNS 5アカウント</span>
+            <span>更新頻度 毎日</span>
+          </div>
+          <div class="hero-nav-buttons">
+            <a class="hero-btn btn-entry" href="#social-highlights">DIGEST</a>
+            <a class="hero-btn btn-mypage" href="#channels">CHANNEL LIST</a>
+            <a class="hero-btn btn-intern" href="#cta">MEDIA KIT</a>
+          </div>
+        </div>
+        <div class="hero-side reveal-up">
+          <div class="hero-press-card">
+            <div class="press-head">
+              <span>Spotlight</span>
+              <span>2025.11</span>
+            </div>
+            <div class="press-body">
+              <p class="press-caption">SNS STRATEGY</p>
+              <h3>速報・ビジュアル・対話を3ラインで運用</h3>
+              <p>
+                X / Instagram / Discord の役割を再定義し、トーン&マナーを統一。
+                タグ戦略と参加導線もアップデートし、学生の声を確実に拾い上げます。
+              </p>
+            </div>
+            <a class="press-link" href="#channels">FOLLOW NOW</a>
+          </div>
         </div>
       </div>
+    </section>
 
-      <div class="panel">
-        <h2>ハッシュタグ</h2>
-        <p class="note">投稿の際は以下のハッシュタグをご利用ください。</p>
-        <div class="badges" id="hashtags"></div>
+    <section class="section pick-section" id="social-highlights">
+      <div class="container reveal-up">
+        <div class="section-head">
+          <p class="eyebrow">Release highlights</p>
+          <h2>メインチャンネルのフォーカスポイント</h2>
+          <p>トップページと同じ矩形カードで、各SNSの役割と活用イメージを掴めます。</p>
+        </div>
+        <div class="pick-grid">
+          <article class="pick-card">
+            <p class="pick-meta">速報 / X</p>
+            <h3>運休・メンテナンス情報をリアルタイム配信</h3>
+            <p>授業変更や障害情報を即時ポスト。Push通知と組み合わせて、朝の確認コストを最小化します。</p>
+            <a class="pick-link" href="#channels">Follow</a>
+          </article>
+          <article class="pick-card">
+            <p class="pick-meta">ビジュアル / Instagram</p>
+            <h3>キャンパスライフのストーリーを共有</h3>
+            <p>イベントレポートやフォトギャラリーを掲載。アーカイブ機能で振り返りもしやすくしました。</p>
+            <a class="pick-link" href="#channels">Follow</a>
+          </article>
+          <article class="pick-card">
+            <p class="pick-meta">コミュニティ / Discord</p>
+            <h3>ゼミ・サークル間の連絡を一つに集約</h3>
+            <p>メンバー限定の情報共有からサポート受付まで。カテゴリーごとのチャンネルで迷いません。</p>
+            <a class="pick-link" href="#channels">Join</a>
+          </article>
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- フッター -->
+    <section class="section" id="channels">
+      <div class="container">
+        <div class="section-head">
+          <p class="eyebrow">Channel directory</p>
+          <h2>カテゴリで公式アカウントを絞り込む</h2>
+          <p>利用目的に応じてタブを選ぶと、該当するSNSアカウントがカード形式で表示されます。</p>
+        </div>
+        <div class="social-filter" role="tablist" aria-label="SNSカテゴリ">
+          <button class="tab active" type="button" data-filter="all" aria-selected="true">すべて</button>
+          <button class="tab" type="button" data-filter="news" aria-selected="false">速報</button>
+          <button class="tab" type="button" data-filter="media" aria-selected="false">ビジュアル</button>
+          <button class="tab" type="button" data-filter="community" aria-selected="false">コミュニティ</button>
+          <button class="tab" type="button" data-filter="dev" aria-selected="false">開発</button>
+        </div>
+        <div class="social-grid" id="cards" aria-live="polite"></div>
+      </div>
+    </section>
+
+    <section class="section value-section" id="embed">
+      <div class="container value-grid">
+        <article class="value-card">
+          <span class="feature-tag">Timeline</span>
+          <h3>Xタイムラインをページ内でチェック</h3>
+          <p>速報のポストをそのまま表示しています。表示されない場合はネットワークの閲覧制限をご確認ください。</p>
+          <div id="x-embed">
+            <a class="twitter-timeline" data-height="520" href="https://x.com/">Tweets by ELM PORT</a>
+          </div>
+        </article>
+        <article class="value-card">
+          <span class="feature-tag">Hashtags</span>
+          <h3>キャンパスの会話に参加するためのキーワード</h3>
+          <p>投稿や検索で活用している代表的なハッシュタグです。SNS施策の連携にもご利用ください。</p>
+          <div class="badges" id="hashtags"></div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="cta">
+      <div class="container">
+        <div class="cta-section">
+          <p class="eyebrow">Stay connected</p>
+          <h2>公式SNSでELM PORTの最新情報をフォロー</h2>
+          <p>運用チームと直接つながりたい方は、更新情報ページやお問い合わせフォームもあわせてご利用ください。</p>
+          <div class="store-buttons">
+            <a class="store-btn" href="/updates" aria-label="更新情報を見る">更新情報を見る</a>
+            <a class="store-btn" href="/contact" aria-label="お問い合わせフォームへ">お問い合わせ</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
   <footer class="site-footer">
     <div class="container footer-grid">
       <div>
-        <div class="brand small"><span class="brand-mark" aria-hidden="true"></span><strong>ELM PORT</strong></div>
+        <div class="brand small">
+          <span class="brand-icon" aria-hidden="true">
+            <img src="/images/logo.png" alt="ELM PORT">
+          </span>
+          <span class="brand-text">
+            <strong>ELM PORT</strong>
+            <small>Campus Life Support</small>
+          </span>
+        </div>
         <p class="muted">© 2025 ELM PORT Team</p>
       </div>
       <nav aria-label="フッターメニュー">
         <ul>
           <li><a href="/news">ニュース</a></li>
-          <li><a href="/updates">更新情報</a></li>
+          <li><a href="/terms">利用規約</a></li>
+          <li><a href="/privacypolicy">プライバシー</a></li>
           <li><a href="/contact">お問い合わせ</a></li>
         </ul>
       </nav>
     </div>
   </footer>
 
-  <!-- トースト -->
   <div class="toast" id="toast">コピーしました</div>
 
-  <!-- X ウィジェット -->
   <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
   <script>
-    /** ========== 1) 設定（ここだけ書き換えれば全体に反映） ========== */
     const SOCIAL = {
-      siteUrl: 'https://example.com',           // 公式サイトURL
+      siteUrl: 'https://example.com',
       handles: {
-        x:        { handle: 'elm_port',          url: 'https://x.com/elm_port',               tags: ['#ELMPORT', '#北大アプリ'], category: 'news' },
-        instagram:{ handle: 'elm_port',          url: 'https://www.instagram.com/elm_port',   tags: ['#ELMPORT', '#キャンパスライフ'], category: 'media' }
-        
+        x: {
+          handle: 'elm_port',
+          url: 'https://x.com/elm_port',
+          tags: ['#ELMPORT', '#北大アプリ'],
+          category: 'news',
+          description: '運休・メンテナンス情報など、速報性の高いお知らせをリアルタイムで配信します。'
+        },
+        instagram: {
+          handle: 'elm_port',
+          url: 'https://www.instagram.com/elm_port',
+          tags: ['#ELMPORT', '#キャンパスライフ'],
+          category: 'media',
+          description: 'キャンパスの写真やストーリーを発信。ハイライトでイベントの振り返りもできます。'
+        },
+        youtube: {
+          handle: 'elmport_channel',
+          url: 'https://www.youtube.com/@elmport',
+          tags: ['#ELMPORT', '#CampusLife'],
+          category: 'media',
+          description: '使い方チュートリアルやイベントダイジェストを動画で公開しています。'
+        },
+        discord: {
+          handle: 'elmport-community',
+          url: 'https://discord.gg/elmport',
+          tags: ['#ELMPORT', '#Community'],
+          category: 'community',
+          description: 'ゼミ・サークル・開発チームが集まるコミュニティスペース。学生の声を直接集めます。'
+        },
+        github: {
+          handle: 'elmport',
+          url: 'https://github.com/elmport',
+          tags: ['#OpenSource', '#ELMPORT'],
+          category: 'dev',
+          description: 'アプリのソースコードとIssueトラッカーを公開。コントリビューションを歓迎しています。'
+        }
       }
     };
 
-    /** ========== 2) カード定義（SVGは内製・外部依存なし） ========== */
-    const ICONS = {
-      x:  '<svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><path d="M13.5 10.6 20.7 2H18.8l-6 7.1L8 2H2l7.7 11.1L2.4 22H4.3l6.3-7.4 5.1 7.4H22l-8.5-11.4h0zM5.2 3.4h2.7l11 16.2h-2.7L5.2 3.4z" fill="currentColor"/></svg>',
-      ig: '<svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><path d="M12 7a5 5 0 1 0 0 10A5 5 0 0 0 12 7zm0-5C8.1 2 7.6 2 6.1 2.1 4.7 2.2 3.7 2.4 2.9 2.9a4.9 4.9 0 0 0-2 2C.4 5.8.2 6.8.1 8.2 0 9.7 0 10.2 0 14s0 4.3.1 5.8c.1 1.4.3 2.4.8 3.3.5.8 1.2 1.5 2 2 .9.5 1.9.7 3.3.8C9.7 26 10.2 26 14 26s4.3 0 5.8-.1c1.4-.1 2.4-.3 3.3-.8.8-.5 1.5-1.2 2-2 .5-.9.7-1.9.8-3.3.1-1.5.1-2 .1-5.8s0-4.3-.1-5.8c-.1-1.4-.3-2.4-.8-3.3a4.9 4.9 0 0 0-2-2c-.9-.5-1.9-.7-3.3-.8C18.3 0 17.8 0 14 0S9.7 0 8.2.1C6.8.2 5.8.4 4.9.9a4.9 4.9 0 0 0-2 2C2.4 3.8 2.2 4.8 2.1 6.2 2 7.7 2 8.2 2 12s0 4.3.1 5.8c.1 1.4.3 2.4.8 3.3.5.8 1.2 1.5 2 2 .9.5 1.9.7 3.3.8C9.7 24 10.2 24 14 24s4.3 0 5.8-.1c1.4-.1 2.4-.3 3.3-.8.8-.5 1.5-1.2 2-2 .5-.9.7-1.9.8-3.3.1-1.5.1-2 .1-5.8s0-4.3-.1-5.8c-.1-1.4-.3-2.4-.8-3.3a4.9 4.9 0 0 0-2-2c-.9-.5-1.9-.7-3.3-.8C18.3 2 17.8 2 14 2S9.7 2 8.2 2.1z" fill="currentColor"/></svg>',
-    };
-
     const CARDS = [
-      { key: 'x',        name: 'X（旧Twitter）',  cls:'x',  cats:['news']      },
-      { key: 'instagram',name: 'Instagram',      cls:'ig', cats:['media']     }
-   
+      { key: 'x',         name: 'X（旧Twitter）',      cats:['news']      },
+      { key: 'instagram', name: 'Instagram',          cats:['media']     },
+      { key: 'youtube',   name: 'YouTube',            cats:['media']     },
+      { key: 'discord',   name: 'Discord',            cats:['community'] },
+      { key: 'github',    name: 'GitHub',             cats:['dev']       }
     ];
 
-    /** ========== 3) 生成 & イベント ========== */
-    const toast = (t)=>{ const el=document.getElementById('toast'); el.textContent=t; el.classList.add('show'); setTimeout(()=>el.classList.remove('show'),1500); };
+    const toast = (message)=>{
+      const el = document.getElementById('toast');
+      if(!el) return;
+      el.textContent = message;
+      el.classList.add('show');
+      setTimeout(()=>el.classList.remove('show'),1500);
+    };
 
-    function cardTemplate({key,name,cls,handle,url,tags}){
-      const icon = ICONS[key.slice(0,2)] || ICONS.x;
-      const badgeTags = (tags||[]).slice(0,2).map(t=>`<span class="badge">${t}</span>`).join('');
+    function cardTemplate({key,name,handle,url,tags,description}){
+      const badgeTags = (tags||[]).map(t=>`<span class="social-badge">${t}</span>`).join('');
       return `
-        <article class="card ${cls}" data-key="${key}">
-          <div class="icon" aria-hidden="true">${icon}</div>
-          <div style="flex:1">
+        <article class="social-card" data-key="${key}">
+          <header>
             <h3>${name}</h3>
-            <div class="handle"><span>@${handle}</span></div>
-            <div class="badges">${badgeTags}</div>
-          </div>
-          <div class="actions">
-            <a class="btn-mini" href="${url}" target="_blank" rel="noopener">開く</a>
-            <button class="btn-mini" data-copy="${url}">コピー</button>
-            <button class="btn-mini" data-share="${key}">共有</button>
+            <span class="social-handle">@${handle}</span>
+          </header>
+          ${badgeTags ? `<div class="social-badges">${badgeTags}</div>` : ``}
+          <p class="social-note">${description || '公式アカウントをフォローして、ELM PORTの最新情報を受け取りましょう。'}</p>
+          <div class="social-actions">
+            <a class="social-btn" href="${url}" target="_blank" rel="noopener">開く</a>
+            <button class="social-btn" data-copy="${url}">コピー</button>
+            <button class="social-btn" data-share="${key}">共有</button>
           </div>
         </article>
       `;
     }
 
     function renderCards(filter='all'){
-      const root=document.getElementById('cards');
-      const list = CARDS.filter(c => filter==='all' || c.cats.includes(filter))
-        .map(c=>{
-          const s = SOCIAL.handles[c.key]; if(!s) return '';
-          return cardTemplate({ key:c.key, name:c.name, cls:c.cls, handle:s.handle, url:s.url, tags:s.tags });
+      const root = document.getElementById('cards');
+      if(!root) return;
+      const list = CARDS.filter(c => filter === 'all' || c.cats.includes(filter))
+        .map(c => {
+          const s = SOCIAL.handles[c.key];
+          if(!s) return '';
+          return cardTemplate({
+            key:c.key,
+            name:c.name,
+            handle:s.handle,
+            url:s.url,
+            tags:s.tags,
+            description:s.description
+          });
         }).join('');
-      root.innerHTML = list || '<div class="panel">該当するアカウントはありません。</div>';
+      root.innerHTML = list || '<p class="muted">該当するアカウントはありません。</p>';
 
-      // クリックイベント（コピー／共有）
-      root.querySelectorAll('[data-copy]').forEach(btn=>{
-        btn.addEventListener('click', ()=>{ navigator.clipboard.writeText(btn.dataset.copy); toast('リンクをコピーしました'); });
+      root.querySelectorAll('[data-copy]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          navigator.clipboard.writeText(btn.dataset.copy);
+          toast('リンクをコピーしました');
+        });
       });
-      root.querySelectorAll('[data-share]').forEach(btn=>{
-        btn.addEventListener('click', ()=>{
-          const key = btn.dataset.share; const s = SOCIAL.handles[key];
-          const shareData = { title: `ELM PORT | ${key}`, text: 'ELM PORT 公式SNS', url: s.url };
-          if (navigator.share) navigator.share(shareData).catch(()=>{});
-          else { navigator.clipboard.writeText(s.url); toast('リンクをコピーしました'); }
+      root.querySelectorAll('[data-share]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const key = btn.dataset.share;
+          const s = SOCIAL.handles[key];
+          if(!s) return;
+          const cardInfo = CARDS.find(c => c.key === key);
+          const shareData = {
+            title: `ELM PORT | ${cardInfo?.name || key}`,
+            text: 'ELM PORT 公式SNS',
+            url: s.url
+          };
+          if (navigator.share) {
+            navigator.share(shareData).catch(()=>{});
+          } else {
+            navigator.clipboard.writeText(s.url);
+            toast('リンクをコピーしました');
+          }
         });
       });
     }
@@ -264,25 +568,35 @@
       const set = new Set();
       Object.values(SOCIAL.handles).forEach(s => (s.tags||[]).forEach(t => set.add(t)));
       const box = document.getElementById('hashtags');
-      box.innerHTML = [...set].map(t=>`<span class="badge">${t}</span>`).join('') || '<span class="note">設定されたハッシュタグはありません</span>';
+      if(!box) return;
+      box.innerHTML = [...set].map(t=>`<span class="social-badge">${t}</span>`).join('') || '<span class="muted">設定されたハッシュタグはありません</span>';
     }
 
     function setupTabs(){
-      const tabs = document.querySelectorAll('.tab');
+      const tabs = document.querySelectorAll('.social-filter .tab');
+      if(!tabs.length) return;
       tabs.forEach(tab => tab.addEventListener('click', ()=>{
-        tabs.forEach(t=>t.classList.remove('active')); tab.classList.add('active');
+        tabs.forEach(t => {
+          t.classList.remove('active');
+          t.setAttribute('aria-selected','false');
+        });
+        tab.classList.add('active');
+        tab.setAttribute('aria-selected','true');
         renderCards(tab.dataset.filter);
       }));
     }
 
     function setupTwitterEmbed(){
-      const h = SOCIAL.handles.x?.handle || '';
-      const a = document.querySelector('#x-embed .twitter-timeline');
-      if (h && a) a.href = `https://x.com/${h}`;
+      const handle = SOCIAL.handles.x?.handle || '';
+      const timeline = document.querySelector('#x-embed .twitter-timeline');
+      if(handle && timeline){
+        timeline.href = `https://x.com/${handle}`;
+      }
     }
 
     function setupJsonLd(){
       const js = document.getElementById('social-jsonld');
+      if(!js) return;
       const data = JSON.parse(js.textContent);
       data.url = SOCIAL.siteUrl || data.url;
       data.sameAs = Object.values(SOCIAL.handles).map(s=>s.url);
