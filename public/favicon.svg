@@ -1,0 +1,26 @@
+<svg width="96" height="96" viewBox="0 0 96 96" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="14%" y1="8%" x2="88%" y2="88%">
+      <stop offset="0%" stop-color="#050A11"/>
+      <stop offset="60%" stop-color="#09322A"/>
+      <stop offset="100%" stop-color="#1B5C47"/>
+    </linearGradient>
+    <linearGradient id="tree" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#2CC596"/>
+      <stop offset="100%" stop-color="#0C8A62"/>
+    </linearGradient>
+  </defs>
+  <rect x="8" y="8" width="80" height="80" rx="24" fill="url(#bg)"/>
+  <ellipse cx="48" cy="38" rx="28" ry="24" fill="url(#tree)"/>
+  <rect x="42" y="40" width="12" height="24" rx="4" fill="#F5FAFF"/>
+  <ellipse cx="48" cy="64" rx="26" ry="8" fill="rgba(4,16,12,0.45)"/>
+  <g fill="white" opacity="0.7">
+    <circle cx="36" cy="30" r="1.5"/>
+    <circle cx="58" cy="28" r="1.2"/>
+    <circle cx="44" cy="24" r="1.3"/>
+    <circle cx="52" cy="34" r="1"/>
+    <circle cx="62" cy="36" r="1.4"/>
+    <circle cx="32" cy="36" r="1.1"/>
+  </g>
+</svg>
+
