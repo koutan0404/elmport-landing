@@ -282,10 +282,15 @@ a{color:inherit}
   font-size:clamp(32px,5vw,56px);
   line-height:1.25;
   margin:0 0 20px;
+  background:#fff;
+  color:#0F1C24;
+  padding:18px 24px;
+  display:inline-block;
 }
 
 .hero-calligraphy span{
   display:block;
+  color:inherit;
 }
 
 .hero-nav-buttons{
@@ -626,6 +631,14 @@ a{color:inherit}
   border-bottom:1px solid rgba(255,255,255,0.08);
 }
 
+.pick-section .section-head{
+  background:#fff;
+  color:var(--ink);
+  padding:32px;
+  position:relative;
+  z-index:1;
+}
+
 .pick-section::before{
   content:"";
   position:absolute;
@@ -637,7 +650,7 @@ a{color:inherit}
 
 .pick-section .section-head p,
 .pick-section .section-head h2{
-  color:#fff;
+  color:var(--ink);
 }
 
 .pick-grid{
