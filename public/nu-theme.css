@@ -340,7 +340,7 @@ a{color:inherit}
   color:#111;
   padding:32px;
   box-shadow:0 45px 90px rgba(7,15,19,0.35);
-  transform:rotate(-2.5deg);
+  transform:none;
   position:relative;
 }
 
