@@ -560,15 +560,29 @@
         .section{padding:64px 0}
     }
 
-    @media (max-width:640px){
-        .container{padding:0 16px}
-        .hero-cta{flex-direction:column}
-        .feature-grid{grid-template-columns:1fr}
-        .news-grid{grid-template-columns:1fr}
-        .hero-card{padding:28px}
-        .cta-section{padding:40px 24px}
-        .screen{flex:0 0 220px}
+@media (max-width:640px){
+    .container{padding:0 20px}
+    .hero{padding:88px 0 72px}
+    .hero-vertical-mark{display:none}
+    .hero-cta{flex-direction:column}
+    .feature-grid{grid-template-columns:1fr}
+    .news-grid{grid-template-columns:1fr}
+    .hero-card{padding:28px}
+    .cta-section{padding:40px 24px}
+    .screen{flex:0 0 220px}
+}
+
+@media (max-width:480px){
+    .hero-calligraphy{
+        width:100%;
+        padding:22px;
+        font-size:clamp(26px,8vw,38px);
     }
+    .hero-nav-buttons{width:100%}
+    .hero-nav-buttons .hero-btn{width:100%;justify-content:flex-start}
+    .hero-lede{font-size:16px}
+    .store-buttons{gap:10px}
+}
 </style>
 
   <script defer src="/nu-tweaks.js"></script>
@@ -636,9 +650,9 @@
             情報の信頼性とスピードを両立しながら、北大の未来をともに描いていきます。
           </p>
           <div class="hero-nav-buttons">
-            <a class="hero-btn btn-entry" href="#download">INSTALL NOW</a>
-            <a class="hero-btn btn-mypage" href="/mypage">SCREENSHOTS</a>
-            <a class="hero-btn btn-intern" href="/updates">CONTACT US</a>
+            <a class="hero-btn btn-entry" href="https://apps.apple.com/us/app/elm-port/id6752819521">INSTALL NOW</a>
+            <a class="hero-btn btn-mypage" href="#gallery">SCREENSHOTS</a>
+            <a class="hero-btn btn-intern" href="/contact.html">CONTACT US</a>
           </div>
         </div>
         <div class="hero-side reveal-up">
