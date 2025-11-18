@@ -13,9 +13,16 @@
 
   <style>
     /* このページだけの軽い装飾（色はNUグリーンへ） */
-    :root{ --p: var(--nu-green); --p2: var(--nu-green-600); }
-    .hero{background:linear-gradient(180deg,var(--p),var(--p2));color:#fff;padding:48px 0}
+    :root{ --p: var(--emerald); --p2: var(--emerald-dark); }
+    .hero{
+      background:#fff;
+      color:var(--ink);
+      padding:72px 0 64px;
+      border-bottom:1px solid var(--line);
+    }
     .hero-inner{max-width:var(--container);margin:auto;padding:0 20px}
+    .hero h1{margin:0;font-family:"Noto Serif JP","Noto Sans JP",serif}
+    .hero p{margin:12px 0 0;color:var(--muted)}
     .filter-tabs{max-width:var(--container);margin:20px auto;display:flex;gap:10px;padding:0 20px;flex-wrap:wrap;justify-content:center}
     .filter-tab{padding:10px 18px;border:2px solid var(--line);border-radius:999px;background:#fff;cursor:pointer}
     .filter-tab.active,.filter-tab:hover{border-color:var(--p);color:var(--p)}
@@ -25,7 +32,7 @@
     .timeline-item{position:relative;padding:0 0 26px 70px;opacity:0;animation:fade .4s ease forwards}
     @keyframes fade{from{opacity:0;transform:translateX(-10px)}to{opacity:1;transform:none}}
     .timeline-marker{position:absolute;left:20px;top:0;width:20px;height:20px;background:#fff;border:3px solid var(--p);border-radius:50%}
-    .timeline-item.major .timeline-marker{left:18px;width:24px;height:24px;background:var(--p);box-shadow:0 0 0 4px #006e4f33}
+    .timeline-item.major .timeline-marker{left:18px;width:24px;height:24px;background:var(--p);box-shadow:0 0 0 4px rgba(12,138,98,0.2)}
     .timeline-content{background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px;box-shadow:0 4px 12px #00000010}
     .update-header{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:8px}
     .version-badge{background:#0ea5e9;color:#fff;border-radius:999px;padding:4px 10px;font-weight:700}

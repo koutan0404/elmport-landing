@@ -57,11 +57,11 @@
     }
     .tabs-content{max-width:var(--container);margin:auto;display:flex;gap:2rem;padding:0 20px}
     .tab{padding:14px 0;cursor:pointer;border-bottom:3px solid transparent;color:var(--muted)}
-    .tab.active{color:var(--nu-green);border-bottom-color:var(--nu-green)}
+    .tab.active{color:var(--emerald-dark);border-bottom-color:var(--emerald-dark)}
     .filters{background:#fff;border:1px solid var(--line);border-radius:12px;margin:16px auto;max-width:var(--container);padding:12px}
     .filter-buttons{display:flex;flex-wrap:wrap;gap:10px}
     .filter-btn{padding:8px 14px;border:1px solid var(--line);border-radius:20px;background:#fff}
-    .filter-btn.active,.filter-btn:hover{border-color:var(--nu-green);color:var(--nu-green)}
+    .filter-btn.active,.filter-btn:hover{border-color:var(--emerald-dark);color:var(--emerald-dark)}
     .articles-container{max-width:var(--container);margin:auto;padding:0 20px}
     .article-card{display:flex;gap:14px;padding:14px 0;border-bottom:1px solid var(--line);cursor:pointer}
     .article-card:hover{background:var(--surface)}
@@ -74,8 +74,8 @@
     .by-badge{background:#111;color:#fff;border-radius:4px;font-size:.7rem;padding:2px 6px}
     .article-genre{color:#065f46;font-weight:600}
     .article-thumbnail{width:140px;height:78px;border-radius:10px;object-fit:cover;background:var(--surface)}
-    .load-more{display:block;margin:24px auto;padding:10px 22px;border:2px solid var(--nu-green);border-radius:30px;background:#fff;color:var(--nu-green);font-weight:700}
-    .load-more:hover{background:var(--nu-green);color:#fff}
+    .load-more{display:block;margin:24px auto;padding:10px 22px;border:2px solid var(--emerald-dark);border-radius:30px;background:#fff;color:var(--emerald-dark);font-weight:700}
+    .load-more:hover{background:var(--emerald-dark);color:#fff}
     .no-articles,.error{padding:48px;text-align:center;color:var(--muted)}
     /* モーダル */
     .modal{display:none;position:fixed;inset:0;background:#0006;z-index:1000;overflow:auto}
@@ -93,12 +93,18 @@
     .comment-meta{display:flex;justify-content:space-between;color:var(--muted);font-size:.9rem}
     /* ローディングスピナー */
     .spinner-container{min-height:80px;display:flex;justify-content:center;align-items:center}
-    .spinner{width:36px;height:36px;border:4px solid var(--line);border-top-color:var(--nu-green);border-radius:50%;animation:spin 1s linear infinite}
+    .spinner{width:36px;height:36px;border:4px solid var(--line);border-top-color:var(--emerald-dark);border-radius:50%;animation:spin 1s linear infinite}
     @keyframes spin{to{transform:rotate(360deg)}}
     /* ヒーロー */
-    .hero{background:linear-gradient(180deg, var(--nu-green), var(--nu-green-600));color:#fff;padding:48px 0}
+    .hero{
+      background:#fff;
+      color:var(--ink);
+      padding:72px 0 64px;
+      border-bottom:1px solid var(--line);
+    }
     .hero-inner{max-width:var(--container);margin:auto;padding:0 20px}
-    .hero h1{margin:0 0 6px}
+    .hero h1{margin:0 0 6px;font-family:"Noto Serif JP","Noto Sans JP",serif}
+    .hero p{margin:0;color:var(--muted)}
     @media (max-width:860px){
       .tabs{top:70px}
       .article-card{flex-direction:column}
@@ -168,7 +174,7 @@
   <!-- 記事リスト -->
   <div class="articles-container" id="articles">
     <div style="display:flex;justify-content:center;align-items:center;min-height:240px">
-      <div class="spinner" style="width:44px;height:44px;border:4px solid var(--line);border-top-color:var(--nu-green);border-radius:50%;animation:spin .8s linear infinite"></div>
+      <div class="spinner" style="width:44px;height:44px;border:4px solid var(--line);border-top-color:var(--emerald-dark);border-radius:50%;animation:spin .8s linear infinite"></div>
     </div>
   </div>
   <button class="load-more" id="loadMore" style="display:none">もっと読む</button>

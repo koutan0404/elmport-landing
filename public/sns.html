@@ -22,16 +22,22 @@
   </script>
 
   <style>
-    .hero{background:linear-gradient(180deg,var(--nu-green),var(--nu-green-600));color:#fff;padding:48px 0}
+    .hero{
+      background:#fff;
+      color:var(--ink);
+      padding:72px 0 64px;
+      border-bottom:1px solid var(--line);
+    }
     .hero-inner{max-width:var(--container);margin:auto;padding:0 20px}
-    .hero h1{margin:0 0 6px}
+    .hero h1{margin:0 0 6px;font-family:"Noto Serif JP","Noto Sans JP",serif}
+    .hero p{margin:0;color:var(--muted)}
 
-    .intro{max-width:var(--container);margin:18px auto 0;padding:0 20px;color:#eef6f2;opacity:.95}
+    .intro{max-width:var(--container);margin:18px auto 0;padding:0 20px;color:var(--muted);opacity:1}
 
     .tabs-wrap{position:sticky;top:70px;background:#fff;border-bottom:1px solid var(--line);z-index:40}
     .tabs{max-width:var(--container);margin:auto;display:flex;gap:16px;padding:0 20px}
     .tab{padding:14px 0;border-bottom:3px solid transparent;color:var(--muted);cursor:pointer}
-    .tab.active{color:var(--nu-green);border-bottom-color:var(--nu-green)}
+    .tab.active{color:var(--emerald-dark);border-bottom-color:var(--emerald-dark)}
 
     .grid{max-width:var(--container);margin:22px auto;padding:0 20px;display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
     @media (max-width:1024px){.grid{grid-template-columns:repeat(2,1fr)}}
