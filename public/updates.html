@@ -12,8 +12,32 @@
   <script defer src="/nu-tweaks.js"></script>
 
   <style>
+    :root{
+      --emerald:#0C8A62;
+      --emerald-dark:#0A5A45;
+      --ink:#0F1C24;
+      --muted:#5D6672;
+      --line:#E3E6ED;
+      --surface:#F7F8F7;
+      --container:1120px;
+      --p: var(--emerald);
+      --p2: var(--emerald-dark);
+    }
+
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:"Noto Sans JP",system-ui,-apple-system,"Segoe UI",Roboto,"Hiragino Sans","Hiragino Kaku Gothic ProN",Meiryo,sans-serif;
+      line-height:1.8;
+      color:var(--ink);
+      background:linear-gradient(180deg,#F9FCF9 0%,#F2F4F1 45%,#F8F7F3 100%);
+      font-size:16px;
+    }
+    body *{border-radius:0 !important;}
+    img{max-width:100%;display:block}
+    .container{max-width:var(--container);margin:auto;padding:0 24px}
+
     /* このページだけの軽い装飾（色はNUグリーンへ） */
-    :root{ --p: var(--emerald); --p2: var(--emerald-dark); }
     .hero{
       background:#fff;
       color:var(--ink);
@@ -24,19 +48,19 @@
     .hero h1{margin:0;font-family:"Noto Serif JP","Noto Sans JP",serif}
     .hero p{margin:12px 0 0;color:var(--muted)}
     .filter-tabs{max-width:var(--container);margin:20px auto;display:flex;gap:10px;padding:0 20px;flex-wrap:wrap;justify-content:center}
-    .filter-tab{padding:10px 18px;border:2px solid var(--line);border-radius:999px;background:#fff;cursor:pointer}
+    .filter-tab{padding:10px 18px;border:2px solid var(--line);background:#fff;cursor:pointer}
     .filter-tab.active,.filter-tab:hover{border-color:var(--p);color:var(--p)}
     .timeline-container{max-width:var(--container);margin:auto;padding:0 20px}
     .timeline{position:relative;padding:22px 0}
     .timeline:before{content:'';position:absolute;left:30px;top:0;bottom:0;width:2px;background:var(--line)}
     .timeline-item{position:relative;padding:0 0 26px 70px;opacity:0;animation:fade .4s ease forwards}
     @keyframes fade{from{opacity:0;transform:translateX(-10px)}to{opacity:1;transform:none}}
-    .timeline-marker{position:absolute;left:20px;top:0;width:20px;height:20px;background:#fff;border:3px solid var(--p);border-radius:50%}
+    .timeline-marker{position:absolute;left:20px;top:0;width:20px;height:20px;background:#fff;border:3px solid var(--p)}
     .timeline-item.major .timeline-marker{left:18px;width:24px;height:24px;background:var(--p);box-shadow:0 0 0 4px rgba(12,138,98,0.2)}
-    .timeline-content{background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px;box-shadow:0 4px 12px #00000010}
+    .timeline-content{background:#fff;border:1px solid var(--line);padding:16px;box-shadow:0 4px 12px #00000010}
     .update-header{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:8px}
-    .version-badge{background:#0ea5e9;color:#fff;border-radius:999px;padding:4px 10px;font-weight:700}
-    .type-badge{border-radius:6px;padding:2px 6px;font-size:.75rem;font-weight:700}
+    .version-badge{background:#0ea5e9;color:#fff;padding:4px 10px;font-weight:700}
+    .type-badge{padding:2px 6px;font-size:.75rem;font-weight:700}
     .type-badge.feature{background:#10b9811a;color:#047857}
     .type-badge.fix{background:#ef44441a;color:#b91c1c}
     .type-badge.improvement{background:#3b82f61a;color:#1d4ed8}
@@ -51,9 +75,9 @@
     .roadmap-section{background:var(--surface);padding:44px 0;margin-top:24px}
     .roadmap-container{max-width:var(--container);margin:auto;padding:0 20px}
     .roadmap-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
-    .roadmap-card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px;transition:.2s}
+    .roadmap-card{background:#fff;border:1px solid var(--line);padding:16px;transition:.2s}
     .roadmap-card:hover{transform:translateY(-3px);box-shadow:0 6px 18px #00000010}
-    .roadmap-status{display:inline-block;font-size:.8rem;border-radius:999px;margin-bottom:8px;padding:4px 10px}
+    .roadmap-status{display:inline-block;font-size:.8rem;margin-bottom:8px;padding:4px 10px}
     .roadmap-status.development{background:#3b82f61a;color:#1d4ed8}
     .roadmap-status.testing{background:#8b5cf61a;color:#6d28d9}
     .roadmap-status.planning{background:#f59e0b1a;color:#b45309}
