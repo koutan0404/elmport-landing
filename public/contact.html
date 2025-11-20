@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="ja">
+
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
@@ -7,209 +8,293 @@
   <meta name="description" content="ELM PORTへのお問い合わせ、サポート、よくある質問。">
   <!-- Fonts & Theme -->
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;600;700&family=Noto+Serif+JP:wght@500;700&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;600;700&family=Noto+Serif+JP:wght@500;700&display=swap"
+    rel="stylesheet">
   <link rel="stylesheet" href="/nu-theme.css">
   <script defer src="/nu-tweaks.js"></script>
 
   <style>
-    :root{
-      --emerald:#0C8A62;
-      --emerald-dark:#0A5A45;
-      --ink:#0F1C24;
-      --muted:#5D6672;
-      --line:#E3E6ED;
-      --surface:#F7F8F7;
-      --container:1120px;
+    :root {
+      --emerald: #0C8A62;
+      --emerald-dark: #0A5A45;
+      --ink: #0F1C24;
+      --muted: #5D6672;
+      --line: #E3E6ED;
+      --surface: #F7F8F7;
+      --container: 1120px;
     }
 
-    *{box-sizing:border-box}
-    body{
-      margin:0;
-      font-family:"Noto Sans JP",system-ui,-apple-system,"Segoe UI",Roboto,"Hiragino Sans","Hiragino Kaku Gothic ProN",Meiryo,sans-serif;
-      line-height:1.8;
-      color:var(--ink);
-      background:linear-gradient(180deg,#F9FCF9 0%,#F2F4F1 45%,#F8F7F3 100%);
-      font-size:16px;
-    }
-    body *{border-radius:0 !important;}
-    img{max-width:100%;display:block}
-    .container{max-width:var(--container);margin:auto;padding:0 24px}
-
-    .hero-stage{padding:110px 0 40px;}
-
-    .contact-meta{
-      display:flex;
-      flex-wrap:wrap;
-      gap:12px;
-      margin:24px 0 32px;
-      font-size:13px;
-      letter-spacing:0.18em;
-      text-transform:uppercase;
-      color:var(--muted);
-    }
-    .contact-meta span{display:inline-flex;align-items:center;gap:6px;}
-
-    .contact-notice{
-      display:flex;
-      gap:12px;
-      align-items:flex-start;
-      background:#F0FDF4;
-      border:1px solid #86EFAC;
-      padding:16px 20px;
-      margin-bottom:24px;
-    }
-    .contact-notice-icon{
-      width:24px;
-      height:24px;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      background:#22C55E;
-      color:#fff;
-      font-size:14px;
+    * {
+      box-sizing: border-box
     }
 
-    .contact-link{
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      padding:12px 20px;
-      border:1px solid var(--emerald-dark);
-      color:var(--emerald-dark);
-      letter-spacing:0.12em;
-      text-transform:uppercase;
-      font-size:12px;
-      text-decoration:none;
-      transition:transform .2s,border-color .2s,color .2s;
-    }
-    .contact-link:hover{
-      border-color:var(--emerald);
-      color:var(--emerald);
-      transform:translateY(-2px);
+    body {
+      margin: 0;
+      font-family: "Noto Sans JP", system-ui, -apple-system, "Segoe UI", Roboto, "Hiragino Sans", "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
+      line-height: 1.8;
+      color: var(--ink);
+      background: linear-gradient(180deg, #F9FCF9 0%, #F2F4F1 45%, #F8F7F3 100%);
+      font-size: 16px;
     }
 
-    .faq-list{
-      display:grid;
-      gap:16px;
-    }
-    .faq-list details{
-      border:1px solid var(--line);
-      background:#fff;
-      padding:20px;
-      transition:border-color .2s;
-    }
-    .faq-list details[open]{border-color:var(--emerald-dark);}
-    .faq-list summary{
-      cursor:pointer;
-      font-weight:600;
-      list-style:none;
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      gap:12px;
-    }
-    .faq-list summary::after{
-      content:'＋';
-      font-size:14px;
-      transition:transform .2s;
-      color:var(--muted);
-    }
-    .faq-list details[open] summary::after{transform:rotate(45deg);}
-    .faq-list p{margin:16px 0 0;color:var(--muted);line-height:1.7;}
-
-    .contact-channels .news-card{min-height:200px;}
-    .contact-channels .news-body{gap:12px;}
-
-    .cta-section{
-      background:linear-gradient(135deg,#0A5A45,#109B74);
-      color:#fff;
-      padding:60px;
-      text-align:center;
-      box-shadow:0 45px 70px rgba(8,34,28,0.25);
-    }
-    .cta-section h2{
-      margin:0 0 16px;
-      font-size:32px;
-      font-family:"Noto Serif JP","Noto Sans JP",serif;
-    }
-    .cta-section p{margin:0 0 24px;color:rgba(255,255,255,0.85);}
-    .store-buttons{
-      display:flex;
-      justify-content:center;
-      flex-wrap:wrap;
-      gap:14px;
-    }
-    .store-btn{
-      border:1px solid rgba(255,255,255,0.5);
-      padding:12px 26px;
-      text-decoration:none;
-      color:#fff;
-      letter-spacing:0.08em;
+    body * {
+      border-radius: 0 !important;
     }
 
-    .site-footer{
-      padding:48px 0 60px;
-      background:#fff;
-      border-top:1px solid rgba(17,24,39,0.08);
-      margin-top:80px;
+    img {
+      max-width: 100%;
+      display: block
     }
-    .footer-grid{
-      display:flex;
-      justify-content:space-between;
-      flex-wrap:wrap;
-      gap:24px;
-      align-items:flex-start;
-    }
-    .footer-grid nav ul{
-      list-style:none;
-      margin:0;
-      padding:0;
-      display:flex;
-      gap:18px;
-      flex-wrap:wrap;
-    }
-    .footer-grid nav a{
-      color:var(--muted);
-      text-decoration:none;
-      font-size:14px;
-    }
-    .muted{color:var(--muted);}
 
-    @media (max-width:1024px){
-      .value-grid{grid-template-columns:repeat(auto-fit,minmax(280px,1fr));}
+    .container {
+      max-width: var(--container);
+      margin: auto;
+      padding: 0 24px
     }
-    @media (max-width:640px){
-      .container{padding:0 20px;}
-      .hero{padding:88px 0 72px;}
-      .hero-vertical-mark{display:none;}
-      .hero-calligraphy{
-        width:100%;
-        padding:22px;
-        font-size:clamp(26px,8vw,38px);
+
+    .hero-stage {
+      padding: 110px 0 40px;
+    }
+
+    .contact-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin: 24px 0 32px;
+      font-size: 13px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .contact-meta span {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .contact-notice {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      background: #F0FDF4;
+      border: 1px solid #86EFAC;
+      padding: 16px 20px;
+      margin-bottom: 24px;
+    }
+
+    .contact-notice-icon {
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #22C55E;
+      color: #fff;
+      font-size: 14px;
+    }
+
+    .contact-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 20px;
+      border: 1px solid var(--emerald-dark);
+      color: var(--emerald-dark);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      font-size: 12px;
+      text-decoration: none;
+      transition: transform .2s, border-color .2s, color .2s;
+    }
+
+    .contact-link:hover {
+      border-color: var(--emerald);
+      color: var(--emerald);
+      transform: translateY(-2px);
+    }
+
+    .faq-list {
+      display: grid;
+      gap: 16px;
+    }
+
+    .faq-list details {
+      border: 1px solid var(--line);
+      background: #fff;
+      padding: 20px;
+      transition: border-color .2s;
+    }
+
+    .faq-list details[open] {
+      border-color: var(--emerald-dark);
+    }
+
+    .faq-list summary {
+      cursor: pointer;
+      font-weight: 600;
+      list-style: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .faq-list summary::after {
+      content: '＋';
+      font-size: 14px;
+      transition: transform .2s;
+      color: var(--muted);
+    }
+
+    .faq-list details[open] summary::after {
+      transform: rotate(45deg);
+    }
+
+    .faq-list p {
+      margin: 16px 0 0;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .contact-channels .news-card {
+      min-height: 200px;
+    }
+
+    .contact-channels .news-body {
+      gap: 12px;
+    }
+
+    .cta-section {
+      background: linear-gradient(135deg, #0A5A45, #109B74);
+      color: #fff;
+      padding: 60px;
+      text-align: center;
+      box-shadow: 0 45px 70px rgba(8, 34, 28, 0.25);
+    }
+
+    .cta-section h2 {
+      margin: 0 0 16px;
+      font-size: 32px;
+      font-family: "Noto Serif JP", "Noto Sans JP", serif;
+    }
+
+    .cta-section p {
+      margin: 0 0 24px;
+      color: rgba(255, 255, 255, 0.85);
+    }
+
+    .store-buttons {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+
+    .store-btn {
+      border: 1px solid rgba(255, 255, 255, 0.5);
+      padding: 12px 26px;
+      text-decoration: none;
+      color: #fff;
+      letter-spacing: 0.08em;
+    }
+
+    .site-footer {
+      padding: 48px 0 60px;
+      background: #fff;
+      border-top: 1px solid rgba(17, 24, 39, 0.08);
+      margin-top: 80px;
+    }
+
+    .footer-grid {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 24px;
+      align-items: flex-start;
+    }
+
+    .footer-grid nav ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+
+    .footer-grid nav a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 14px;
+    }
+
+    .muted {
+      color: var(--muted);
+    }
+
+    @media (max-width:1024px) {
+      .value-grid {
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
       }
-      .hero-nav-buttons{width:100%;}
-      .hero-nav-buttons .hero-btn{width:100%;justify-content:flex-start;}
-      .hero-lede{font-size:16px;}
-      .cta-section{padding:40px 24px;}
+    }
+
+    @media (max-width:640px) {
+      .container {
+        padding: 0 20px;
+      }
+
+      .hero {
+        padding: 88px 0 72px;
+      }
+
+      .hero-vertical-mark {
+        display: none;
+      }
+
+      .hero-calligraphy {
+        width: 100%;
+        padding: 22px;
+        font-size: clamp(26px, 8vw, 38px);
+      }
+
+      .hero-nav-buttons {
+        width: 100%;
+      }
+
+      .hero-nav-buttons .hero-btn {
+        width: 100%;
+        justify-content: flex-start;
+      }
+
+      .hero-lede {
+        font-size: 16px;
+      }
+
+      .cta-section {
+        padding: 40px 24px;
+      }
     }
   </style>
 </head>
+
 <body>
   <div class="topbar" aria-hidden="true"></div>
 
   <header class="site-header" role="banner">
     <div class="container hdr-inner">
-<a class="brand" href="/">
-  <!-- 画像アイコンを使用 -->
-  <span class="brand-icon" aria-hidden="true">
-    <img src="/images/logo.png" alt="ELM PORT">
-  </span>
-  
-  <span class="brand-text">
-    <strong>ELM PORT</strong>
-    <small>Campus Life Support for Hokkaido Univ.</small>
-  </span>
-</a>
+      <a class="brand" href="/">
+        <!-- 画像アイコンを使用 -->
+        <span class="brand-icon" aria-hidden="true">
+          <img src="/images/logo.png" alt="ELM PORT">
+        </span>
+
+        <span class="brand-text">
+          <strong>ELM PORT</strong>
+          <small>Campus Life Support for Hokkaido Univ.</small>
+        </span>
+      </a>
       <button class="nav-toggle" aria-expanded="false" aria-controls="site-nav">メニュー</button>
       <nav id="site-nav" class="site-nav" role="navigation">
         <ul>
@@ -240,11 +325,11 @@
           </div>
           <p class="hero-lede">
             アカウントや機能に関するお問い合わせから法人連携まで、ワンストップで対応します。
-            すべてのフォームはトップページと同じビジュアルシステムで整理し、処理状況を可視化しています。
+            特に、利用者様からの機能要望や改善点、技術的な質問、など、大歓迎です。
           </p>
           <div class="contact-meta">
-            <span>受付 平日 10:00-18:00</span>
-            <span>平均対応 24時間以内</span>
+            <span>以下にフォームがございます。</span>
+
           </div>
           <div class="hero-nav-buttons">
             <a class="hero-btn btn-entry" href="#forms">FORMS</a>
@@ -260,7 +345,7 @@
             </div>
             <div class="press-body">
               <p class="press-caption">SERVICE DESK</p>
-              <h3>お問い合わせの全件を72時間以内にレビュー</h3>
+              <h3>お問い合わせの全件に目を通しております。</h3>
               <p>
                 自動トリアージと担当タグで、技術・運営・広報チームへ即時にエスカレーション。
                 返信テンプレートも刷新し、学生からのフィードバックを次のアップデートにつなげています。
@@ -326,7 +411,9 @@
               <span>退会・データエクスポートのリクエスト</span>
               <span>プライバシーポリシーに関するご質問</span>
             </div>
-            <a class="contact-link" href="https://docs.google.com/forms/d/e/1FAIpQLSccxQuk8T33nVfIrj2YG1mtt8OjJghXT4kihaXEKSFZCNemZw/viewform?usp=header" target="_blank" rel="noopener noreferrer">フォームを開く</a>
+            <a class="contact-link"
+              href="https://docs.google.com/forms/d/e/1FAIpQLSccxQuk8T33nVfIrj2YG1mtt8OjJghXT4kihaXEKSFZCNemZw/viewform?usp=header"
+              target="_blank" rel="noopener noreferrer">フォームを開く</a>
           </article>
           <article class="value-card">
             <span class="feature-tag">Feedback</span>
@@ -337,29 +424,34 @@
               <span>優先度を選択して送信</span>
               <span>進捗は更新情報ページで公開</span>
             </div>
-            <a class="contact-link" href="https://docs.google.com/forms/d/e/1FAIpQLSfV-I7HBgjTfTNhzcH3q_1pvxAklhqu5caT4jCw1o3TQzW2XQ/viewform?usp=dialog" target="_blank" rel="noopener noreferrer">フォームを開く</a>
+            <a class="contact-link"
+              href="https://docs.google.com/forms/d/e/1FAIpQLSfV-I7HBgjTfTNhzcH3q_1pvxAklhqu5caT4jCw1o3TQzW2XQ/viewform?usp=dialog"
+              target="_blank" rel="noopener noreferrer">フォームを開く</a>
           </article>
           <article class="value-card">
             <span class="feature-tag">Business</span>
             <h3>法人向け広告・連携</h3>
             <p>キャンパス広告やイベント協賛、共同企画などのご相談を受け付けています。</p>
             <div class="value-list">
-              <span>媒体資料・料金表のダウンロード</span>
+
               <span>タイアップ施策の提案依頼</span>
               <span>取材やメディア対応のアレンジ</span>
             </div>
-            <a class="contact-link" href="https://docs.google.com/forms/d/e/1FAIpQLSdwNVW0CxmZ3aHaLhuUDqVeTaqSbmNNqmzOI11GlYBhCpg3pQ/viewform?usp=header" target="_blank" rel="noopener noreferrer">フォームを開く</a>
+            <a class="contact-link"
+              href="https://docs.google.com/forms/d/e/1FAIpQLSdwNVW0CxmZ3aHaLhuUDqVeTaqSbmNNqmzOI11GlYBhCpg3pQ/viewform?usp=header"
+              target="_blank" rel="noopener noreferrer">フォームを開く</a>
           </article>
           <article class="value-card">
             <span class="feature-tag">Consulting</span>
-            <h3>IT研修・技術コンサルティング</h3>
-            <p>授業向けワークショップや自治体・企業向け研修、受託開発の相談はこちら。</p>
+            <h3>技術コンサルティング</h3>
+            <p>自治体・企業向けの技術コンサルティング、受託開発の相談はこちら。</p>
             <div class="value-list">
-              <span>研修メニューとお見積もりのご案内</span>
               <span>DX推進やデータ連携のご相談</span>
               <span>共同研究・PoCプロジェクトの打ち合わせ</span>
             </div>
-            <a class="contact-link" href="mailto:support@elmport.jp?subject=%5BELM%20PORT%5D%20IT%E7%A0%94%E4%BF%AE%E3%83%BB%E6%8A%80%E8%A1%93%E3%82%B3%E3%83%B3%E3%82%B5%E3%83%AB%E3%83%86%E3%82%A3%E3%83%B3%E3%82%B0%E3%81%AE%E3%81%94%E7%9B%B8%E8%AB%87" rel="noopener noreferrer">メールで相談</a>
+            <a class="contact-link"
+              href="mailto:support@elmport.jp?subject=%5BELM%20PORT%5D%20IT%E7%A0%94%E4%BF%AE%E3%83%BB%E6%8A%80%E8%A1%93%E3%82%B3%E3%83%B3%E3%82%B5%E3%83%AB%E3%83%86%E3%82%A3%E3%83%B3%E3%82%B0%E3%81%AE%E3%81%94%E7%9B%B8%E8%AB%87"
+              rel="noopener noreferrer">メールで相談</a>
           </article>
         </div>
       </div>
@@ -382,9 +474,10 @@
             <p>発生した画面、時刻、操作手順、スクリーンショットをご共有いただくと調査がスムーズです。再現状況が複雑な場合は、オンラインでの聞き取りをご提案することがあります。</p>
           </details>
           <details>
-            <summary>法人向け資料はどこからダウンロードできますか？</summary>
+            <summary>法人向け広告・連携の資料はどこからダウンロードできますか？</summary>
             <p>「法人向け広告・連携」フォームにご入力いただくと、媒体資料へのダウンロードリンクを自動返信メールにてお送りします。事前に閲覧されたい場合はお問い合わせください。</p>
           </details>
+
         </div>
       </div>
     </section>
@@ -414,7 +507,8 @@
                 <span>コミュニティ</span>
               </div>
               <div class="news-title">キャンパスコミュニティに参加</div>
-              <div class="news-sub">招待リンク：<a href="https://discord.gg/elmport" target="_blank" rel="noopener">discord.gg/elmport</a></div>
+              <div class="news-sub">招待リンク：<a href="https://discord.gg/elmport" target="_blank"
+                  rel="noopener">discord.gg/elmport</a></div>
             </div>
           </article>
           <article class="news-card">
@@ -424,7 +518,8 @@
                 <span>Issue</span>
               </div>
               <div class="news-title">技術的なご質問・Pull Request</div>
-              <div class="news-sub">リポジトリ：<a href="https://github.com/elmport" target="_blank" rel="noopener">github.com/elmport</a></div>
+              <div class="news-sub">リポジトリ：<a href="https://github.com/elmport" target="_blank"
+                  rel="noopener">github.com/elmport</a></div>
             </div>
           </article>
         </div>
@@ -471,4 +566,5 @@
     </div>
   </footer>
 </body>
+
 </html>
