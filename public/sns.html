@@ -1,12 +1,15 @@
 <!doctype html>
 <html lang="ja">
+
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>SNS紹介 - ELM PORT</title>
   <meta name="description" content="ELM PORT の公式SNS一覧。X（旧Twitter）・Instagram・YouTube・Discord・GitHub などの公式アカウントをご案内します。">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;600;700&family=Noto+Serif+JP:wght@500;700&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;600;700&family=Noto+Serif+JP:wght@500;700&display=swap"
+    rel="stylesheet">
   <link rel="stylesheet" href="/nu-theme.css">
   <script defer src="/nu-tweaks.js"></script>
 
@@ -22,263 +25,344 @@
   </script>
 
   <style>
-    :root{
-      --emerald:#0C8A62;
-      --emerald-dark:#0A5A45;
-      --ink:#0F1C24;
-      --muted:#5D6672;
-      --line:#E3E6ED;
-      --surface:#F7F8F7;
-      --container:1120px;
+    :root {
+      --emerald: #0C8A62;
+      --emerald-dark: #0A5A45;
+      --ink: #0F1C24;
+      --muted: #5D6672;
+      --line: #E3E6ED;
+      --surface: #F7F8F7;
+      --container: 1120px;
     }
 
-    *{box-sizing:border-box}
-    body{
-      margin:0;
-      font-family:"Noto Sans JP",system-ui,-apple-system,"Segoe UI",Roboto,"Hiragino Sans","Hiragino Kaku Gothic ProN",Meiryo,sans-serif;
-      line-height:1.8;
-      color:var(--ink);
-      background:linear-gradient(180deg,#F9FCF9 0%,#F2F4F1 45%,#F8F7F3 100%);
-      font-size:16px;
-    }
-    body *{border-radius:0 !important;}
-    img{max-width:100%;display:block}
-    .container{max-width:var(--container);margin:auto;padding:0 24px}
-
-    .hero-stage{padding:110px 0 40px;}
-
-    .social-meta{
-      display:flex;
-      flex-wrap:wrap;
-      gap:12px;
-      margin:24px 0 32px;
-      font-size:13px;
-      letter-spacing:0.18em;
-      text-transform:uppercase;
-      color:var(--muted);
-    }
-    .social-meta span{display:inline-flex;align-items:center;gap:6px;}
-
-    .social-filter{
-      display:flex;
-      justify-content:center;
-      gap:18px;
-      flex-wrap:wrap;
-      margin:32px 0;
-    }
-    .social-filter .tab{
-      padding:12px 24px;
-      border:1px solid var(--line);
-      background:#fff;
-      letter-spacing:0.18em;
-      font-size:11px;
-      text-transform:uppercase;
-      color:var(--muted);
-      cursor:pointer;
-      transition:color .2s,border-color .2s,background .2s;
-    }
-    .social-filter .tab:hover{
-      border-color:var(--emerald);
-      color:var(--emerald);
-    }
-    .social-filter .tab.active{
-      border-color:var(--emerald-dark);
-      color:var(--emerald-dark);
+    * {
+      box-sizing: border-box
     }
 
-    .social-grid{
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-      gap:22px;
-    }
-    .social-card{
-      background:#fff;
-      border:1px solid var(--line);
-      box-shadow:0 18px 30px rgba(15,25,40,0.08);
-      padding:24px;
-      min-height:220px;
-      display:flex;
-      flex-direction:column;
-      gap:12px;
-    }
-    .social-card header{
-      display:flex;
-      justify-content:space-between;
-      align-items:flex-start;
-      gap:12px;
-    }
-    .social-card h3{
-      margin:0;
-      font-size:18px;
-      font-family:"Noto Serif JP","Noto Sans JP",serif;
-    }
-    .social-handle{
-      font-size:12px;
-      letter-spacing:0.2em;
-      text-transform:uppercase;
-      color:var(--muted);
-    }
-    .social-badges{
-      display:flex;
-      flex-wrap:wrap;
-      gap:8px;
-    }
-    .social-badge{
-      border:1px solid var(--line);
-      padding:4px 10px;
-      font-size:12px;
-      letter-spacing:0.06em;
-      color:var(--muted);
-    }
-    .social-note{
-      margin:0;
-      color:var(--muted);
-      font-size:14px;
-      line-height:1.6;
-    }
-    .social-actions{
-      margin-top:auto;
-      display:flex;
-      flex-wrap:wrap;
-      gap:10px;
-    }
-    .social-btn{
-      border:1px solid var(--line);
-      background:#fff;
-      padding:8px 14px;
-      letter-spacing:0.12em;
-      text-transform:uppercase;
-      font-size:12px;
-      cursor:pointer;
-      transition:transform .2s,border-color .2s,color .2s;
-    }
-    .social-btn:hover{
-      border-color:var(--emerald);
-      color:var(--emerald);
-      transform:translateY(-2px);
+    body {
+      margin: 0;
+      font-family: "Noto Sans JP", system-ui, -apple-system, "Segoe UI", Roboto, "Hiragino Sans", "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
+      line-height: 1.8;
+      color: var(--ink);
+      background: linear-gradient(180deg, #F9FCF9 0%, #F2F4F1 45%, #F8F7F3 100%);
+      font-size: 16px;
     }
 
-    .value-card #x-embed{margin-top:18px;}
-    .value-card .badges{display:flex;flex-wrap:wrap;gap:10px;}
-
-    .cta-section{
-      background:linear-gradient(135deg,#0A5A45,#109B74);
-      color:#fff;
-      padding:60px;
-      text-align:center;
-      box-shadow:0 45px 70px rgba(8,34,28,0.25);
-    }
-    .cta-section h2{
-      margin:0 0 16px;
-      font-size:32px;
-      font-family:"Noto Serif JP","Noto Sans JP",serif;
-    }
-    .cta-section p{
-      margin:0 0 24px;
-      color:rgba(255,255,255,0.85);
-    }
-    .store-buttons{
-      display:flex;
-      justify-content:center;
-      flex-wrap:wrap;
-      gap:14px;
-    }
-    .store-btn{
-      border:1px solid rgba(255,255,255,0.5);
-      padding:12px 26px;
-      text-decoration:none;
-      color:#fff;
-      letter-spacing:0.08em;
+    body * {
+      border-radius: 0 !important;
     }
 
-    .site-footer{
-      padding:48px 0 60px;
-      background:#fff;
-      border-top:1px solid rgba(17,24,39,0.08);
-      margin-top:80px;
+    img {
+      max-width: 100%;
+      display: block
     }
-    .footer-grid{
-      display:flex;
-      justify-content:space-between;
-      flex-wrap:wrap;
-      gap:24px;
-      align-items:flex-start;
-    }
-    .footer-grid nav ul{
-      list-style:none;
-      margin:0;
-      padding:0;
-      display:flex;
-      gap:18px;
-      flex-wrap:wrap;
-    }
-    .footer-grid nav a{
-      color:var(--muted);
-      text-decoration:none;
-      font-size:14px;
-    }
-    .muted{color:var(--muted);}
 
-    .toast{
-      position:fixed;
-      left:50%;
-      bottom:20px;
-      transform:translateX(-50%);
-      background:#111;
-      color:#fff;
-      padding:10px 14px;
-      box-shadow:0 10px 30px #00000033;
-      opacity:0;
-      pointer-events:none;
-      transition:.2s;
+    .container {
+      max-width: var(--container);
+      margin: auto;
+      padding: 0 24px
     }
-    .toast.show{opacity:1;}
 
-    @media (max-width:1024px){
-      .social-grid{grid-template-columns:repeat(auto-fit,minmax(220px,1fr));}
+    .hero-stage {
+      padding: 110px 0 40px;
     }
-    @media (max-width:640px){
-      .container{padding:0 20px;}
-      .hero{padding:88px 0 72px;}
-      .hero-vertical-mark{display:none;}
-      .hero-calligraphy{
-        width:100%;
-        padding:22px;
-        font-size:clamp(26px,8vw,38px);
+
+    .social-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin: 24px 0 32px;
+      font-size: 13px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .social-meta span {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .social-filter {
+      display: flex;
+      justify-content: center;
+      gap: 18px;
+      flex-wrap: wrap;
+      margin: 32px 0;
+    }
+
+    .social-filter .tab {
+      padding: 12px 24px;
+      border: 1px solid var(--line);
+      background: #fff;
+      letter-spacing: 0.18em;
+      font-size: 11px;
+      text-transform: uppercase;
+      color: var(--muted);
+      cursor: pointer;
+      transition: color .2s, border-color .2s, background .2s;
+    }
+
+    .social-filter .tab:hover {
+      border-color: var(--emerald);
+      color: var(--emerald);
+    }
+
+    .social-filter .tab.active {
+      border-color: var(--emerald-dark);
+      color: var(--emerald-dark);
+    }
+
+    .social-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 22px;
+    }
+
+    .social-card {
+      background: #fff;
+      border: 1px solid var(--line);
+      box-shadow: 0 18px 30px rgba(15, 25, 40, 0.08);
+      padding: 24px;
+      min-height: 220px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .social-card header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 12px;
+    }
+
+    .social-card h3 {
+      margin: 0;
+      font-size: 18px;
+      font-family: "Noto Serif JP", "Noto Sans JP", serif;
+    }
+
+    .social-handle {
+      font-size: 12px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .social-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .social-badge {
+      border: 1px solid var(--line);
+      padding: 4px 10px;
+      font-size: 12px;
+      letter-spacing: 0.06em;
+      color: var(--muted);
+    }
+
+    .social-note {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .social-actions {
+      margin-top: auto;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .social-btn {
+      border: 1px solid var(--line);
+      background: #fff;
+      padding: 8px 14px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      font-size: 12px;
+      cursor: pointer;
+      transition: transform .2s, border-color .2s, color .2s;
+    }
+
+    .social-btn:hover {
+      border-color: var(--emerald);
+      color: var(--emerald);
+      transform: translateY(-2px);
+    }
+
+    .value-card #x-embed {
+      margin-top: 18px;
+    }
+
+    .value-card .badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .cta-section {
+      background: linear-gradient(135deg, #0A5A45, #109B74);
+      color: #fff;
+      padding: 60px;
+      text-align: center;
+      box-shadow: 0 45px 70px rgba(8, 34, 28, 0.25);
+    }
+
+    .cta-section h2 {
+      margin: 0 0 16px;
+      font-size: 32px;
+      font-family: "Noto Serif JP", "Noto Sans JP", serif;
+    }
+
+    .cta-section p {
+      margin: 0 0 24px;
+      color: rgba(255, 255, 255, 0.85);
+    }
+
+    .store-buttons {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+
+    .store-btn {
+      border: 1px solid rgba(255, 255, 255, 0.5);
+      padding: 12px 26px;
+      text-decoration: none;
+      color: #fff;
+      letter-spacing: 0.08em;
+    }
+
+    .site-footer {
+      padding: 48px 0 60px;
+      background: #fff;
+      border-top: 1px solid rgba(17, 24, 39, 0.08);
+      margin-top: 80px;
+    }
+
+    .footer-grid {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 24px;
+      align-items: flex-start;
+    }
+
+    .footer-grid nav ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+
+    .footer-grid nav a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 14px;
+    }
+
+    .muted {
+      color: var(--muted);
+    }
+
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: 20px;
+      transform: translateX(-50%);
+      background: #111;
+      color: #fff;
+      padding: 10px 14px;
+      box-shadow: 0 10px 30px #00000033;
+      opacity: 0;
+      pointer-events: none;
+      transition: .2s;
+    }
+
+    .toast.show {
+      opacity: 1;
+    }
+
+    @media (max-width:1024px) {
+      .social-grid {
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
       }
-      .hero-nav-buttons{width:100%;}
-      .hero-nav-buttons .hero-btn{width:100%;justify-content:flex-start;}
-      .hero-lede{font-size:16px;}
-      .cta-section{padding:40px 24px;}
+    }
+
+    @media (max-width:640px) {
+      .container {
+        padding: 0 20px;
+      }
+
+      .hero {
+        padding: 88px 0 72px;
+      }
+
+      .hero-vertical-mark {
+        display: none;
+      }
+
+      .hero-calligraphy {
+        width: 100%;
+        padding: 22px;
+        font-size: clamp(26px, 8vw, 38px);
+      }
+
+      .hero-nav-buttons {
+        width: 100%;
+      }
+
+      .hero-nav-buttons .hero-btn {
+        width: 100%;
+        justify-content: flex-start;
+      }
+
+      .hero-lede {
+        font-size: 16px;
+      }
+
+      .cta-section {
+        padding: 40px 24px;
+      }
     }
   </style>
 </head>
+
 <body>
   <div class="topbar" aria-hidden="true"></div>
 
   <header class="site-header" role="banner">
     <div class="container hdr-inner">
-<a class="brand" href="/">
-  <!-- 画像アイコンを使用 -->
-  <span class="brand-icon" aria-hidden="true">
-    <img src="/images/logo.png" alt="ELM PORT">
-  </span>
-  
-  <span class="brand-text">
-    <strong>ELM PORT</strong>
-    <small>Campus Life Support for Hokkaido Univ.</small>
-  </span>
-</a>
+      <a class="brand" href="/">
+        <!-- 画像アイコンを使用 -->
+        <span class="brand-icon" aria-hidden="true">
+          <img src="/images/logo.png" alt="ELM PORT">
+        </span>
+
+        <span class="brand-text">
+          <strong>ELM PORT</strong>
+          <small>Campus Life Support for Hokkaido Univ.</small>
+        </span>
+      </a>
       <button class="nav-toggle" aria-expanded="false" aria-controls="site-nav">メニュー</button>
-<nav id="site-nav" class="site-nav" role="navigation">
-  <ul>
-    <li><a href="/"          data-path="/">ホーム</a></li>
-    <li><a href="/news"      data-path="/news">ニュース</a></li>
-    <li><a href="/updates"   data-path="/updates">更新情報</a></li>
-    <li><a href="/sns"       data-path="/sns">SNS</a></li>
-    <li><a href="/contact"   data-path="/contact">お問い合わせ</a></li>
-  </ul>
-</nav>
+      <nav id="site-nav" class="site-nav" role="navigation">
+        <ul>
+          <li><a href="/" data-path="/">ホーム</a></li>
+          <li><a href="/news" data-path="/news">ニュース</a></li>
+          <li><a href="/updates" data-path="/updates">更新情報</a></li>
+          <li><a href="/sns" data-path="/sns">SNS</a></li>
+          <li><a href="/contact" data-path="/contact">お問い合わせ</a></li>
+        </ul>
+      </nav>
     </div>
   </header>
 
@@ -311,23 +395,7 @@
             <a class="hero-btn btn-intern" href="#cta">MEDIA KIT</a>
           </div>
         </div>
-        <div class="hero-side reveal-up">
-          <div class="hero-press-card">
-            <div class="press-head">
-              <span>Spotlight</span>
-              <span>2025.11</span>
-            </div>
-            <div class="press-body">
-              <p class="press-caption">SNS STRATEGY</p>
-              <h3>速報・ビジュアル・対話を3ラインで運用</h3>
-              <p>
-                X / Instagram / Discord の役割を再定義し、トーン&マナーを統一。
-                タグ戦略と参加導線もアップデートし、学生の声を確実に拾い上げます。
-              </p>
-            </div>
-            <a class="press-link" href="#channels">FOLLOW NOW</a>
-          </div>
-        </div>
+
       </div>
     </section>
 
@@ -485,23 +553,23 @@
     };
 
     const CARDS = [
-      { key: 'x',         name: 'X（旧Twitter）',      cats:['news']      },
-      { key: 'instagram', name: 'Instagram',          cats:['media']     },
-      { key: 'youtube',   name: 'YouTube',            cats:['media']     },
-      { key: 'discord',   name: 'Discord',            cats:['community'] },
-      { key: 'github',    name: 'GitHub',             cats:['dev']       }
+      { key: 'x', name: 'X（旧Twitter）', cats: ['news'] },
+      { key: 'instagram', name: 'Instagram', cats: ['media'] },
+      { key: 'youtube', name: 'YouTube', cats: ['media'] },
+      { key: 'discord', name: 'Discord', cats: ['community'] },
+      { key: 'github', name: 'GitHub', cats: ['dev'] }
     ];
 
-    const toast = (message)=>{
+    const toast = (message) => {
       const el = document.getElementById('toast');
-      if(!el) return;
+      if (!el) return;
       el.textContent = message;
       el.classList.add('show');
-      setTimeout(()=>el.classList.remove('show'),1500);
+      setTimeout(() => el.classList.remove('show'), 1500);
     };
 
-    function cardTemplate({key,name,handle,url,tags,description}){
-      const badgeTags = (tags||[]).map(t=>`<span class="social-badge">${t}</span>`).join('');
+    function cardTemplate({ key, name, handle, url, tags, description }) {
+      const badgeTags = (tags || []).map(t => `<span class="social-badge">${t}</span>`).join('');
       return `
         <article class="social-card" data-key="${key}">
           <header>
@@ -519,20 +587,20 @@
       `;
     }
 
-    function renderCards(filter='all'){
+    function renderCards(filter = 'all') {
       const root = document.getElementById('cards');
-      if(!root) return;
+      if (!root) return;
       const list = CARDS.filter(c => filter === 'all' || c.cats.includes(filter))
         .map(c => {
           const s = SOCIAL.handles[c.key];
-          if(!s) return '';
+          if (!s) return '';
           return cardTemplate({
-            key:c.key,
-            name:c.name,
-            handle:s.handle,
-            url:s.url,
-            tags:s.tags,
-            description:s.description
+            key: c.key,
+            name: c.name,
+            handle: s.handle,
+            url: s.url,
+            tags: s.tags,
+            description: s.description
           });
         }).join('');
       root.innerHTML = list || '<p class="muted">該当するアカウントはありません。</p>';
@@ -547,7 +615,7 @@
         btn.addEventListener('click', () => {
           const key = btn.dataset.share;
           const s = SOCIAL.handles[key];
-          if(!s) return;
+          if (!s) return;
           const cardInfo = CARDS.find(c => c.key === key);
           const shareData = {
             title: `ELM PORT | ${cardInfo?.name || key}`,
@@ -555,7 +623,7 @@
             url: s.url
           };
           if (navigator.share) {
-            navigator.share(shareData).catch(()=>{});
+            navigator.share(shareData).catch(() => { });
           } else {
             navigator.clipboard.writeText(s.url);
             toast('リンクをコピーしました');
@@ -564,46 +632,46 @@
       });
     }
 
-    function renderHashtags(){
+    function renderHashtags() {
       const set = new Set();
-      Object.values(SOCIAL.handles).forEach(s => (s.tags||[]).forEach(t => set.add(t)));
+      Object.values(SOCIAL.handles).forEach(s => (s.tags || []).forEach(t => set.add(t)));
       const box = document.getElementById('hashtags');
-      if(!box) return;
-      box.innerHTML = [...set].map(t=>`<span class="social-badge">${t}</span>`).join('') || '<span class="muted">設定されたハッシュタグはありません</span>';
+      if (!box) return;
+      box.innerHTML = [...set].map(t => `<span class="social-badge">${t}</span>`).join('') || '<span class="muted">設定されたハッシュタグはありません</span>';
     }
 
-    function setupTabs(){
+    function setupTabs() {
       const tabs = document.querySelectorAll('.social-filter .tab');
-      if(!tabs.length) return;
-      tabs.forEach(tab => tab.addEventListener('click', ()=>{
+      if (!tabs.length) return;
+      tabs.forEach(tab => tab.addEventListener('click', () => {
         tabs.forEach(t => {
           t.classList.remove('active');
-          t.setAttribute('aria-selected','false');
+          t.setAttribute('aria-selected', 'false');
         });
         tab.classList.add('active');
-        tab.setAttribute('aria-selected','true');
+        tab.setAttribute('aria-selected', 'true');
         renderCards(tab.dataset.filter);
       }));
     }
 
-    function setupTwitterEmbed(){
+    function setupTwitterEmbed() {
       const handle = SOCIAL.handles.x?.handle || '';
       const timeline = document.querySelector('#x-embed .twitter-timeline');
-      if(handle && timeline){
+      if (handle && timeline) {
         timeline.href = `https://x.com/${handle}`;
       }
     }
 
-    function setupJsonLd(){
+    function setupJsonLd() {
       const js = document.getElementById('social-jsonld');
-      if(!js) return;
+      if (!js) return;
       const data = JSON.parse(js.textContent);
       data.url = SOCIAL.siteUrl || data.url;
-      data.sameAs = Object.values(SOCIAL.handles).map(s=>s.url);
+      data.sameAs = Object.values(SOCIAL.handles).map(s => s.url);
       js.textContent = JSON.stringify(data);
     }
 
-    document.addEventListener('DOMContentLoaded', ()=>{
+    document.addEventListener('DOMContentLoaded', () => {
       setupTabs();
       renderCards('all');
       renderHashtags();
@@ -612,4 +680,5 @@
     });
   </script>
 </body>
+
 </html>
